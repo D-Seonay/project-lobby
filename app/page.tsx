@@ -11,6 +11,8 @@ import { ControlCenterWidget } from '@/components/ControlCenterWidget';
 import { MoonPhaseWidget } from '@/components/MoonPhaseWidget';
 import { WallOfLoveWidget } from '@/components/WallOfLoveWidget';
 import { QuickAccessWidget } from '@/components/QuickAccessWidget';
+import { TechRadarWidget } from '@/components/TechRadarWidget';
+import { BuildStatsWidget } from '@/components/BuildStatsWidget';
 import projectsData from '@/content/projects.json';
 import { Project } from '@/types/project';
 import { useEffect, useState } from 'react';
@@ -154,7 +156,9 @@ export default function Home() {
                 <BentoCard project={projects[6]} size="wide" />
                 <GitHubGraph size="wide" />
                 <MoonPhaseWidget size="wide" />
+                <TechRadarWidget size="big" />
                 <WallOfLoveWidget size="big" />
+                <BuildStatsWidget size="small" />
               </>
             )}
           </BentoGrid>
