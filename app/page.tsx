@@ -9,16 +9,16 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       {/* Floating Navigation Pill */}
-      <nav className="fixed top-8 left-1/2 -translate-x-1/2 z-50">
+      <nav className="fixed top-8 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-in-out">
         <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800/50 px-6 py-3 rounded-full flex items-center gap-8 shadow-2xl">
-          <a href="#" className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 hover:text-white transition-colors">Index</a>
-          <a href="#" className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 hover:text-white transition-colors">Projects</a>
-          <a href="#" className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 hover:text-white transition-colors">Contact</a>
+          <a href="#home" className="text-[10px] font-mono uppercase tracking-widest text-white hover:text-white transition-colors">Index</a>
+          <a href="#work" className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 hover:text-white transition-colors">Projects</a>
+          <a href="#contact" className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 hover:text-white transition-colors">Contact</a>
         </div>
       </nav>
 
       {/* Header Section */}
-      <section className="pt-48 pb-32 px-8 md:px-24 max-w-7xl mx-auto">
+      <section id="home" className="pt-48 pb-32 px-8 md:px-24 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-12">
           <div className="space-y-12">
             <div className="flex flex-col gap-4">
@@ -49,7 +49,7 @@ export default function Home() {
       </section>
 
       {/* Bento Section */}
-      <section className="px-8 md:px-24">
+      <section id="work" className="px-8 md:px-24">
         <BentoGrid>
           {projects.map((project) => (
             <BentoCard key={project.id} project={project} />
@@ -58,7 +58,7 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section className="mt-[64rem] pb-32 px-8 md:px-24">
+      <section id="contact" className="mt-[64rem] pb-32 px-8 md:px-24">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col gap-24">
             <h2 className="text-7xl md:text-[10rem] font-black tracking-tighter uppercase italic leading-[0.8] text-zinc-100">

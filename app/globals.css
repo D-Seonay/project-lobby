@@ -13,6 +13,10 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   *, ::after, ::before {
     border-color: var(--color-zinc-800);
   }
