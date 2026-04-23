@@ -5,7 +5,11 @@
     "description": "Mon univers créatif. Portfolio premium conçu avec Next.js, Framer Motion et une esthétique radicale.",
     "link": "https://seonay.com",
     "size": "big",
-    "tags": ["Next.js", "Framer Motion", "Design"],
+    "tags": [
+      "Next.js",
+      "Framer Motion",
+      "Design"
+    ],
     "icon": "Layout",
     "isLive": true
   },
@@ -15,7 +19,10 @@
     "description": "Tableau de bord centralisé pour écosystèmes GitHub et GitLab.",
     "link": "https://dev.seonay.com",
     "size": "wide",
-    "tags": ["Dashboard", "API"],
+    "tags": [
+      "Dashboard",
+      "API"
+    ],
     "icon": "Terminal",
     "isLive": true
   },
@@ -23,9 +30,13 @@
     "id": "github-readme-gen",
     "title": "Ultimate GitHub README",
     "description": "Générateur de profil GitHub haute performance avec automatisation intelligente.",
-    "link": "https://github-readme.seonay.com",
+    "link": "https://readme-profile-gen.seonay.com",
     "size": "wide",
-    "tags": ["React", "API", "Drag & Drop"],
+    "tags": [
+      "React",
+      "API",
+      "Drag & Drop"
+    ],
     "icon": "Github",
     "isLive": true
   },
@@ -33,9 +44,12 @@
     "id": "stat-stats",
     "title": "STAT-STATS API",
     "description": "API serverless pour cartes de statistiques GitHub dynamiques.",
-    "link": "https://api.seonay.com",
+    "link": "https://github-stats-cards.seonay.com",
     "size": "small",
-    "tags": ["Serverless", "SVG"],
+    "tags": [
+      "Serverless",
+      "SVG"
+    ],
     "icon": "Code2",
     "isLive": true
   },
@@ -43,9 +57,13 @@
     "id": "green-event",
     "title": "The Green Event",
     "description": "Expérience numérique haute performance pour un festival de musique éco-responsable.",
-    "link": "https://green-event.seonay.com",
+    "link": "https://the-green-event.vercel.app",
     "size": "small",
-    "tags": ["Next.js", "Framer Motion", "Eco-design"],
+    "tags": [
+      "Next.js",
+      "Framer Motion",
+      "Eco-design"
+    ],
     "icon": "Leaf",
     "isLive": true
   },
@@ -53,30 +71,27 @@
     "id": "smart-budget",
     "title": "My Smart Budget",
     "description": "App de gestion de finances personnelles et suivi d'objectifs.",
-    "link": "https://budget.seonay.com",
+    "link": "https://smart-budget.seonay.com",
     "size": "wide",
-    "tags": ["Finance", "React"],
+    "tags": [
+      "Finance",
+      "React"
+    ],
     "icon": "Wallet",
     "isLive": true
   },
   {
-    "id": "auth-template",
-    "title": "My Auth Template",
-    "description": "Template d'authentification sécurisé avec JWT et rôles.",
-    "link": "https://auth.seonay.com",
+    "id": "mindful-metrics",
+    "title": "Mindful Metrics",
+    "description": "Application de tests de reactivité et de concentration.",
+    "link": "https://mindful-metrics.seonay.com",
     "size": "small",
-    "tags": ["Security", "JWT"],
-    "icon": "Lock",
-    "isLive": true
-  },
-  {
-    "id": "edt-univ",
-    "title": "App Emploi du Temps",
-    "description": "Gestion des emplois du temps universitaires en temps réel.",
-    "link": "https://edt.seonay.com",
-    "size": "small",
-    "tags": ["Real-time", "UI"],
-    "icon": "Calendar",
+    "tags": [
+      "React",
+      "API",
+      "Drag & Drop"
+    ],
+    "icon": "Brain",
     "isLive": true
   }
 ]
