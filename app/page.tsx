@@ -40,7 +40,7 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       <CommandPalette />
-      
+
       {/* Floating Navigation */}
       <nav className="fixed top-8 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-in-out">
         <div className="bg-[var(--card-bg)] backdrop-blur-xl border border-[var(--card-border)] px-6 py-3 rounded-full flex items-center gap-8 shadow-2xl">
@@ -57,7 +57,7 @@ export default function Home() {
       {/* Header Section */}
       <section id="home" className="pt-32 sm:pt-48 pb-32 px-6 sm:px-12 lg:px-24 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-12">
-          <motion.div 
+          <motion.div
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
@@ -79,7 +79,7 @@ export default function Home() {
             </motion.h1>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
@@ -130,7 +130,7 @@ export default function Home() {
       {/* Contact Section */}
       <section id="contact" className="mt-32 sm:mt-[32rem] pb-32 px-6 sm:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto">
-          <motion.div 
+          <motion.div
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.2 }}
@@ -139,7 +139,7 @@ export default function Home() {
           >
             <motion.h2 variants={itemVariants} className="text-4xl sm:text-7xl lg:text-[10rem] font-black tracking-tighter uppercase italic leading-[0.8] text-[var(--fg)]">
               PRÊT À<br />
-              <span className="text-[var(--accent)] outline-text opacity-40">DÉPLOYER ?</span>
+              <span className="text-[var(--fg)] outline-text opacity-40">DÉPLOYER ?</span>
             </motion.h2>
 
             <motion.div variants={itemVariants} className="flex flex-col md:flex-row items-start md:items-center justify-between gap-12">

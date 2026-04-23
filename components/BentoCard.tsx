@@ -103,7 +103,7 @@ export function BentoCard({ project }: { project: Project }) {
           "relative group overflow-hidden flex flex-col justify-between cursor-pointer",
           "bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-zinc-400 dark:hover:border-zinc-700 transition-colors duration-700 rounded-3xl",
           cardStyles[project.size],
-          "group-hover/grid:opacity-100 group-hover/grid:opacity-40"
+          "group-hover/grid:opacity-40 group-hover/grid:hover:opacity-100"
         )}
       >
         {spotlight && (
