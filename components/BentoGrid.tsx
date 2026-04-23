@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 export function BentoGrid({ children }: { children: React.ReactNode }) {
   return (
     <motion.div 
+      layout
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.2 }}

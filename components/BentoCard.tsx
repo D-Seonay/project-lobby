@@ -50,6 +50,7 @@ export function BentoCard({ project }: { project: Project }) {
       <motion.div
         layoutId={`card-${project.id}`}
         onClick={() => setIsOpen(true)}
+        style={{ zIndex: isExpanded ? 40 : 0 }}
         onViewportEnter={(entry) => {
           if (entry?.target) {
             const rect = entry.target.getBoundingClientRect();
@@ -68,9 +69,9 @@ export function BentoCard({ project }: { project: Project }) {
         }}
         transition={{ 
           type: "spring",
-          stiffness: 70,
-          damping: 24,
-          mass: 1.2
+          stiffness: 400,
+          damping: 40,
+          mass: 1
         }}
         whileHover={{ y: -4 }}
         className={cn(
@@ -117,7 +118,7 @@ export function BentoCard({ project }: { project: Project }) {
         </div>
       </motion.div>
 
-      <AnimatePresence>
+      <AnimatePresence initial={false}>
         {isExpanded && (
           <>
             <motion.div
@@ -130,15 +131,17 @@ export function BentoCard({ project }: { project: Project }) {
             <div className="fixed inset-0 flex items-center justify-center p-4 sm:p-8 lg:p-24 z-[201] pointer-events-none">
               <motion.div
                 layoutId={`card-${project.id}`}
+                transition={{ type: "spring", stiffness: 400, damping: 40, mass: 1 }}
                 className="bg-zinc-950 border border-zinc-800 w-full max-w-5xl h-full max-h-[800px] rounded-[40px] overflow-hidden pointer-events-auto flex flex-col md:flex-row shadow-2xl"
               >
                 <div className="flex-1 p-8 sm:p-12 lg:p-20 flex flex-col justify-between relative overflow-y-auto">
-                  <button 
+                  <motion.button 
+                    layout
                     onClick={() => setIsOpen(false)}
                     className="absolute top-8 right-8 p-3 rounded-full bg-white/5 border border-white/10 text-zinc-500 hover:text-white transition-all hover:rotate-90"
                   >
                     <Icons.X className="w-5 h-5" />
-                  </button>
+                  </motion.button>
 
                   <div>
                     <motion.div layoutId={`icon-${project.id}`} className="text-white/20 mb-12">
@@ -149,20 +152,20 @@ export function BentoCard({ project }: { project: Project }) {
                       {project.title}
                     </motion.h3>
 
-                    <div className="flex flex-wrap gap-3 mb-12">
+                    <motion.div layout className="flex flex-wrap gap-3 mb-12">
                       {project.tags?.map((tag) => (
                         <span key={tag} className="text-[10px] font-mono px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-400 uppercase tracking-[0.2em]">
                           {tag}
                         </span>
                       ))}
-                    </div>
+                    </motion.div>
 
                     <motion.p layoutId={`desc-${project.id}`} className="text-sm sm:text-lg font-mono text-zinc-500 uppercase tracking-widest leading-relaxed max-w-2xl">
                       {project.description}
                     </motion.p>
                   </div>
 
-                  <div className="mt-12 pt-12 border-t border-zinc-900 flex flex-col sm:flex-row gap-8 items-start sm:items-center">
+                  <motion.div layout className="mt-12 pt-12 border-t border-zinc-900 flex flex-col sm:flex-row gap-8 items-start sm:items-center">
                     <a 
                       href={project.link} 
                       target="_blank" 
@@ -171,7 +174,7 @@ export function BentoCard({ project }: { project: Project }) {
                       Access_Project <Icons.ArrowRight className="w-4 h-4" />
                     </a>
                     {project.isLive && <StatusBadge url={project.link} />}
-                  </div>
+                  </motion.div>
                 </div>
               </motion.div>
             </div>
