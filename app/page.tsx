@@ -65,15 +65,15 @@ export default function Home() {
             className="space-y-12"
           >
             <div className="flex flex-col gap-4">
-              <motion.div variants={itemVariants} className="font-mono text-[10px] uppercase tracking-[0.5em] text-[var(--meta)] flex items-center gap-4">
-                <span className="w-1.5 h-1.5 bg-[var(--meta)] rounded-full animate-pulse" />
+              <motion.div variants={itemVariants} className="font-mono text-[10px] uppercase tracking-[0.5em] text-[var(--meta)] dark:text-zinc-500 flex items-center gap-4">
+                <span className="w-1.5 h-1.5 bg-[var(--meta)] dark:bg-zinc-500 rounded-full animate-pulse" />
                 SYSTEM_READY // EXECUTION_GRANTED
               </motion.div>
-              <motion.div variants={itemVariants} className="font-mono text-[10px] uppercase tracking-[0.5em] text-[var(--meta)] opacity-60">
+              <motion.div variants={itemVariants} className="font-mono text-[10px] uppercase tracking-[0.5em] text-[var(--meta)] dark:text-zinc-500 opacity-60">
                 System_Lobby // v2.0.6
               </motion.div>
             </div>
-            <motion.h1 variants={itemVariants} className="text-5xl sm:text-8xl lg:text-[11rem] font-black tracking-tighter uppercase italic leading-[0.7] text-[var(--fg)]">
+            <motion.h1 variants={itemVariants} className="text-5xl sm:text-8xl lg:text-[11rem] font-black tracking-tighter uppercase italic leading-[0.7] text-[var(--fg)] dark:text-zinc-100">
               Seonay<br />
               <span className="text-[var(--accent)] outline-text opacity-40">Studio</span>
             </motion.h1>
@@ -86,10 +86,10 @@ export default function Home() {
             variants={containerVariants}
             className="max-w-xs space-y-8"
           >
-            <motion.p variants={itemVariants} className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--meta)] leading-loose italic">
+            <motion.p variants={itemVariants} className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--meta)] dark:text-zinc-500 leading-loose italic">
               // Radical dark mode experiments. High-performance digital architectural frameworks.
             </motion.p>
-            <motion.div variants={itemVariants} className="flex gap-8 font-mono text-[9px] uppercase tracking-widest text-[var(--meta)]">
+            <motion.div variants={itemVariants} className="flex gap-8 font-mono text-[9px] uppercase tracking-widest text-[var(--meta)] dark:text-zinc-500">
               <span>Nantes / FR</span>
               <span>127.0.0.1</span>
             </motion.div>
@@ -137,9 +137,9 @@ export default function Home() {
             variants={containerVariants}
             className="flex flex-col gap-24"
           >
-            <motion.h2 variants={itemVariants} className="text-4xl sm:text-7xl lg:text-[10rem] font-black tracking-tighter uppercase italic leading-[0.8] text-[var(--fg)]">
+            <motion.h2 variants={itemVariants} className="text-4xl sm:text-7xl lg:text-[10rem] font-black tracking-tighter uppercase italic leading-[0.8] text-[var(--fg)] dark:text-zinc-100">
               PRÊT À<br />
-              <span className="text-black outline-text opacity-40">DÉPLOYER ?</span>
+              <span className="text-black dark:text-transparent outline-text dark:outline-text opacity-40">DÉPLOYER ?</span>
             </motion.h2>
 
             <motion.div variants={itemVariants} className="flex flex-col md:flex-row items-start md:items-center justify-between gap-12">

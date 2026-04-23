@@ -38,10 +38,10 @@
 .dark {
   --bg: #09090b;
   --fg: #fafafa;
-  --accent: #27272a;
+  --accent: #18181b;
   --meta: #52525b;
   
-  --card-bg: rgba(24, 24, 27, 0.4);
+  --card-bg: rgba(9, 9, 11, 0.8);
   --card-border: rgba(255, 255, 255, 0.05);
   --card-hover-border: rgba(255, 255, 255, 0.15);
   
@@ -49,6 +49,8 @@
   --grid-line: rgba(255, 255, 255, 0.05);
   --grid-dot: rgba(255, 255, 255, 0.1);
 }
+
+@custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
   html {

@@ -101,7 +101,8 @@ export function BentoCard({ project }: { project: Project }) {
         whileHover={{ y: -4 }}
         className={cn(
           "relative group overflow-hidden flex flex-col justify-between cursor-pointer",
-          "bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-zinc-400 dark:hover:border-zinc-700 transition-colors duration-800 rounded-3xl",
+          "bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-zinc-400 transition-colors duration-800 rounded-3xl",
+          "dark:bg-zinc-950/50 dark:border-white/5 dark:group-hover:border-white/20",
           cardStyles[project.size],
           "group-hover/grid:opacity-40 group-hover/grid:hover:opacity-100"
         )}

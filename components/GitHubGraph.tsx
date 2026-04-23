@@ -111,7 +111,10 @@ export function GitHubGraph() {
           }
         }
       }}
-      className="md:col-span-2 p-8 lg:p-12 bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-zinc-400 dark:hover:border-zinc-700 transition-colors duration-800 rounded-3xl flex flex-col justify-between min-h-[240px] group overflow-hidden relative group-hover/grid:opacity-100 group-hover/grid:opacity-40"
+      className={cn(
+        "md:col-span-2 p-8 lg:p-12 bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-zinc-400 transition-colors duration-800 rounded-3xl flex flex-col justify-between min-h-[240px] group overflow-hidden relative group-hover/grid:opacity-100 group-hover/grid:opacity-40",
+        "dark:bg-zinc-950/50 dark:border-white/5 dark:group-hover:border-white/20"
+      )}
     >
       {spotlight && (
         <motion.div
@@ -143,7 +146,7 @@ export function GitHubGraph() {
               transition={{ delay: i * 0.005, duration: 0.5 }}
               className={cn(
                 "w-2.5 h-2.5 rounded-[2px] transition-colors duration-800",
-                day.contributionCount === 0 ? "bg-[var(--accent)] opacity-20" : 
+                day.contributionCount === 0 ? "bg-[var(--accent)] dark:bg-zinc-800/50 opacity-20 dark:opacity-100" : 
                 day.contributionCount < 3 ? "bg-emerald-900/40" :
                 day.contributionCount < 6 ? "bg-emerald-700/60" : "bg-emerald-500"
               )}
