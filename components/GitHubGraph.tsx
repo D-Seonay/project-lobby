@@ -16,108 +16,91 @@ interface ContributionDay {
   color: string;
 }
 
-interface ContributionWeek {
-  contributionDays: ContributionDay[];
-}
-
-interface GitHubData {
+interface ContributionCalendar {
   totalContributions: number;
-  weeks: ContributionWeek[];
+  weeks: {
+    contributionDays: ContributionDay[];
+  }[];
 }
 
-export default function GitHubGraph() {
-  const [data, setData] = useState<GitHubData | null>(null);
+export function GitHubGraph() {
+  const [data, setData] = useState<ContributionCalendar | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('/api/github');
-        if (!response.ok) {
-          throw new Error('Failed to fetch GitHub data');
-        }
-        const result = await response.json();
-        setData(result);
-      } catch (err: any) {
-        setError(err.message);
+        const res = await fetch('/api/github');
+        if (!res.ok) throw new Error('Failed to fetch');
+        const json = await res.json();
+        setData(json);
+      } catch (err) {
+        console.error(err);
       } finally {
         setLoading(false);
       }
     }
-
     fetchData();
   }, []);
 
-  if (error) {
+  if (loading) {
     return (
-      <div className="sm:col-span-2 lg:col-span-2 lg:row-span-1 p-6 sm:p-8 lg:p-12 bg-zinc-900/40 border border-zinc-800/50 rounded-3xl flex items-center justify-center">
-        <p className="font-mono text-[10px] text-zinc-500 uppercase tracking-widest">Error loading GitHub data</p>
+      <div className="md:col-span-2 p-8 lg:p-12 bg-zinc-900/40 border border-zinc-800/50 rounded-3xl animate-pulse flex flex-col justify-between min-h-[240px]">
+        <div className="w-8 h-8 bg-zinc-800 rounded-lg" />
+        <div className="space-y-4">
+          <div className="h-8 w-48 bg-zinc-800 rounded" />
+          <div className="h-20 w-full bg-zinc-800/50 rounded" />
+        </div>
       </div>
     );
   }
 
+  if (!data) return null;
+
+  // Flatten last 12 weeks for the wall
+  const allDays = data.weeks.slice(-14).flatMap(w => w.contributionDays);
+
   return (
-    <motion.div
-      variants={{
-        hidden: { opacity: 0, y: 30, scale: 0.94 },
-        show: { opacity: 1, y: 0, scale: 1 }
-      }}
-      transition={{ 
-        type: "spring",
-        stiffness: 70,
-        damping: 24,
-        mass: 1.2
-      }}
-      className={cn(
-        "relative group overflow-hidden flex flex-col justify-between",
-        "bg-zinc-900/40 border border-zinc-800/50 hover:border-zinc-700 transition-colors duration-700 ease-[var(--ease-out-expo)] rounded-3xl",
-        "sm:col-span-2 lg:col-span-2 lg:row-span-1 p-6 sm:p-8 lg:p-12"
-      )}
-    >
+    <div className="md:col-span-2 p-8 lg:p-12 bg-zinc-900/40 border border-zinc-800/50 rounded-3xl flex flex-col justify-between min-h-[240px] group overflow-hidden relative">
+      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.01] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+      
       <div className="relative z-10 flex justify-between items-start">
-        <div className="text-zinc-600 group-hover:text-zinc-200 transition-colors duration-700 ease-[var(--ease-out-expo)]">
+        <div className="text-zinc-600 group-hover:text-zinc-200 transition-colors duration-700">
           <Github className="w-5 h-5" />
         </div>
         <div className="flex flex-col items-end">
-          <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-widest">Contributions</span>
-          <span className="font-mono text-sm text-zinc-100 font-bold">{data?.totalContributions ?? '0'}</span>
+          <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Global_Commits</span>
+          <span className="text-xl font-black text-zinc-100 italic">{data.totalContributions}</span>
         </div>
       </div>
 
       <div className="relative z-10 mt-8">
-        {loading ? (
-          <div className="grid grid-cols-10 gap-1 animate-pulse">
-            {Array.from({ length: 40 }).map((_, i) => (
-              <div key={i} className="aspect-square bg-zinc-800 rounded-[2px]" />
-            ))}
-          </div>
-        ) : (
-          <div className="flex flex-wrap gap-1">
-            {data?.weeks.slice(-14).flatMap(week => week.contributionDays).map((day, i) => (
-              <div 
-                key={i} 
-                className={cn(
-                  "w-3 h-3 rounded-[2px] transition-all duration-500 ease-out",
-                  day.contributionCount > 0 
-                    ? "bg-emerald-500/80 group-hover:bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.2)]" 
-                    : "bg-zinc-800/50"
-                )}
-                title={`${day.contributionCount} contributions on ${day.date}`}
-              />
-            ))}
-          </div>
-        )}
+        <div className="grid grid-flow-col grid-rows-7 gap-1.5 w-fit">
+          {allDays.map((day, i) => (
+            <motion.div
+              key={day.date}
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: i * 0.005, duration: 0.5 }}
+              className={cn(
+                "w-2.5 h-2.5 rounded-[2px] transition-colors duration-500",
+                day.contributionCount === 0 ? "bg-zinc-800/50" : 
+                day.contributionCount < 3 ? "bg-emerald-900/40" :
+                day.contributionCount < 6 ? "bg-emerald-700/60" : "bg-emerald-500"
+              )}
+              title={`${day.contributionCount} commits on ${day.date}`}
+            />
+          ))}
+        </div>
+        <div className="mt-6">
+          <h3 className="text-2xl font-black tracking-tighter text-zinc-100 uppercase italic leading-none group-hover:translate-x-1 transition-transform duration-700">
+            Commit_History
+          </h3>
+          <p className="text-[10px] font-mono text-zinc-500 group-hover:text-zinc-400 transition-colors duration-700 uppercase tracking-[0.3em] mt-3">
+            Real-time contribution engine // system_sync active
+          </p>
+        </div>
       </div>
-
-      <div className="relative z-10 mt-8 space-y-4">
-        <h3 className="text-xl sm:text-2xl font-black tracking-tighter text-zinc-100 uppercase italic leading-[0.8] group-hover:translate-x-1 transition-transform duration-700 ease-[var(--ease-out-expo)]">
-          GitHub Activity
-        </h3>
-        <p className="text-[10px] font-mono text-zinc-500 group-hover:text-zinc-400 transition-colors duration-700 ease-[var(--ease-out-expo)] uppercase tracking-[0.3em] leading-relaxed">
-          Real-time synchronization with D-Seonay&apos;s repository activity.
-        </p>
-      </div>
-    </motion.div>
+    </div>
   );
 }
