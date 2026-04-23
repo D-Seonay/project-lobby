@@ -34,9 +34,9 @@
   --grid-line: rgba(0, 0, 0, 0.05);
   --grid-dot: rgba(0, 0, 0, 0.1);
 
-  --holographic-silver: #f8fafc;
-  --holographic-violet: #8b5cf6;
-  --holographic-cyan: #06b6d4;
+  --holographic-silver: rgba(255, 255, 255, 0);
+  --holographic-violet: rgba(139, 92, 246, 0);
+  --holographic-cyan: rgba(6, 182, 212, 0);
 }
 
 .dark {
@@ -53,9 +53,9 @@
   --grid-line: rgba(255, 255, 255, 0.05);
   --grid-dot: rgba(255, 255, 255, 0.1);
 
-  --holographic-silver: #f8fafc;
-  --holographic-violet: #8b5cf6;
-  --holographic-cyan: #06b6d4;
+  --holographic-silver: rgba(255, 255, 255, 0.05);
+  --holographic-violet: rgba(139, 92, 246, 0.1);
+  --holographic-cyan: rgba(6, 182, 212, 0.1);
 }
 
 @custom-variant dark (&:where(.dark, .dark *));

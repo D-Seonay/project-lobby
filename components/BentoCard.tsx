@@ -118,7 +118,7 @@ export function BentoCard({ project, size }: { project: Project, size?: 'small' 
       whileHover={{ y: -4 }}
       className={cn(
         "relative group overflow-hidden flex flex-col justify-between cursor-pointer transition-colors duration-500",
-        "bg-[var(--card-bg)] backdrop-blur-md border border-[var(--card-border)] hover:border-zinc-400 dark:bg-zinc-950/50 dark:border-white/5 dark:hover:border-white/20 rounded-3xl",
+        "bg-[var(--card-bg)] backdrop-blur-md border border-[var(--card-border)] hover:border-zinc-400 dark:bg-[#050507] dark:border-white/5 dark:hover:border-white/20 rounded-3xl",
         cardStyles[currentSize]
       )}
     >
@@ -131,7 +131,7 @@ export function BentoCard({ project, size }: { project: Project, size?: 'small' 
 
       {isHolographic && (
         <motion.div
-          className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-40 transition-opacity duration-500 mix-blend-color-dodge z-0"
+          className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500 mix-blend-color-dodge z-0"
           style={{
             background: holographicBg,
           }}
