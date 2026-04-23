@@ -15,15 +15,15 @@ export function BentoCard({ project }: { project: Project }) {
   const Icon = project.icon ? (Icons as any)[project.icon] : null;
 
   const cardStyles = {
-    small: 'md:col-span-1 md:row-span-1 p-8',
-    wide: 'md:col-span-2 md:row-span-1 p-10',
-    big: 'md:col-span-2 md:row-span-2 p-12',
+    small: 'lg:col-span-1 lg:row-span-1 p-6 sm:p-8 lg:p-12',
+    wide: 'sm:col-span-2 lg:col-span-2 lg:row-span-1 p-6 sm:p-8 lg:p-12',
+    big: 'sm:col-span-2 lg:col-span-2 sm:row-span-2 p-6 sm:p-8 lg:p-12',
   };
 
   const titleStyles = {
-    small: 'text-2xl',
-    wide: 'text-3xl',
-    big: 'text-6xl',
+    small: 'text-xl sm:text-2xl',
+    wide: 'text-xl sm:text-3xl',
+    big: 'text-3xl sm:text-5xl',
   };
 
   return (

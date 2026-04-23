@@ -58,7 +58,7 @@ export default function Home() {
       </nav>
 
       {/* Header Section */}
-      <section id="home" className="pt-48 pb-32 px-8 md:px-24 max-w-7xl mx-auto">
+      <section id="home" className="pt-32 sm:pt-48 pb-32 px-6 sm:px-12 lg:px-24 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-12">
           <motion.div 
             initial="hidden"
@@ -75,7 +75,7 @@ export default function Home() {
                 System_Lobby // v2.0.6
               </motion.div>
             </div>
-            <motion.h1 variants={itemVariants} className="text-7xl md:text-[11rem] font-black tracking-tighter uppercase italic leading-[0.7] text-zinc-100">
+            <motion.h1 variants={itemVariants} className="text-5xl sm:text-8xl lg:text-[11rem] font-black tracking-tighter uppercase italic leading-[0.7] text-zinc-100">
               Seonay<br />
               <span className="text-zinc-900 outline-text">Studio</span>
             </motion.h1>
@@ -99,7 +99,7 @@ export default function Home() {
       </section>
 
       {/* Bento Section */}
-      <section id="work" className="px-8 md:px-24">
+      <section id="work" className="px-6 sm:px-12 lg:px-24">
         <h2 className="sr-only">Selected Projects</h2>
         <BentoGrid>
           {projects.map((project) => (
@@ -109,10 +109,10 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="mt-[32rem] pb-32 px-8 md:px-24">
+      <section id="contact" className="mt-[32rem] pb-32 px-6 sm:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col gap-24">
-            <h2 className="text-7xl md:text-[10rem] font-black tracking-tighter uppercase italic leading-[0.8] text-zinc-100">
+            <h2 className="text-4xl sm:text-7xl lg:text-[10rem] font-black tracking-tighter uppercase italic leading-[0.8] text-zinc-100">
               PRÊT À<br />
               <span className="text-zinc-900 outline-text">DÉPLOYER ?</span>
             </h2>
@@ -136,7 +136,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-8 md:px-24 border-t border-zinc-900/50">
+      <footer className="py-12 px-6 sm:px-12 lg:px-24 border-t border-zinc-900/50">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-[9px] font-mono uppercase tracking-[0.3em] text-zinc-700">
           <div className="flex items-center gap-4">
             <div className="font-black text-xl tracking-tighter italic uppercase text-zinc-100">
