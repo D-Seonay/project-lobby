@@ -2,16 +2,17 @@
 
 import React, { useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Command, Mail, Globe, Github, Terminal, ArrowRight, X } from 'lucide-react';
+import * as Icons from 'lucide-react';
 import projectsData from '@/content/projects.json';
 import { Project } from '@/types/project';
+
+const { Search, Command, Mail, Globe, Terminal, ArrowRight, X } = Icons;
+const Github = (Icons as any).Github || (Icons as any).GithubIcon || (Icons as any).Code;
 
 export function CommandPalette() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const projects = projectsData as Project[];
-
-  const toggle = useCallback(() => setOpen((o) => !open), []);
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -32,7 +33,6 @@ export function CommandPalette() {
 
   const copyEmail = () => {
     navigator.clipboard.writeText('matheodelaunay04@gmail.com');
-    alert('Email copied to clipboard');
     setOpen(false);
   };
 
@@ -71,7 +71,6 @@ export function CommandPalette() {
               </div>
 
               <div className="max-h-[400px] overflow-y-auto p-2 scrollbar-hide">
-                {/* Quick Actions */}
                 <div className="px-3 py-2 text-[10px] uppercase tracking-widest text-zinc-600 font-bold">Actions</div>
                 <button
                   onClick={copyEmail}
