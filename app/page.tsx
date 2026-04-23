@@ -5,6 +5,7 @@ import { BentoGrid } from '@/components/BentoGrid';
 import { BentoCard } from '@/components/BentoCard';
 import { SpotlightGrid } from '@/components/SpotlightGrid';
 import { GitHubGraph } from '@/components/GitHubGraph';
+import { CommandPalette } from '@/components/CommandPalette';
 import projectsData from '@/content/projects.json';
 import { Project } from '@/types/project';
 
@@ -50,6 +51,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <CommandPalette />
       {/* Floating Navigation Pill */}
       <nav className="fixed top-8 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-in-out">
         <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800/50 px-6 py-3 rounded-full flex items-center gap-8 shadow-2xl">
