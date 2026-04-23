@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     siteName: "Seonay Studio",
     images: [
       {
-        url: "/og-image.png",
+        url: "/api/og",
         width: 1200,
         height: 630,
         alt: "Mathéo Delaunay | Seonay Studio",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     title: "Mathéo Delaunay | Creative Bento Lobby // Seonay Studio",
     description: "Expert Next.js developer and digital designer specializing in high-performance architectural frameworks and radical dark mode experiments.",
     site: "@seonaystudio",
-    images: ["/og-image.png"],
+    images: ["/api/og"],
   },
 };
 
