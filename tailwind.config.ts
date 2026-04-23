@@ -15,6 +15,9 @@ const config: Config = {
       borderRadius: {
         '3xl': '1.5rem', // 24px
       },
+      spacing: {
+        'gallery-spacing': '12rem',
+      },
     },
   },
   plugins: [],
