@@ -49,8 +49,8 @@ export function ControlCenterWidget({ size = 'small' }: { size?: 'small' | 'wide
 
   const titleStyles = {
     small: 'text-lg sm:text-xl',
-    wide: 'text-xl sm:text-2xl',
-    big: 'text-3xl sm:text-4xl',
+    wide: 'text-2xl sm:text-3xl',
+    big: 'text-4xl sm:text-6xl',
   };
 
   const relativeMouseX = useTransform(spotlight?.mouseX || fallbackMouse, (val) => val - elementOffset.x);
@@ -68,13 +68,13 @@ export function ControlCenterWidget({ size = 'small' }: { size?: 'small' | 'wide
     // Update time every second
     const updateTime = () => {
       const now = new Date();
-      setTime(new Intl.DateTimeFormat('en-GB', {
+      setTime(now.toLocaleTimeString('en-GB', {
         timeZone: 'Europe/Paris',
         hour: '2-digit',
         minute: '2-digit',
         second: '2-digit',
         hour12: false
-      }).format(now));
+      }));
     };
 
     updateTime();
@@ -133,6 +133,8 @@ export function ControlCenterWidget({ size = 'small' }: { size?: 'small' | 'wide
           }
         }
       }}
+      transition={{ type: "spring", stiffness: 400, damping: 40, mass: 1 }}
+      whileHover={{ y: -4 }}
       className={cn(
         "relative group overflow-hidden flex flex-col justify-between cursor-pointer transition-all duration-800",
         "bg-[var(--card-bg)] backdrop-blur-md border border-[var(--card-border)] hover:border-zinc-400 dark:bg-zinc-950/50 dark:border-white/5 dark:hover:border-white/20 rounded-3xl",
@@ -149,7 +151,7 @@ export function ControlCenterWidget({ size = 'small' }: { size?: 'small' | 'wide
 
       <div className="absolute inset-0 bg-gradient-to-br from-white/[0.01] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
       
-      <div className="relative z-10 flex justify-between items-start">
+      <div className="relative z-10 flex justify-between items-start" style={{ transform: 'translateZ(50px)' }}>
         <div className="text-[var(--meta)] group-hover:text-[var(--fg)] transition-colors duration-800">
           <Clock className="w-5 h-5" />
         </div>
@@ -159,15 +161,43 @@ export function ControlCenterWidget({ size = 'small' }: { size?: 'small' | 'wide
         </div>
       </div>
 
-      <div className="relative z-10 mt-auto flex flex-col gap-6">
-        <div className="flex items-center gap-4 bg-[var(--accent)]/30 border border-[var(--card-border)] p-4 rounded-2xl" style={{ transform: 'translateZ(30px)' }}>
+      <div className="relative z-10 mt-auto flex flex-col gap-6" style={{ transform: 'translateZ(50px)' }}>
+        <div 
+          className={cn(
+            "flex items-center bg-[var(--accent)]/30 border border-[var(--card-border)] rounded-2xl transition-all duration-700",
+            size === 'small' ? "gap-2 p-2" : "gap-4 p-4"
+          )} 
+        >
           {weather ? (
             <>
               {getWeatherIcon(weather.code)}
               <div className="flex flex-col">
                 <span className="text-[9px] font-mono text-[var(--meta)] uppercase tracking-widest leading-none mb-1">Meteo_Sync</span>
-                <span className="text-2xl font-black text-[var(--fg)] italic leading-none">{weather.temp}°C</span>
+                <span className={cn(
+                  "font-black text-[var(--fg)] italic leading-none",
+                  size === 'small' ? "text-lg" : "text-2xl"
+                )}>{weather.temp}°C</span>
               </div>
+              {size !== 'small' && (
+                <div className="ml-auto flex gap-2">
+                  <div className="w-1 h-8 bg-[var(--card-border)] rounded-full overflow-hidden">
+                    <motion.div 
+                      className="w-full bg-emerald-500"
+                      initial={{ height: "0%" }}
+                      animate={{ height: "65%" }}
+                      transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
+                    />
+                  </div>
+                  <div className="w-1 h-8 bg-[var(--card-border)] rounded-full overflow-hidden">
+                    <motion.div 
+                      className="w-full bg-blue-500"
+                      initial={{ height: "0%" }}
+                      animate={{ height: "40%" }}
+                      transition={{ duration: 1.5, delay: 0.5, repeat: Infinity, repeatType: "reverse" }}
+                    />
+                  </div>
+                </div>
+              )}
             </>
           ) : (
             <div className="animate-pulse flex items-center gap-4">
@@ -177,7 +207,7 @@ export function ControlCenterWidget({ size = 'small' }: { size?: 'small' | 'wide
           )}
         </div>
 
-        <div style={{ transform: 'translateZ(40px)' }}>
+        <div>
           <h3 className={cn(
             "font-black tracking-tighter text-[var(--fg)] uppercase italic leading-[0.8] group-hover:translate-x-1 transition-transform duration-700",
             titleStyles[size]
