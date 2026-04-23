@@ -25,27 +25,28 @@ export function BentoCard({ project }: { project: Project }) {
       href={project.link}
       target="_blank"
       rel="noopener noreferrer"
-      whileHover={{ scale: 1.02, rotate: 0.5 }}
-      whileTap={{ scale: 0.98 }}
-      initial={{ opacity: 0, y: 20 }}
+      whileHover={{ scale: 1.01, y: -2 }}
+      whileTap={{ scale: 0.99 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
-        "relative group p-6 rounded-3xl overflow-hidden flex flex-col justify-between",
-        "bg-zinc-900/50 backdrop-blur-md border border-white/10 hover:border-white/20 transition-colors",
+        "relative group p-8 rounded-3xl overflow-hidden flex flex-col justify-between",
+        "bg-zinc-950 border border-white/5 hover:border-white/10 transition-all duration-500",
         sizeClasses[project.size],
         project.bg
       )}
     >
       <div className="flex justify-between items-start">
-        {Icon && <Icon className="w-6 h-6 text-white/70" />}
+        {Icon && <Icon className="w-5 h-5 text-white/40 group-hover:text-white/80 transition-colors" />}
         {project.isLive && <StatusBadge />}
       </div>
 
-      <div className="mt-4">
-        <h3 className="text-xl font-bold text-white group-hover:text-indigo-300 transition-colors">
+      <div className="mt-8">
+        <h3 className="text-2xl font-black tracking-tighter text-white uppercase leading-none">
           {project.title}
         </h3>
-        <p className="text-sm text-white/60 mt-1">{project.description}</p>
+        <p className="text-xs font-mono text-zinc-500 mt-2 uppercase tracking-wider">{project.description}</p>
       </div>
     </motion.a>
   );

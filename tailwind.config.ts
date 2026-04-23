@@ -8,6 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        background: "#09090b",
+        foreground: "#fafafa",
+      },
       borderRadius: {
         '3xl': '1.5rem', // 24px
       },

@@ -2,10 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: dark;
+@layer base {
+  :root {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased selection:bg-white selection:text-black;
+    background-color: #09090b;
+    color: #fafafa;
+  }
 }
 
-body {
-  background: #09090b; /* zinc-950 */
+@layer utilities {
+  .gap-extreme {
+    gap: 8rem;
+  }
+  
+  .py-extreme {
+    padding-top: 16rem;
+    padding-bottom: 16rem;
+  }
+
+  .mb-extreme {
+    margin-bottom: 8rem;
+  }
+
+  .tracking-tighter-extreme {
+    letter-spacing: -0.05em;
+  }
+
+  .outline-text {
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+    color: transparent;
+  }
 }
