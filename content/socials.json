@@ -1,6 +1,7 @@
 {
   "github": {
     "name": "Github",
+    "icon": "github",
     "url": "https://github.com/D-Seonay",
     "handle": "@D-Seonay",
     "label": "CODEBASE",
@@ -8,6 +9,7 @@
   },
   "linkedin": {
     "name": "Linkedin",
+    "icon": "linkedin",
     "url": "https://www.linkedin.com/in/matheo-delaunay/",
     "handle": "Mathéo Delaunay",
     "label": "NETWORK",
@@ -15,6 +17,7 @@
   },
   "twitter": {
     "name": "Twitter",
+    "icon": "twitter",
     "url": "https://twitter.com/matheodelaunay",
     "handle": "@matheodelaunay",
     "label": "BROADCAST",
@@ -22,9 +25,34 @@
   },
   "mail": {
     "name": "Mail",
+    "icon": "mail",
     "url": "mailto:matheodelaunay04@gmail.com",
     "handle": "contact@seonay.studio",
     "label": "COMMS",
     "status": "SECURE"
+  },
+  "instagram": {
+    "name": "Instagram",
+    "icon": "instagram",
+    "url": "https://instagram.com/matheodelaunay",
+    "handle": "@matheodelaunay",
+    "label": "LIFE",
+    "status": "ACTIVE"
+  },
+  "discord": {
+    "name": "Discord",
+    "icon": "discord",
+    "url": "https://discord.com",
+    "handle": "seonay",
+    "label": "GUILD",
+    "status": "ONLINE"
+  },
+  "figma": {
+    "name": "Figma",
+    "icon": "figma",
+    "url": "https://figma.com/@seonay",
+    "handle": "@seonay",
+    "label": "CANVAS",
+    "status": "DESIGN"
   }
 }

@@ -26,9 +26,23 @@ export function SocialMediaWidget({ size = 'small', platform = 'github' }: Socia
   const [elementOffset, setElementOffset] = useState({ x: 0, y: 0 });
   const socials = socialsData as any;
 
+  const iconMap: Record<string, any> = {
+    github: Icons.Github,
+    linkedin: Icons.Linkedin,
+    twitter: (Icons as any).Twitter || (Icons as any).X,
+    mail: Icons.Mail,
+    discord: (Icons as any).MessageSquare, // Fallback if Discord is missing
+    figma: Icons.Figma,
+    instagram: Icons.Instagram
+  };
+
   // Dynamic icon access
-  const getIcon = (name: string) => {
-    const iconName = name.charAt(0).toUpperCase() + name.slice(1);
+  const getIcon = (platform: string, name: string, iconOverride?: string) => {
+    const key = (iconOverride || platform).toLowerCase();
+    if (iconMap[key]) return iconMap[key];
+
+    const targetName = iconOverride || name;
+    const iconName = targetName.charAt(0).toUpperCase() + targetName.slice(1);
     return (Icons as any)[iconName] || (Icons as any)[`${iconName}Icon`] || Icons.Globe;
   };
 
@@ -73,7 +87,7 @@ export function SocialMediaWidget({ size = 'small', platform = 'github' }: Socia
 
   if (size === 'small') {
     const data = socials[platform];
-    const Icon = getIcon(data.name);
+    const Icon = getIcon(platform as string, data.name, data.icon);
     return (
       <motion.a
         href={data.url}
@@ -122,7 +136,7 @@ export function SocialMediaWidget({ size = 'small', platform = 'github' }: Socia
         <div className="relative z-10 flex justify-between items-end w-full" style={{ transform: 'translateZ(50px)' }}>
           {platforms.map((p) => {
             const data = socials[p];
-            const Icon = getIcon(data.name);
+            const Icon = getIcon(p, data.name, data.icon);
             return (
               <a 
                 key={p} 
@@ -168,9 +182,10 @@ export function SocialMediaWidget({ size = 'small', platform = 'github' }: Socia
       <div className="relative z-10 grid grid-cols-2 gap-4 w-full" style={{ transform: 'translateZ(40px)' }}>
         {platformKeys.map((p) => {
           const data = socials[p];
-          const Icon = getIcon(data.name);
+          const Icon = getIcon(p, data.name, data.icon);
           return (
             <a 
+
               key={p} 
               href={data.url}
               target="_blank"
