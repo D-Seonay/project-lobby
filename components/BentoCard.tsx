@@ -101,11 +101,12 @@ export function BentoCard({ project }: { project: Project }) {
         whileHover={{ y: -4 }}
         className={cn(
           "relative group overflow-hidden flex flex-col justify-between cursor-pointer transition-all duration-800",
-          "bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-zinc-400 dark:bg-zinc-950/50 dark:border-white/5 dark:hover:border-white/20 rounded-3xl",
+          "bg-[var(--card-bg)] backdrop-blur-md border border-[var(--card-border)] hover:border-zinc-400 dark:hover:border-white/20 rounded-3xl",
           "group-hover/grid:opacity-40 group-hover/grid:hover:opacity-100",
           cardStyles[project.size]
         )}
       >
+        {/* Spotlight Overlay */}
         {spotlight && (
           <motion.div
             className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 group-hover/grid:opacity-100 transition duration-500"
@@ -113,16 +114,21 @@ export function BentoCard({ project }: { project: Project }) {
           />
         )}
 
-        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.01] dark:from-white/[0.01] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+        {/* Reactive Internal Glow */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] dark:from-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
         
         <div className="relative z-10 flex justify-between items-start">
-          <motion.div layoutId={`icon-${project.id}`} className="text-[var(--meta)] group-hover:text-[var(--fg)] transition-colors duration-800">
+          <motion.div 
+            layoutId={`icon-${project.id}`} 
+            style={{ transform: 'translateZ(20px)' }}
+            className="text-[var(--meta)] group-hover:text-[var(--fg)] transition-colors duration-800"
+          >
             {Icon && <Icon className="w-5 h-5" />}
           </motion.div>
           {project.isLive && <StatusBadge url={project.link} />}
         </div>
 
-        <div className="relative z-10 mt-12 space-y-4">
+        <div className="relative z-10 mt-12 space-y-4" style={{ transform: 'translateZ(30px)' }}>
           <motion.h3 layoutId={`title-${project.id}`} className={cn(
             "font-black tracking-tighter text-[var(--fg)] uppercase italic leading-[0.8] group-hover:translate-x-1 transition-transform duration-700",
             titleStyles[project.size]
@@ -154,11 +160,11 @@ export function BentoCard({ project }: { project: Project }) {
               onClick={() => setIsOpen(false)}
               className="fixed inset-0 bg-black/60 dark:bg-black/80 backdrop-blur-md z-[200] cursor-zoom-out"
             />
-            <div className="fixed inset-0 flex items-center justify-center p-4 sm:p-8 lg:p-24 z-[201] pointer-events-none">
+            <div className="fixed inset-0 flex items-center justify-center p-4 z-[201] pointer-events-none">
               <motion.div
                 layoutId={`card-${project.id}`}
                 transition={{ type: "spring", stiffness: 400, damping: 40, mass: 1 }}
-                className="bg-[var(--bg)] border border-[var(--card-border)] w-full max-w-5xl h-full max-h-[800px] rounded-[40px] overflow-hidden pointer-events-auto flex flex-col md:flex-row shadow-2xl"
+                className="bg-[var(--bg)] border border-[var(--card-border)] w-full max-w-5xl h-fit rounded-[40px] overflow-hidden pointer-events-auto flex flex-col md:flex-row shadow-2xl"
               >
                 <div className="flex-1 p-8 sm:p-12 lg:p-20 flex flex-col justify-between relative overflow-y-auto">
                   <motion.button 
