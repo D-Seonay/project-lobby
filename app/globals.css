@@ -1,16 +1,31 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-background: #09090b;
+  --color-foreground: #fafafa;
+  
+  --radius-3xl: 1.5rem;
+  
+  --spacing-gallery: 12rem;
+  
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
 
 @layer base {
+  *, ::after, ::before {
+    border-color: var(--color-zinc-800);
+  }
+
   :root {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
+    --background: #09090b;
+    --foreground: #fafafa;
   }
 
   body {
     background-color: #09090b;
     color: #fafafa;
+    @apply antialiased;
   }
 
   ::selection {
@@ -20,29 +35,12 @@
 }
 
 @layer utilities {
-  .stealth-glow {
-    box-shadow: 0 0 20px 2px rgba(255, 255, 255, 0.03);
-  }
-  
-  .gap-extreme {
-    gap: 8rem;
-  }
-  
-  .py-extreme {
-    padding-top: 16rem;
-    padding-bottom: 16rem;
-  }
-
-  .mb-extreme {
-    margin-bottom: 8rem;
-  }
-
-  .tracking-tighter-extreme {
-    letter-spacing: -0.05em;
-  }
-
   .outline-text {
     -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
     color: transparent;
+  }
+
+  .stealth-glow {
+    box-shadow: 0 0 40px rgba(0, 0, 0, 1);
   }
 }
