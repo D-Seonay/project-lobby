@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Github } from 'lucide-react';
+import * as Icons from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -26,6 +26,9 @@ interface ContributionCalendar {
 export function GitHubGraph() {
   const [data, setData] = useState<ContributionCalendar | null>(null);
   const [loading, setLoading] = useState(true);
+
+  // Dynamic icon fallback
+  const Github = (Icons as any).Github || (Icons as any).GithubIcon || (Icons as any).Code;
 
   useEffect(() => {
     async function fetchData() {
@@ -57,7 +60,7 @@ export function GitHubGraph() {
 
   if (!data) return null;
 
-  // Flatten last 12 weeks for the wall
+  // Flatten last 14 weeks for the wall
   const allDays = data.weeks.slice(-14).flatMap(w => w.contributionDays);
 
   return (
