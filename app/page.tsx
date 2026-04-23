@@ -153,7 +153,7 @@ export default function Home() {
                 <BentoCard project={projects[5]} size="small" />
                 <BentoCard project={projects[6]} size="wide" />
                 <GitHubGraph size="wide" />
-                <MoonPhaseWidget size="big" />
+                <MoonPhaseWidget size="wide" />
                 <WallOfLoveWidget size="big" />
               </>
             )}
