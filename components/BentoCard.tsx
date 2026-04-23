@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useMotionTemplate } from 'framer-motion';
+import { motion, useMotionTemplate, useTransform } from 'framer-motion';
 import { Project } from '@/types/project';
 import { StatusBadge } from './StatusBadge';
 import * as Icons from 'lucide-react';
@@ -31,8 +31,8 @@ export function BentoCard({ project }: { project: Project }) {
   };
 
   // Track relative mouse position for the internal spotlight
-  const relativeMouseX = spotlight ? motion.useTransform(spotlight.mouseX, (val) => val - elementOffset.x) : null;
-  const relativeMouseY = spotlight ? motion.useTransform(spotlight.mouseY, (val) => val - elementOffset.y) : null;
+  const relativeMouseX = useTransform(spotlight?.mouseX || 0, (val) => val - elementOffset.x);
+  const relativeMouseY = useTransform(spotlight?.mouseY || 0, (val) => val - elementOffset.y);
 
   const spotlightBg = useMotionTemplate`
     radial-gradient(
