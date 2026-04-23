@@ -6,7 +6,8 @@ export function BentoGrid({ children }: { children: React.ReactNode }) {
   return (
     <motion.div 
       initial="hidden"
-      animate="show"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.2 }}
       variants={{
         hidden: { opacity: 0 },
         show: {

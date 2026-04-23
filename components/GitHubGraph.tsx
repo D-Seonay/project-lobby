@@ -83,7 +83,8 @@ export function GitHubGraph() {
             <motion.div
               key={day.date}
               initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
               transition={{ delay: i * 0.005, duration: 0.5 }}
               className={cn(
                 "w-2.5 h-2.5 rounded-[2px] transition-colors duration-500",

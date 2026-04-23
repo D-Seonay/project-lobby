@@ -64,7 +64,8 @@ export default function Home() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-12">
           <motion.div 
             initial="hidden"
-            animate="show"
+            whileInView="show"
+            viewport={{ once: true }}
             variants={containerVariants}
             className="space-y-12"
           >
@@ -85,7 +86,8 @@ export default function Home() {
 
           <motion.div 
             initial="hidden"
-            animate="show"
+            whileInView="show"
+            viewport={{ once: true }}
             variants={containerVariants}
             className="max-w-xs space-y-8"
           >
@@ -116,13 +118,19 @@ export default function Home() {
       {/* Contact Section */}
       <section id="contact" className="mt-32 sm:mt-[32rem] pb-32 px-6 sm:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col gap-24">
-            <h2 className="text-4xl sm:text-7xl lg:text-[10rem] font-black tracking-tighter uppercase italic leading-[0.8] text-zinc-100">
+          <motion.div 
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={containerVariants}
+            className="flex flex-col gap-24"
+          >
+            <motion.h2 variants={itemVariants} className="text-4xl sm:text-7xl lg:text-[10rem] font-black tracking-tighter uppercase italic leading-[0.8] text-zinc-100">
               PRÊT À<br />
               <span className="text-zinc-900 outline-text">DÉPLOYER ?</span>
-            </h2>
+            </motion.h2>
 
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-12">
+            <motion.div variants={itemVariants} className="flex flex-col md:flex-row items-start md:items-center justify-between gap-12">
               <a
                 href="mailto:matheodelaunay04@gmail.com"
                 className="group relative px-12 py-6 bg-zinc-100 text-zinc-900 font-mono text-sm uppercase tracking-[0.2em] font-bold overflow-hidden transition-all hover:pr-16 hover:bg-white"
@@ -135,8 +143,8 @@ export default function Home() {
                 <a href="https://github.com/D-Seonay" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors underline decoration-zinc-800 underline-offset-8">GitHub</a>
                 <a href="https://www.linkedin.com/in/matheo-delaunay/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors underline decoration-zinc-800 underline-offset-8">LinkedIn</a>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 

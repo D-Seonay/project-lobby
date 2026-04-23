@@ -48,6 +48,8 @@ export function BentoCard({ project }: { project: Project }) {
       href={project.link}
       target="_blank"
       rel="noopener noreferrer"
+      whileInView="show"
+      viewport={{ once: true }}
       onViewportEnter={(entry) => {
         if (entry?.target) {
           const rect = entry.target.getBoundingClientRect();
