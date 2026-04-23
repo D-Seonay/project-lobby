@@ -7,7 +7,7 @@ import { ProjectSkeleton } from '@/components/ProjectSkeleton';
 import { SpotlightGrid } from '@/components/SpotlightGrid';
 import { GitHubGraph } from '@/components/GitHubGraph';
 import { CommandPalette } from '@/components/CommandPalette';
-import { ThemeToggle } from '@/components/ThemeToggle';
+import { ControlCenterWidget } from '@/components/ControlCenterWidget';
 import projectsData from '@/content/projects.json';
 import { Project } from '@/types/project';
 import { useEffect, useState } from 'react';
@@ -37,8 +37,29 @@ export default function Home() {
     show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as any } }
   };
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Mathéo Delaunay",
+    "jobTitle": "Next.js Developer & Digital Designer",
+    "url": "https://lobby.seonay.com",
+    "sameAs": [
+      "https://github.com/D-Seonay",
+      "https://www.linkedin.com/in/matheo-delaunay/"
+    ],
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Seonay Studio"
+    },
+    "description": "Expert Next.js developer and digital designer specializing in high-performance architectural frameworks and radical dark mode experiments."
+  };
+
   return (
     <main className="min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <CommandPalette />
 
       {/* Floating Navigation */}
@@ -49,8 +70,6 @@ export default function Home() {
             <a href="#work" className="text-[10px] font-mono uppercase tracking-widest text-[var(--meta)] hover:text-[var(--fg)] transition-all duration-300">Projects</a>
             <a href="#contact" className="text-[10px] font-mono uppercase tracking-widest text-[var(--meta)] hover:text-[var(--fg)] transition-all duration-300">Contact</a>
           </div>
-          <div className="w-px h-4 bg-[var(--card-border)]" />
-          <ThemeToggle />
         </div>
       </nav>
 
@@ -109,6 +128,7 @@ export default function Home() {
           <BentoGrid>
             {loading ? (
               <>
+                <div className="lg:col-span-1 lg:row-span-1 p-8 bg-[var(--card-bg)] border border-[var(--card-border)] rounded-3xl animate-pulse min-h-[240px]" />
                 {projects.map((p) => (
                   <ProjectSkeleton key={p.id} size={p.size} />
                 ))}
@@ -122,6 +142,7 @@ export default function Home() {
               </>
             ) : (
               <>
+                <ControlCenterWidget />
                 {projects.map((project) => (
                   <BentoCard key={project.id} project={project} />
                 ))}
