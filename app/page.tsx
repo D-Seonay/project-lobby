@@ -128,25 +128,27 @@ export default function Home() {
           <BentoGrid>
             {loading ? (
               <>
-                <div className="lg:col-span-1 lg:row-span-1 p-8 bg-[var(--card-bg)] border border-[var(--card-border)] rounded-3xl animate-pulse min-h-[240px]" />
-                {projects.map((p) => (
-                  <ProjectSkeleton key={p.id} size={p.size} />
-                ))}
-                <div className="md:col-span-2 p-8 lg:p-12 bg-[var(--card-bg)] border border-[var(--card-border)] rounded-3xl animate-pulse flex flex-col justify-between min-h-[240px]">
-                  <div className="w-8 h-8 bg-[var(--accent)] rounded-lg opacity-20" />
-                  <div className="space-y-4">
-                    <div className="h-8 w-48 bg-[var(--accent)] rounded opacity-20" />
-                    <div className="h-20 w-full bg-[var(--accent)] rounded opacity-10" />
-                  </div>
-                </div>
+                <ProjectSkeleton size="big" />
+                <ProjectSkeleton size="small" />
+                <ProjectSkeleton size="small" />
+                <ProjectSkeleton size="small" />
+                <ProjectSkeleton size="small" />
+                <ProjectSkeleton size="wide" />
+                <ProjectSkeleton size="wide" />
+                <ProjectSkeleton size="wide" />
+                <ProjectSkeleton size="wide" />
               </>
             ) : (
               <>
-                <ControlCenterWidget />
-                {projects.map((project) => (
-                  <BentoCard key={project.id} project={project} />
-                ))}
-                <GitHubGraph />
+                <BentoCard project={projects[0]} />
+                <ControlCenterWidget size="small" />
+                <BentoCard project={projects[1]} />
+                <BentoCard project={projects[2]} />
+                <BentoCard project={projects[3]} />
+                <BentoCard project={projects[4]} />
+                <BentoCard project={projects[5]} />
+                <GitHubGraph size="wide" />
+                <BentoCard project={projects[6]} />
               </>
             )}
           </BentoGrid>

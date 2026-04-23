@@ -44,15 +44,15 @@ export function BentoCard({ project }: { project: Project }) {
   };
 
   const cardStyles = {
-    small: 'lg:col-span-1 lg:row-span-1 p-6 sm:p-8 lg:p-12',
-    wide: 'sm:col-span-2 lg:col-span-2 lg:row-span-1 p-6 sm:p-8 lg:p-12',
-    big: 'sm:col-span-2 lg:col-span-2 sm:row-span-2 p-6 sm:p-8 lg:p-12',
+    small: 'col-span-1 row-span-1 p-6',
+    wide: 'col-span-2 row-span-1 p-6',
+    big: 'col-span-2 row-span-2 p-8',
   };
 
   const titleStyles = {
-    small: 'text-xl sm:text-2xl',
-    wide: 'text-xl sm:text-3xl',
-    big: 'text-3xl sm:text-5xl',
+    small: 'text-lg sm:text-xl',
+    wide: 'text-xl sm:text-2xl',
+    big: 'text-3xl sm:text-4xl',
   };
 
   const relativeMouseX = useTransform(spotlight?.mouseX || fallbackMouse, (val) => val - elementOffset.x);
@@ -60,7 +60,7 @@ export function BentoCard({ project }: { project: Project }) {
 
   const spotlightBg = useMotionTemplate`
     radial-gradient(
-      450px circle at ${relativeMouseX}px ${relativeMouseY}px,
+      350px circle at ${relativeMouseX}px ${relativeMouseY}px,
       var(--spotlight-color),
       transparent 80%
     )
@@ -100,8 +100,8 @@ export function BentoCard({ project }: { project: Project }) {
         transition={{ type: "spring", stiffness: 400, damping: 40, mass: 1 }}
         whileHover={{ y: -4 }}
         className={cn(
-          "relative group overflow-hidden flex flex-col justify-between cursor-pointer transition-colors duration-500",
-          "bg-[var(--card-bg)] backdrop-blur-md border border-[var(--card-border)] hover:border-zinc-400 dark:hover:border-white/20 rounded-3xl",
+          "relative group overflow-hidden flex flex-col justify-between cursor-pointer transition-all duration-800",
+          "bg-[var(--card-bg)] backdrop-blur-md border border-[var(--card-border)] hover:border-zinc-400 dark:bg-zinc-950/50 dark:border-white/5 dark:hover:border-white/20 rounded-3xl",
           "group-hover/grid:opacity-40 group-hover/grid:hover:opacity-100",
           cardStyles[project.size]
         )}

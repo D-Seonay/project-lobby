@@ -11,7 +11,7 @@ function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function ControlCenterWidget() {
+export function ControlCenterWidget({ size = 'small' }: { size?: 'small' | 'wide' | 'big' }) {
   const [time, setTime] = useState<string>('');
   const [weather, setWeather] = useState<{ temp: number; code: number } | null>(null);
   const spotlight = useSpotlight();
@@ -41,12 +41,24 @@ export function ControlCenterWidget() {
     mouseY.set(0);
   };
 
+  const cardStyles = {
+    small: 'col-span-1 row-span-1 p-6',
+    wide: 'col-span-2 row-span-1 p-6',
+    big: 'col-span-2 row-span-2 p-8',
+  };
+
+  const titleStyles = {
+    small: 'text-lg sm:text-xl',
+    wide: 'text-xl sm:text-2xl',
+    big: 'text-3xl sm:text-4xl',
+  };
+
   const relativeMouseX = useTransform(spotlight?.mouseX || fallbackMouse, (val) => val - elementOffset.x);
   const relativeMouseY = useTransform(spotlight?.mouseY || fallbackMouse, (val) => val - elementOffset.y);
 
   const spotlightBg = useMotionTemplate`
     radial-gradient(
-      450px circle at ${relativeMouseX}px ${relativeMouseY}px,
+      350px circle at ${relativeMouseX}px ${relativeMouseY}px,
       var(--spotlight-color),
       transparent 80%
     )
@@ -122,8 +134,10 @@ export function ControlCenterWidget() {
         }
       }}
       className={cn(
-        "lg:col-span-1 lg:row-span-1 p-8 bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-zinc-400 dark:bg-zinc-950/50 dark:border-white/5 dark:hover:border-white/20 rounded-3xl flex flex-col justify-between min-h-[240px] group overflow-hidden relative transition-all duration-800",
-        "group-hover/grid:opacity-40 group-hover/grid:hover:opacity-100"
+        "relative group overflow-hidden flex flex-col justify-between cursor-pointer transition-all duration-800",
+        "bg-[var(--card-bg)] backdrop-blur-md border border-[var(--card-border)] hover:border-zinc-400 dark:bg-zinc-950/50 dark:border-white/5 dark:hover:border-white/20 rounded-3xl",
+        "group-hover/grid:opacity-40 group-hover/grid:hover:opacity-100",
+        cardStyles[size]
       )}
     >
       {spotlight && (
@@ -145,7 +159,7 @@ export function ControlCenterWidget() {
         </div>
       </div>
 
-      <div className="relative z-10 mt-8 flex flex-col gap-6">
+      <div className="relative z-10 mt-auto flex flex-col gap-6">
         <div className="flex items-center gap-4 bg-[var(--accent)]/30 border border-[var(--card-border)] p-4 rounded-2xl" style={{ transform: 'translateZ(30px)' }}>
           {weather ? (
             <>
@@ -164,10 +178,13 @@ export function ControlCenterWidget() {
         </div>
 
         <div style={{ transform: 'translateZ(40px)' }}>
-          <h3 className="text-xl font-black tracking-tighter text-[var(--fg)] uppercase italic leading-none group-hover:translate-x-1 transition-transform duration-500">
+          <h3 className={cn(
+            "font-black tracking-tighter text-[var(--fg)] uppercase italic leading-[0.8] group-hover:translate-x-1 transition-transform duration-700",
+            titleStyles[size]
+          )}>
             Control_Station
           </h3>
-          <p className="text-[9px] font-mono text-[var(--meta)] group-hover:text-[var(--fg)] transition-all duration-700 uppercase tracking-[0.3em] mt-3">
+          <p className="text-[9px] font-mono text-[var(--meta)] group-hover:text-[var(--fg)] transition-all duration-700 uppercase tracking-[0.3em] mt-3 opacity-60 group-hover:opacity-100 line-clamp-1">
             Environment telemetry // calibrated
           </p>
         </div>

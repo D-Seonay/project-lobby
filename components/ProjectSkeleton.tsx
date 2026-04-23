@@ -13,16 +13,16 @@ interface ProjectSkeletonProps {
 
 export function ProjectSkeleton({ size }: ProjectSkeletonProps) {
   const cardStyles = {
-    small: 'lg:col-span-1 lg:row-span-1 p-6 sm:p-8 lg:p-12',
-    wide: 'sm:col-span-2 lg:col-span-2 lg:row-span-1 p-6 sm:p-8 lg:p-12',
-    big: 'sm:col-span-2 lg:col-span-2 sm:row-span-2 p-6 sm:p-8 lg:p-12',
+    small: 'col-span-1 row-span-1 p-6',
+    wide: 'col-span-2 row-span-1 p-6',
+    big: 'col-span-2 row-span-2 p-8',
   };
 
   return (
     <div
       className={cn(
         "relative group overflow-hidden flex flex-col justify-between",
-        "bg-[var(--card-bg)] border border-[var(--card-border)] rounded-3xl min-h-[200px]",
+        "bg-[var(--card-bg)] border border-[var(--card-border)] rounded-3xl",
         cardStyles[size]
       )}
     >

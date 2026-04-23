@@ -24,7 +24,7 @@ interface ContributionCalendar {
   }[];
 }
 
-export function GitHubGraph() {
+export function GitHubGraph({ size = 'wide' }: { size?: 'small' | 'wide' | 'big' }) {
   const [data, setData] = useState<ContributionCalendar | null>(null);
   const [loading, setLoading] = useState(true);
   const spotlight = useSpotlight();
@@ -56,12 +56,24 @@ export function GitHubGraph() {
     mouseY.set(0);
   };
 
+  const cardStyles = {
+    small: 'col-span-1 row-span-1 p-6',
+    wide: 'col-span-2 row-span-1 p-6',
+    big: 'col-span-2 row-span-2 p-8',
+  };
+
+  const titleStyles = {
+    small: 'text-lg sm:text-xl',
+    wide: 'text-xl sm:text-2xl',
+    big: 'text-3xl sm:text-4xl',
+  };
+
   const relativeMouseX = useTransform(spotlight?.mouseX || fallbackMouse, (val) => val - elementOffset.x);
   const relativeMouseY = useTransform(spotlight?.mouseY || fallbackMouse, (val) => val - elementOffset.y);
 
   const spotlightBg = useMotionTemplate`
     radial-gradient(
-      450px circle at ${relativeMouseX}px ${relativeMouseY}px,
+      350px circle at ${relativeMouseX}px ${relativeMouseY}px,
       var(--spotlight-color),
       transparent 80%
     )
@@ -83,7 +95,7 @@ export function GitHubGraph() {
     fetchData();
   }, []);
 
-  if (loading) return null; // Handled by page.tsx skeletons
+  if (loading) return null;
   if (!data) return null;
 
   const allDays = data.weeks.slice(-14).flatMap(w => w.contributionDays);
@@ -112,8 +124,10 @@ export function GitHubGraph() {
         }
       }}
       className={cn(
-        "md:col-span-2 p-8 lg:p-12 bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-zinc-400 dark:bg-zinc-950/50 dark:border-white/5 dark:hover:border-white/20 transition-colors duration-500 rounded-3xl flex flex-col justify-between min-h-[240px] group overflow-hidden relative",
-        "group-hover/grid:opacity-40 group-hover/grid:hover:opacity-100"
+        "relative group overflow-hidden flex flex-col justify-between cursor-pointer transition-all duration-800",
+        "bg-[var(--card-bg)] backdrop-blur-md border border-[var(--card-border)] hover:border-zinc-400 dark:bg-zinc-950/50 dark:border-white/5 dark:hover:border-white/20 rounded-3xl",
+        "group-hover/grid:opacity-40 group-hover/grid:hover:opacity-100",
+        cardStyles[size]
       )}
     >
       {spotlight && (
@@ -131,12 +145,12 @@ export function GitHubGraph() {
         </div>
         <div className="flex flex-col items-end">
           <span className="text-[10px] font-mono text-[var(--meta)] uppercase tracking-widest">Global_Commits</span>
-          <span className="text-xl font-black text-[var(--fg)] italic">{data.totalContributions}</span>
+          <span className="text-xl font-black text-[var(--fg)] italic leading-none">{data.totalContributions}</span>
         </div>
       </div>
 
-      <div className="relative z-10 mt-8" style={{ transform: 'translateZ(50px)' }}>
-        <div className="grid grid-flow-col grid-rows-7 gap-1.5 w-fit">
+      <div className="relative z-10 mt-auto" style={{ transform: 'translateZ(50px)' }}>
+        <div className="grid grid-flow-col grid-rows-7 gap-1 w-fit mb-6">
           {allDays.map((day, i) => (
             <motion.div
               key={day.date}
@@ -145,7 +159,7 @@ export function GitHubGraph() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.005, duration: 0.5 }}
               className={cn(
-                "w-2.5 h-2.5 rounded-[2px] transition-colors duration-800",
+                "w-2 h-2 rounded-[1px] transition-colors duration-800",
                 day.contributionCount === 0 ? "bg-[var(--accent)] dark:bg-zinc-800/50 opacity-20 dark:opacity-100" : 
                 day.contributionCount < 3 ? "bg-emerald-900/40" :
                 day.contributionCount < 6 ? "bg-emerald-700/60" : "bg-emerald-500"
@@ -154,11 +168,14 @@ export function GitHubGraph() {
             />
           ))}
         </div>
-        <div className="mt-6">
-          <h3 className="text-2xl font-black tracking-tighter text-[var(--fg)] uppercase italic leading-none group-hover:translate-x-1 transition-transform duration-500">
+        <div>
+          <h3 className={cn(
+            "font-black tracking-tighter text-[var(--fg)] uppercase italic leading-[0.8] group-hover:translate-x-1 transition-transform duration-700",
+            titleStyles[size]
+          )}>
             Commit_History
           </h3>
-          <p className="text-[10px] font-mono text-[var(--meta)] group-hover:text-[var(--fg)] transition-all duration-800 uppercase tracking-[0.3em] mt-3">
+          <p className="text-[10px] font-mono text-[var(--meta)] group-hover:text-[var(--fg)] transition-all duration-700 uppercase tracking-[0.3em] mt-3 opacity-60 group-hover:opacity-100 line-clamp-1">
             Real-time contribution engine // system_sync active
           </p>
         </div>
