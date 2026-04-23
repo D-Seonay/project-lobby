@@ -11,7 +11,8 @@
       "Design"
     ],
     "icon": "Layout",
-    "isLive": true
+    "isLive": true,
+    "holographic": true
   },
   {
     "id": "stat-stats",
@@ -79,7 +80,8 @@
       "Drag & Drop"
     ],
     "icon": "Github",
-    "isLive": true
+    "isLive": true,
+    "holographic": true
   },
   {
     "id": "smart-budget",

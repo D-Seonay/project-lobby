@@ -33,6 +33,10 @@
   --spotlight-color: rgba(0, 0, 0, 0.04);
   --grid-line: rgba(0, 0, 0, 0.05);
   --grid-dot: rgba(0, 0, 0, 0.1);
+
+  --holographic-silver: #f8fafc;
+  --holographic-violet: #8b5cf6;
+  --holographic-cyan: #06b6d4;
 }
 
 .dark {
@@ -48,6 +52,10 @@
   --spotlight-color: rgba(255, 255, 255, 0.04);
   --grid-line: rgba(255, 255, 255, 0.05);
   --grid-dot: rgba(255, 255, 255, 0.1);
+
+  --holographic-silver: #f8fafc;
+  --holographic-violet: #8b5cf6;
+  --holographic-cyan: #06b6d4;
 }
 
 @custom-variant dark (&:where(.dark, .dark *));

@@ -8,4 +8,5 @@ export interface Project {
   bg?: string; // Tailwind class or hex
   icon?: string; // Lucide icon name
   isLive?: boolean;
+  holographic?: boolean;
 }

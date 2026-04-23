@@ -21,6 +21,7 @@ export function BentoCard({ project, size }: { project: Project, size?: 'small' 
   const [elementOffset, setElementOffset] = useState({ x: 0, y: 0 });
 
   const currentSize = size || project.size;
+  const isHolographic = currentSize === 'big' || project.holographic;
 
   // Local mouse position for 3D tilt
   const mouseX = useMotionValue(0);
@@ -29,6 +30,20 @@ export function BentoCard({ project, size }: { project: Project, size?: 'small' 
   const springConfig = { damping: 20, stiffness: 150 };
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [20, -20]), springConfig);
   const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-20, 20]), springConfig);
+
+  const holoX = useSpring(useTransform(mouseX, [-0.5, 0.5], [0, 100]), springConfig);
+  const holoY = useSpring(useTransform(mouseY, [-0.5, 0.5], [0, 100]), springConfig);
+  const holoAngle = useSpring(useTransform(mouseX, [-0.5, 0.5], [-45, 45]), springConfig);
+
+  const holographicBg = useMotionTemplate`
+    linear-gradient(
+      ${holoAngle}deg,
+      transparent 0%,
+      var(--holographic-silver) ${holoX}%,
+      var(--holographic-violet) ${holoY}%,
+      var(--holographic-cyan) 100%
+    )
+  `;
 
   const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (!cardRef.current) return;
@@ -111,6 +126,15 @@ export function BentoCard({ project, size }: { project: Project, size?: 'small' 
         <motion.div
           className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition duration-500"
           style={{ background: spotlightBg }}
+        />
+      )}
+
+      {isHolographic && (
+        <motion.div
+          className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-40 transition-opacity duration-500 mix-blend-color-dodge z-0"
+          style={{
+            background: holographicBg,
+          }}
         />
       )}
 
