@@ -10,6 +10,7 @@ import { GitHubGraph } from '@/components/GitHubGraph';
 import { CommandPalette } from '@/components/CommandPalette';
 import { ControlCenterWidget } from '@/components/ControlCenterWidget';
 import { MoonPhaseWidget } from '@/components/MoonPhaseWidget';
+import { DayNightCycleWidget } from '@/components/DayNightCycleWidget';
 import { WallOfLoveWidget } from '@/components/WallOfLoveWidget';
 import { QuickAccessWidget } from '@/components/QuickAccessWidget';
 import { TechRadarWidget } from '@/components/TechRadarWidget';
@@ -80,7 +81,7 @@ export default function Home() {
                 <QuickAccessWidget />
                 <BentoCard project={projects[1]} size="wide" />
                 <BentoCard project={projects[3]} size="wide" />
-                <SpotifyWidget size="wide" />
+                <SpotifyWidget size="small" />
                 <SocialMediaWidget size="big" />
                 <BentoCard project={projects[4]} size="big" />
                 <BentoCard project={projects[2]} size="small" />
@@ -88,6 +89,7 @@ export default function Home() {
                 <BentoCard project={projects[6]} size="wide" />
                 <GitHubGraph size="wide" />
                 <MoonPhaseWidget size="wide" />
+                <DayNightCycleWidget />
                 <BuildStatsWidget size="small" />
               </>
             )}
