@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 export function BentoGrid({ children }: { children: React.ReactNode }) {
   return (
-    <motion.div 
+    <motion.div
       layout
       initial="hidden"
       whileInView="show"
@@ -19,7 +19,7 @@ export function BentoGrid({ children }: { children: React.ReactNode }) {
           }
         }
       }}
-      className="grid grid-cols-2 md:grid-cols-4 auto-rows-[160px] md:auto-rows-[180px] gap-4 sm:gap-6 max-w-7xl mx-auto"
+      className="grid grid-cols-2 md:grid-cols-6 auto-rows-[160px] md:auto-rows-[180px] gap-4 sm:gap-6 mx-auto"
     >
       {children}
     </motion.div>
