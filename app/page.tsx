@@ -1,3 +1,6 @@
+'use client';
+
+import { motion } from 'framer-motion';
 import { BentoGrid } from '@/components/BentoGrid';
 import { BentoCard } from '@/components/BentoCard';
 import projectsData from '@/content/projects.json';
@@ -5,6 +8,22 @@ import { Project } from '@/types/project';
 
 export default function Home() {
   const projects = projectsData as Project[];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.3,
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+  };
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -41,31 +60,41 @@ export default function Home() {
       {/* Header Section */}
       <section id="home" className="pt-48 pb-32 px-8 md:px-24 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-12">
-          <div className="space-y-12">
+          <motion.div 
+            initial="hidden"
+            animate="show"
+            variants={containerVariants}
+            className="space-y-12"
+          >
             <div className="flex flex-col gap-4">
-              <div className="font-mono text-[10px] uppercase tracking-[0.5em] text-zinc-600 flex items-center gap-4">
+              <motion.div variants={itemVariants} className="font-mono text-[10px] uppercase tracking-[0.5em] text-zinc-600 flex items-center gap-4">
                 <span className="w-1.5 h-1.5 bg-zinc-700 rounded-full animate-pulse" />
                 SYSTEM_READY // EXECUTION_GRANTED
-              </div>
-              <div className="font-mono text-[10px] uppercase tracking-[0.5em] text-zinc-700">
+              </motion.div>
+              <motion.div variants={itemVariants} className="font-mono text-[10px] uppercase tracking-[0.5em] text-zinc-700">
                 System_Lobby // v2.0.6
-              </div>
+              </motion.div>
             </div>
-            <h1 className="text-7xl md:text-[11rem] font-black tracking-tighter uppercase italic leading-[0.7] text-zinc-100">
+            <motion.h1 variants={itemVariants} className="text-7xl md:text-[11rem] font-black tracking-tighter uppercase italic leading-[0.7] text-zinc-100">
               Seonay<br />
               <span className="text-zinc-900 outline-text">Studio</span>
-            </h1>
-          </div>
+            </motion.h1>
+          </motion.div>
 
-          <div className="max-w-xs space-y-8">
-            <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500 leading-loose italic">
+          <motion.div 
+            initial="hidden"
+            animate="show"
+            variants={containerVariants}
+            className="max-w-xs space-y-8"
+          >
+            <motion.p variants={itemVariants} className="font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500 leading-loose italic">
               // Radical dark mode experiments. High-performance digital architectural frameworks.
-            </p>
-            <div className="flex gap-8 font-mono text-[9px] uppercase tracking-widest text-zinc-700">
+            </motion.p>
+            <motion.div variants={itemVariants} className="flex gap-8 font-mono text-[9px] uppercase tracking-widest text-zinc-700">
               <span>Nantes / FR</span>
               <span>127.0.0.1</span>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
