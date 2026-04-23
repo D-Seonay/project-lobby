@@ -9,9 +9,13 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased selection:bg-white selection:text-black;
     background-color: #09090b;
     color: #fafafa;
+  }
+
+  ::selection {
+    background-color: white;
+    color: black;
   }
 }
 
