@@ -112,8 +112,8 @@ export function GitHubGraph() {
         }
       }}
       className={cn(
-        "md:col-span-2 p-8 lg:p-12 bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-zinc-400 transition-colors duration-800 rounded-3xl flex flex-col justify-between min-h-[240px] group overflow-hidden relative group-hover/grid:opacity-100 group-hover/grid:opacity-40",
-        "dark:bg-zinc-950/50 dark:border-white/5 dark:group-hover:border-white/20"
+        "md:col-span-2 p-8 lg:p-12 bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-zinc-400 dark:bg-zinc-950/50 dark:border-white/5 dark:hover:border-white/20 transition-all duration-800 rounded-3xl flex flex-col justify-between min-h-[240px] group overflow-hidden relative",
+        "group-hover/grid:opacity-40 group-hover/grid:hover:opacity-100"
       )}
     >
       {spotlight && (
@@ -123,7 +123,7 @@ export function GitHubGraph() {
         />
       )}
 
-      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.01] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.01] dark:from-white/[0.01] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
       
       <div className="relative z-10 flex justify-between items-start">
         <div className="text-[var(--meta)] group-hover:text-[var(--fg)] transition-colors duration-800">
