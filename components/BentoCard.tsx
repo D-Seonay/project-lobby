@@ -45,14 +45,14 @@ export function BentoCard({ project }: { project: Project }) {
 
   const cardStyles = {
     small: 'col-span-1 row-span-1 p-6',
-    wide: 'col-span-2 row-span-1 p-6',
-    big: 'col-span-2 row-span-2 p-8',
+    wide: 'col-span-2 row-span-1 p-8',
+    big: 'col-span-2 row-span-2 p-10',
   };
 
   const titleStyles = {
     small: 'text-lg sm:text-xl',
-    wide: 'text-xl sm:text-2xl',
-    big: 'text-3xl sm:text-4xl',
+    wide: 'text-2xl sm:text-3xl',
+    big: 'text-4xl sm:text-6xl',
   };
 
   const relativeMouseX = useTransform(spotlight?.mouseX || fallbackMouse, (val) => val - elementOffset.x);
@@ -106,7 +106,6 @@ export function BentoCard({ project }: { project: Project }) {
           cardStyles[project.size]
         )}
       >
-        {/* Spotlight Overlay */}
         {spotlight && (
           <motion.div
             className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 group-hover/grid:opacity-100 transition duration-500"
@@ -114,37 +113,42 @@ export function BentoCard({ project }: { project: Project }) {
           />
         )}
 
-        {/* Reactive Internal Glow */}
         <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] dark:from-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
         
-        <div className="relative z-10 flex justify-between items-start">
-          <motion.div 
-            layoutId={`icon-${project.id}`} 
-            style={{ transform: 'translateZ(50px)' }}
-            className="text-[var(--meta)] group-hover:text-[var(--fg)] transition-colors duration-800"
-          >
+        <div className="relative z-10 flex justify-between items-start" style={{ transform: 'translateZ(40px)' }}>
+          <motion.div layoutId={`icon-${project.id}`} className="text-[var(--meta)] group-hover:text-[var(--fg)] transition-colors duration-800">
             {Icon && <Icon className="w-5 h-5" />}
           </motion.div>
-          {project.isLive && <StatusBadge url={project.link} />}
+          {project.isLive && project.size !== 'small' && <StatusBadge url={project.link} />}
+          {project.isLive && project.size === 'small' && (
+             <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
+          )}
         </div>
 
-        <div className="relative z-10 mt-12 space-y-4" style={{ transform: 'translateZ(50px)' }}>
-          <motion.h3 layoutId={`title-${project.id}`} className={cn(
-            "font-black tracking-tighter text-[var(--fg)] uppercase italic leading-[0.8] group-hover:translate-x-1 transition-transform duration-700",
-            titleStyles[project.size]
-          )}>
-            {project.title}
-          </motion.h3>
-          
-          <div className="flex flex-wrap gap-2">
-            {project.tags?.map((tag) => (
-              <span key={tag} className="text-[8px] font-mono px-2 py-0.5 rounded-full bg-[var(--accent)] border border-[var(--card-border)] text-[var(--meta)] uppercase tracking-widest group-hover:text-[var(--fg)] transition-all opacity-40 group-hover:opacity-100">
-                {tag}
-              </span>
-            ))}
+        <div className="relative z-10 mt-auto space-y-4" style={{ transform: 'translateZ(50px)' }}>
+          <div className="space-y-2">
+            <motion.h3 layoutId={`title-${project.id}`} className={cn(
+              "font-black tracking-tighter text-[var(--fg)] uppercase italic leading-[0.8] group-hover:translate-x-1 transition-transform duration-700",
+              titleStyles[project.size]
+            )}>
+              {project.title}
+            </motion.h3>
+            
+            {project.size !== 'small' && (
+              <div className="flex flex-wrap gap-2">
+                {project.tags?.slice(0, 3).map((tag) => (
+                  <span key={tag} className="text-[8px] font-mono px-2 py-0.5 rounded-full bg-[var(--accent)] border border-[var(--card-border)] text-[var(--meta)] uppercase tracking-widest group-hover:text-[var(--fg)] transition-all opacity-40 group-hover:opacity-100">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
 
-          <motion.p layoutId={`desc-${project.id}`} className="text-[10px] font-mono text-[var(--meta)] group-hover:text-[var(--fg)] opacity-60 group-hover:opacity-100 transition-all duration-700 uppercase tracking-[0.3em] leading-relaxed max-w-[90%] line-clamp-2">
+          <motion.p layoutId={`desc-${project.id}`} className={cn(
+            "font-mono text-[var(--meta)] group-hover:text-[var(--fg)] opacity-60 group-hover:opacity-100 transition-all duration-700 uppercase tracking-[0.2em] leading-relaxed max-w-[95%]",
+            project.size === 'small' ? "text-[8px] line-clamp-1" : "text-[10px] line-clamp-2"
+          )}>
             {project.description}
           </motion.p>
         </div>
