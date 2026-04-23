@@ -12,11 +12,12 @@ export function BentoGrid({ children }: { children: React.ReactNode }) {
         show: {
           opacity: 1,
           transition: {
-            staggerChildren: 0.1
+            staggerChildren: 0.12,
+            delayChildren: 0.2
           }
         }
       }}
-      className="grid grid-cols-1 md:grid-cols-4 auto-rows-[200px] gap-6 max-w-7xl mx-auto p-6"
+      className="grid grid-cols-1 md:grid-cols-4 auto-rows-[240px] gap-8 max-w-7xl mx-auto"
     >
       {children}
     </motion.div>

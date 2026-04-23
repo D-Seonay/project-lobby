@@ -15,15 +15,15 @@ export function BentoCard({ project }: { project: Project }) {
   const Icon = project.icon ? (Icons as any)[project.icon] : null;
 
   const cardStyles = {
-    small: 'col-span-1 row-span-1 p-6',
-    wide: 'col-span-2 row-span-1 p-8',
+    small: 'col-span-1 row-span-1 p-8',
+    wide: 'col-span-2 row-span-1 p-10',
     big: 'col-span-2 row-span-2 p-12',
   };
 
   const titleStyles = {
-    small: 'text-xl',
-    wide: 'text-2xl',
-    big: 'text-4xl',
+    small: 'text-2xl',
+    wide: 'text-3xl',
+    big: 'text-6xl',
   };
 
   return (
@@ -31,35 +31,34 @@ export function BentoCard({ project }: { project: Project }) {
       href={project.link}
       target="_blank"
       rel="noopener noreferrer"
-      whileHover={{ scale: 1.01, y: -2 }}
-      whileTap={{ scale: 0.99 }}
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
+      variants={{
+        hidden: { opacity: 0, y: 10 },
+        show: { opacity: 1, y: 0 }
+      }}
       transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
-        "relative group rounded-3xl overflow-hidden flex flex-col justify-between",
-        "bg-zinc-950 border border-white/5 hover:border-white/10 transition-all duration-1000",
-        cardStyles[project.size],
-        project.bg
+        "relative group overflow-hidden flex flex-col justify-between",
+        "bg-zinc-900 border border-white/[0.05] hover:border-white/20 transition-all duration-1000 rounded-sm stealth-glow",
+        cardStyles[project.size]
       )}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
       
       <div className="relative z-10 flex justify-between items-start">
-        <div className="p-3 rounded-2xl bg-white/[0.03] border border-white/5 group-hover:border-white/10 transition-colors duration-1000">
-          {Icon && <Icon className="w-5 h-5 text-white/40 group-hover:text-white/80 transition-colors duration-1000" />}
+        <div className="text-white/20 group-hover:text-white/80 transition-colors duration-1000">
+          {Icon && <Icon className="w-5 h-5" />}
         </div>
         {project.isLive && <StatusBadge />}
       </div>
 
-      <div className="relative z-10 mt-8">
+      <div className="relative z-10 mt-12 space-y-4">
         <h3 className={cn(
-          "font-black tracking-tighter text-white uppercase leading-none",
+          "font-black tracking-tighter text-white uppercase italic leading-[0.8] group-hover:translate-x-1 transition-transform duration-1000",
           titleStyles[project.size]
         )}>
           {project.title}
         </h3>
-        <p className="text-xs font-mono text-zinc-500 mt-3 uppercase tracking-[0.2em] leading-relaxed">
+        <p className="text-[10px] font-mono text-white/30 group-hover:text-white/60 transition-colors duration-1000 uppercase tracking-[0.3em] leading-relaxed max-w-[90%]">
           {project.description}
         </p>
       </div>
