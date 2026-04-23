@@ -48,7 +48,7 @@ export function BentoCard({ project }: { project: Project }) {
         <div className="text-zinc-600 group-hover:text-zinc-200 transition-colors duration-700">
           {Icon && <Icon className="w-5 h-5" />}
         </div>
-        {project.isLive && <StatusBadge />}
+        {project.isLive && <StatusBadge url={project.link} />}
       </div>
 
       <div className="relative z-10 mt-12 space-y-4">
