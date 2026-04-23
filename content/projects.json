@@ -1,20 +1,75 @@
 [
   {
-    "id": "portfolio",
-    "title": "Portfolio 2026",
-    "description": "Mon univers créatif",
-    "link": "https://example.com",
+    "id": "green-event",
+    "title": "The Green Event",
+    "description": "Une expérience numérique haute performance pour un festival de musique éco-responsable. Animations Framer Motion et Next.js SSR/ISR.",
+    "link": "https://seonay.com/fr",
     "size": "big",
-    "tags": ["Design", "Next.js"],
-    "bg": "bg-gradient-to-br from-indigo-500 to-purple-600",
+    "tags": ["Next.js", "Framer Motion", "Eco-design"],
+    "icon": "Leaf",
     "isLive": true
   },
   {
-    "id": "github",
-    "title": "GitHub",
-    "description": "82 Repos",
-    "link": "https://github.com",
-    "size": "small",
+    "id": "github-readme-gen",
+    "title": "Ultimate GitHub Profile",
+    "description": "Générateur de README GitHub avec drag & drop, auto-remplissage et intégrations avancées (Spotify, WakaTime).",
+    "link": "https://seonay.com/fr",
+    "size": "wide",
+    "tags": ["React", "API", "Drag & Drop"],
     "icon": "Github"
+  },
+  {
+    "id": "devdash",
+    "title": "DevDash // Tactical Command",
+    "description": "Tableau de bord centralisé offrant une vue unifiée de l'écosystème de développement GitHub et GitLab.",
+    "link": "https://seonay.com/fr",
+    "size": "wide",
+    "tags": ["Dashboard", "GitHub API", "GitLab"],
+    "icon": "Terminal"
+  },
+  {
+    "id": "stat-stats",
+    "title": "STAT-STATS API",
+    "description": "API serverless haute performance générant des cartes de statistiques GitHub dynamiques en SVG.",
+    "link": "https://seonay.com/fr",
+    "size": "small",
+    "tags": ["Serverless", "SVG"],
+    "icon": "Code2"
+  },
+  {
+    "id": "smart-budget",
+    "title": "My Smart Budget",
+    "description": "App de gestion de finances (règle 50/30/20), analyses financières et suivi d'objectifs.",
+    "link": "https://seonay.com/fr",
+    "size": "wide",
+    "tags": ["Finance", "React", "Charts"],
+    "icon": "Wallet"
+  },
+  {
+    "id": "auth-template",
+    "title": "My Auth Template",
+    "description": "Template d'authentification sécurisé avec JWT, rôles et gestion de session.",
+    "link": "https://seonay.com/fr",
+    "size": "small",
+    "tags": ["Security", "JWT"],
+    "icon": "Lock"
+  },
+  {
+    "id": "edt-univ",
+    "title": "App Emploi du Temps",
+    "description": "Gestion des emplois du temps universitaires en temps réel.",
+    "link": "https://seonay.com/fr",
+    "size": "small",
+    "tags": ["Real-time", "UI"],
+    "icon": "Calendar"
+  },
+  {
+    "id": "mindful-metrics",
+    "title": "Mindful Metrics",
+    "description": "Visualisation de métriques personnelles avec tableaux de bord personnalisés.",
+    "link": "https://seonay.com/fr",
+    "size": "small",
+    "tags": ["Data", "Dashboard"],
+    "icon": "Activity"
   }
 ]
