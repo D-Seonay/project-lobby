@@ -10,6 +10,7 @@ import { CommandPalette } from '@/components/CommandPalette';
 import { ControlCenterWidget } from '@/components/ControlCenterWidget';
 import { MoonPhaseWidget } from '@/components/MoonPhaseWidget';
 import { WallOfLoveWidget } from '@/components/WallOfLoveWidget';
+import { QuickAccessWidget } from '@/components/QuickAccessWidget';
 import projectsData from '@/content/projects.json';
 import { Project } from '@/types/project';
 import { useEffect, useState } from 'react';
@@ -144,15 +145,16 @@ export default function Home() {
               <>
                 <BentoCard project={projects[0]} size="big" />
                 <ControlCenterWidget size="small" />
-                <BentoCard project={projects[2]} size="small" />
+                <QuickAccessWidget />
                 <BentoCard project={projects[1]} size="wide" />
                 <BentoCard project={projects[3]} size="wide" />
                 <BentoCard project={projects[4]} size="big" />
+                <BentoCard project={projects[2]} size="small" />
                 <BentoCard project={projects[5]} size="small" />
-                <BentoCard project={projects[6]} size="small" />
+                <BentoCard project={projects[6]} size="wide" />
                 <GitHubGraph size="wide" />
-                <MoonPhaseWidget size="small" />
-                <WallOfLoveWidget size="small" />
+                <MoonPhaseWidget size="big" />
+                <WallOfLoveWidget size="big" />
               </>
             )}
           </BentoGrid>

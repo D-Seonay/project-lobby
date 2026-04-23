@@ -40,6 +40,18 @@ export function MoonPhaseWidget({ size = 'small' }: { size?: 'small' | 'wide' | 
     mouseY.set(0);
   };
 
+  const cardStyles = {
+    small: 'col-span-1 row-span-1 p-6',
+    wide: 'col-span-2 row-span-1 p-6',
+    big: 'col-span-2 row-span-2 p-8',
+  };
+
+  const titleStyles = {
+    small: 'text-lg sm:text-xl',
+    wide: 'text-2xl sm:text-3xl',
+    big: 'text-4xl sm:text-6xl',
+  };
+
   const relativeMouseX = useTransform(spotlight?.mouseX || fallbackMouse, (val) => val - elementOffset.x);
   const relativeMouseY = useTransform(spotlight?.mouseY || fallbackMouse, (val) => val - elementOffset.y);
 
@@ -120,7 +132,7 @@ export function MoonPhaseWidget({ size = 'small' }: { size?: 'small' | 'wide' | 
         "relative group overflow-hidden flex flex-col justify-between cursor-pointer transition-colors duration-500",
         "bg-[var(--card-bg)] backdrop-blur-md border border-[var(--card-border)] hover:border-zinc-400 dark:bg-zinc-950/50 dark:border-white/5 dark:hover:border-white/20 rounded-3xl",
         "group-hover/grid:opacity-40 group-hover/grid:hover:opacity-100",
-        "col-span-1 row-span-1 p-6"
+        cardStyles[size]
       )}
     >
       {spotlight && (
@@ -140,12 +152,18 @@ export function MoonPhaseWidget({ size = 'small' }: { size?: 'small' | 'wide' | 
         </div>
         <div className="flex flex-col items-end">
           <span className="text-[10px] font-mono text-[var(--meta)] uppercase tracking-widest">Phase_State</span>
-          <span className="text-sm font-black text-[var(--fg)] italic uppercase">{phaseName.replace('_', ' ')}</span>
+          <span className={cn(
+            "font-black text-[var(--fg)] italic uppercase",
+            size === 'small' ? "text-sm" : "text-xl"
+          )}>{phaseName.replace('_', ' ')}</span>
         </div>
       </div>
 
       <div className="relative z-20 flex justify-center items-center my-4" style={{ transform: 'translateZ(70px)' }}>
-        <svg width="80" height="80" viewBox="0 0 100 100" className="drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+        <svg viewBox="0 0 100 100" className={cn(
+          "drop-shadow-[0_0_15px_rgba(255,255,255,0.1)] transition-all duration-500",
+          size === 'small' ? "w-20 h-20" : size === 'wide' ? "w-24 h-24" : "w-40 h-40"
+        )}>
           {/* Background circle (dark part of the moon) */}
           <circle cx="50" cy="50" r="40" className="fill-zinc-800/50 stroke-zinc-700/30" strokeWidth="0.5" />
           
@@ -170,7 +188,10 @@ export function MoonPhaseWidget({ size = 'small' }: { size?: 'small' | 'wide' | 
       </div>
 
       <div className="relative z-10 mt-auto" style={{ transform: 'translateZ(50px)' }}>
-        <h3 className="text-lg font-black tracking-tighter text-[var(--fg)] uppercase italic leading-[0.8] group-hover:translate-x-1 transition-transform duration-700">
+        <h3 className={cn(
+          "font-black tracking-tighter text-[var(--fg)] uppercase italic leading-[0.8] group-hover:translate-x-1 transition-transform duration-700",
+          titleStyles[size]
+        )}>
           Lunar_Telemetry
         </h3>
         <p className="text-[9px] font-mono text-[var(--meta)] group-hover:text-[var(--fg)] transition-all duration-700 uppercase tracking-[0.3em] mt-3 opacity-60 group-hover:opacity-100 line-clamp-1">
