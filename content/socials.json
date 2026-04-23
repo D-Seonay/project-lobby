@@ -1,0 +1,30 @@
+{
+  "github": {
+    "name": "Github",
+    "url": "https://github.com/D-Seonay",
+    "handle": "@D-Seonay",
+    "label": "CODEBASE",
+    "status": "ACTIVE"
+  },
+  "linkedin": {
+    "name": "Linkedin",
+    "url": "https://www.linkedin.com/in/matheo-delaunay/",
+    "handle": "Mathéo Delaunay",
+    "label": "NETWORK",
+    "status": "OPEN"
+  },
+  "twitter": {
+    "name": "Twitter",
+    "url": "https://twitter.com/matheodelaunay",
+    "handle": "@matheodelaunay",
+    "label": "BROADCAST",
+    "status": "LIVE"
+  },
+  "mail": {
+    "name": "Mail",
+    "url": "mailto:matheodelaunay04@gmail.com",
+    "handle": "contact@seonay.studio",
+    "label": "COMMS",
+    "status": "SECURE"
+  }
+}
