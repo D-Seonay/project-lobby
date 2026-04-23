@@ -13,8 +13,8 @@ export default function Home() {
     "jobTitle": "Next.js Developer & Digital Designer",
     "url": "https://lobby.seonay.com",
     "sameAs": [
-      "https://github.com",
-      "https://linkedin.com"
+      "https://github.com/D-Seonay",
+      "https://www.linkedin.com/in/matheo-delaunay/"
     ],
     "worksFor": {
       "@type": "Organization",
@@ -56,7 +56,7 @@ export default function Home() {
               <span className="text-zinc-900 outline-text">Studio</span>
             </h1>
           </div>
-          
+
           <div className="max-w-xs space-y-8">
             <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500 leading-loose italic">
               // Radical dark mode experiments. High-performance digital architectural frameworks.
@@ -80,17 +80,17 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="mt-[64rem] pb-32 px-8 md:px-24">
+      <section id="contact" className="mt-[32rem] pb-32 px-8 md:px-24">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col gap-24">
             <h2 className="text-7xl md:text-[10rem] font-black tracking-tighter uppercase italic leading-[0.8] text-zinc-100">
               PRÊT À<br />
               <span className="text-zinc-900 outline-text">DÉPLOYER ?</span>
             </h2>
-            
+
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-12">
-              <a 
-                href="mailto:contact@seonay.studio" 
+              <a
+                href="mailto:matheodelaunay04@gmail.com"
                 className="group relative px-12 py-6 bg-zinc-100 text-zinc-900 font-mono text-sm uppercase tracking-[0.2em] font-bold overflow-hidden transition-all hover:pr-16 hover:bg-white"
               >
                 <span className="relative z-10">// Init_Communication</span>
@@ -98,8 +98,8 @@ export default function Home() {
               </a>
 
               <div className="flex gap-12 font-mono text-[10px] uppercase tracking-[0.3em] text-zinc-500">
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors underline decoration-zinc-800 underline-offset-8">GitHub</a>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors underline decoration-zinc-800 underline-offset-8">LinkedIn</a>
+                <a href="https://github.com/D-Seonay" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors underline decoration-zinc-800 underline-offset-8">GitHub</a>
+                <a href="https://www.linkedin.com/in/matheo-delaunay/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors underline decoration-zinc-800 underline-offset-8">LinkedIn</a>
               </div>
             </div>
           </div>
