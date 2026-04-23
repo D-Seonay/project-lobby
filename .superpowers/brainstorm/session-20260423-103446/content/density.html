@@ -1,0 +1,32 @@
+<h2>Visual Density</h2>
+<p class="subtitle">How "busy" should the lobby feel?</p>
+
+<div class="split">
+  <div class="card" data-choice="minimalist" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #111; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 20px;">
+       <div style="background: #222; aspect-ratio: 1; border-radius: 10px;"></div>
+       <div style="background: #222; aspect-ratio: 1; border-radius: 10px;"></div>
+       <div style="background: #222; aspect-ratio: 2/1; border-radius: 10px; grid-column: span 2;"></div>
+    </div>
+    <div class="card-body">
+      <h3>Minimalist</h3>
+      <p>Focused, breathable, luxury feel. Best for showcasing 4-6 key projects.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="dense" onclick="toggleSelect(this)">
+    <div class="card-image" style="background: #111; display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; padding: 10px;">
+       <div style="background: #222; aspect-ratio: 1; border-radius: 5px;"></div>
+       <div style="background: #222; aspect-ratio: 1; border-radius: 5px;"></div>
+       <div style="background: #222; aspect-ratio: 1; border-radius: 5px;"></div>
+       <div style="background: #222; aspect-ratio: 1; border-radius: 5px;"></div>
+       <div style="background: #222; aspect-ratio: 2/1; border-radius: 5px; grid-column: span 2;"></div>
+       <div style="background: #222; aspect-ratio: 1/1; border-radius: 5px;"></div>
+       <div style="background: #222; aspect-ratio: 1/1; border-radius: 5px;"></div>
+    </div>
+    <div class="card-body">
+      <h3>Dense (Control Center)</h3>
+      <p>Data-rich, techy, high-energy. Best for displaying many links, GitHub stats, and widgets.</p>
+    </div>
+  </div>
+</div>

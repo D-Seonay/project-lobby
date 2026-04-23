@@ -1,0 +1,43 @@
+<h2>Choose an Approach</h2>
+<p class="subtitle">Select the architectural complexity that fits your needs</p>
+
+<div class="options" data-choice="approach">
+  <div class="option" data-choice="static" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Static & Fast</h3>
+      <p>Hardcoded data in <code>projects.json</code>. Zero external dependencies. Max performance.</p>
+      <ul style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.8;">
+        <li>✅ Instant load</li>
+        <li>✅ Simple maintenance</li>
+        <li>❌ Manual updates for stats</li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="option" data-choice="live" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>"Live" Lobby</h3>
+      <p>Fetches GitHub stats and "Live" status badges on the client side.</p>
+      <ul style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.8;">
+        <li>✅ Feels "alive" and interactive</li>
+        <li>✅ Real-time data</li>
+        <li>❌ Slight layout shift/loading states</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="option" data-choice="creative" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Creative / Playful</h3>
+      <p>Adds Framer Motion interactions (drag, tilt) and more complex grid animations.</p>
+      <ul style="font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.8;">
+        <li>✅ High "Wow" factor</li>
+        <li>✅ Premium feel</li>
+        <li>❌ More complex code</li>
+      </ul>
+    </div>
+  </div>
+</div>
