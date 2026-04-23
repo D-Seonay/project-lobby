@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { BentoGrid } from '@/components/BentoGrid';
 import { BentoCard } from '@/components/BentoCard';
 import { SpotlightGrid } from '@/components/SpotlightGrid';
+import GitHubGraph from '@/components/GitHubGraph';
 import projectsData from '@/content/projects.json';
 import { Project } from '@/types/project';
 
@@ -107,6 +108,7 @@ export default function Home() {
             {projects.map((project) => (
               <BentoCard key={project.id} project={project} />
             ))}
+            <GitHubGraph />
           </BentoGrid>
         </SpotlightGrid>
       </section>
