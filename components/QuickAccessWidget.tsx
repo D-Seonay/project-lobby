@@ -62,7 +62,7 @@ export function QuickAccessWidget() {
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{ 
+      style={{
         rotateX,
         rotateY,
         transformStyle: 'preserve-3d',
@@ -138,7 +138,7 @@ export function QuickAccessWidget() {
         </button>
 
         <button
-          onClick={() => handleCopy('seonay_#0', 'discord')}
+          onClick={() => handleCopy('d_seonay', 'discord')}
           className="group/btn relative flex items-center justify-between p-2.5 bg-zinc-200/50 dark:bg-zinc-800/50 border border-zinc-300/50 dark:border-zinc-700/50 rounded-xl hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50 transition-all duration-300 outline-none focus:ring-1 focus:ring-zinc-400 dark:focus:ring-white/20"
         >
           <div className="flex items-center gap-2">
@@ -169,8 +169,8 @@ export function QuickAccessWidget() {
       {/* QR Code */}
       <div className="relative z-10 mt-auto flex justify-center" style={{ transform: 'translateZ(20px)' }}>
         <motion.div
-          whileHover={{ 
-            scale: 1.25, 
+          whileHover={{
+            scale: 1.25,
             translateZ: 80,
             rotateZ: [0, 5, -5, 0],
             transition: { duration: 0.4, ease: "easeOut" }
