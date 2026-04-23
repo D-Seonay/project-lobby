@@ -3,14 +3,25 @@
 import { motion } from 'framer-motion';
 import { BentoGrid } from '@/components/BentoGrid';
 import { BentoCard } from '@/components/BentoCard';
+import { ProjectSkeleton } from '@/components/ProjectSkeleton';
 import { SpotlightGrid } from '@/components/SpotlightGrid';
 import { GitHubGraph } from '@/components/GitHubGraph';
 import { CommandPalette } from '@/components/CommandPalette';
 import projectsData from '@/content/projects.json';
 import { Project } from '@/types/project';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
   const projects = projectsData as Project[];
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Artificial delay for UX
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -109,10 +120,28 @@ export default function Home() {
         <h2 className="sr-only">Selected Projects</h2>
         <SpotlightGrid>
           <BentoGrid>
-            {projects.map((project) => (
-              <BentoCard key={project.id} project={project} />
-            ))}
-            <GitHubGraph />
+            {loading ? (
+              <>
+                {projects.map((p) => (
+                  <ProjectSkeleton key={p.id} size={p.size} />
+                ))}
+                {/* Skeleton for GitHubGraph */}
+                <div className="md:col-span-2 p-8 lg:p-12 bg-zinc-900/40 border border-zinc-800/50 rounded-3xl animate-pulse flex flex-col justify-between min-h-[240px]">
+                  <div className="w-8 h-8 bg-zinc-800 rounded-lg" />
+                  <div className="space-y-4">
+                    <div className="h-8 w-48 bg-zinc-800 rounded" />
+                    <div className="h-20 w-full bg-zinc-800/50 rounded" />
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                {projects.map((project) => (
+                  <BentoCard key={project.id} project={project} />
+                ))}
+                <GitHubGraph />
+              </>
+            )}
           </BentoGrid>
         </SpotlightGrid>
       </section>

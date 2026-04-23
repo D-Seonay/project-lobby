@@ -1,13 +1,13 @@
 'use client';
 
-import { motion, useMotionTemplate, useTransform, useMotionValue } from 'framer-motion';
+import { motion, useMotionTemplate, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import { Project } from '@/types/project';
 import { StatusBadge } from './StatusBadge';
 import * as Icons from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { useSpotlight } from './SpotlightGrid';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
 
 function cn(...inputs: ClassValue[]) {
@@ -17,9 +17,35 @@ function cn(...inputs: ClassValue[]) {
 export function BentoCard({ project }: { project: Project }) {
   const Icon = project.icon ? (Icons as any)[project.icon] : null;
   const spotlight = useSpotlight();
+  const cardRef = useRef<HTMLDivElement>(null);
   const fallbackMouse = useMotionValue(0);
   const [elementOffset, setElementOffset] = useState({ x: 0, y: 0 });
   const [isExpanded, setIsOpen] = useState(false);
+
+  // Local mouse position for 3D tilt
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Smoothing the tilt
+  const springConfig = { damping: 20, stiffness: 150 };
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), springConfig);
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]), springConfig);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseXRelative = (e.clientX - rect.left) / width - 0.5;
+    const mouseYRelative = (e.clientY - rect.top) / height - 0.5;
+    mouseX.set(mouseXRelative);
+    mouseY.set(mouseYRelative);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
 
   const cardStyles = {
     small: 'lg:col-span-1 lg:row-span-1 p-6 sm:p-8 lg:p-12',
@@ -48,9 +74,18 @@ export function BentoCard({ project }: { project: Project }) {
   return (
     <>
       <motion.div
+        ref={cardRef}
         layoutId={`card-${project.id}`}
         onClick={() => setIsOpen(true)}
-        style={{ zIndex: isExpanded ? 40 : 0 }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{ 
+          zIndex: isExpanded ? 40 : 0,
+          rotateX,
+          rotateY,
+          transformStyle: 'preserve-3d',
+          perspective: '1000px',
+        }}
         onViewportEnter={(entry) => {
           if (entry?.target) {
             const rect = entry.target.getBoundingClientRect();
