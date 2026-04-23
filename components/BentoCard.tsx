@@ -1,13 +1,13 @@
 'use client';
 
-import { motion, useMotionTemplate, useTransform, useMotionValue } from 'framer-motion';
+import { motion, useMotionTemplate, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import { Project } from '@/types/project';
 import { StatusBadge } from './StatusBadge';
 import * as Icons from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { useSpotlight } from './SpotlightGrid';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -16,8 +16,35 @@ function cn(...inputs: ClassValue[]) {
 export function BentoCard({ project }: { project: Project }) {
   const Icon = project.icon ? (Icons as any)[project.icon] : null;
   const spotlight = useSpotlight();
+  const cardRef = useRef<HTMLAnchorElement>(null);
+  
+  // Local mouse position for 3D tilt
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Smoothing the tilt
+  const springConfig = { damping: 20, stiffness: 150 };
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), springConfig);
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]), springConfig);
+
   const fallbackMouse = useMotionValue(0);
   const [elementOffset, setElementOffset] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseXRelative = (e.clientX - rect.left) / width - 0.5;
+    const mouseYRelative = (e.clientY - rect.top) / height - 0.5;
+    mouseX.set(mouseXRelative);
+    mouseY.set(mouseYRelative);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
 
   const cardStyles = {
     small: 'lg:col-span-1 lg:row-span-1 p-6 sm:p-8 lg:p-12',
@@ -45,9 +72,12 @@ export function BentoCard({ project }: { project: Project }) {
 
   return (
     <motion.a
+      ref={cardRef}
       href={project.link}
       target="_blank"
       rel="noopener noreferrer"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       whileInView="show"
       viewport={{ once: true }}
       onViewportEnter={(entry) => {
@@ -73,10 +103,17 @@ export function BentoCard({ project }: { project: Project }) {
         damping: 24,
         mass: 1.2
       }}
-      whileHover={{ y: -4 }}
+      whileHover={{ scale: 1.01 }}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: 'preserve-3d',
+        perspective: '1000px',
+      }}
       className={cn(
         "relative group overflow-hidden flex flex-col justify-between",
-        "bg-zinc-900/40 border border-zinc-800/50 hover:border-zinc-700 transition-colors duration-700 ease-[var(--ease-out-expo)] rounded-3xl",
+        "bg-zinc-900/40 border border-zinc-800/50 hover:border-zinc-700 transition-all duration-700 ease-[var(--ease-out-expo)] rounded-3xl",
+        "group-hover/grid:opacity-40 hover:!opacity-100",
         cardStyles[project.size]
       )}
     >
