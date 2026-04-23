@@ -9,6 +9,11 @@ const NOW_PLAYING_ENDPOINT = `https://api.spotify.com/v1/me/player/currently-pla
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
 
 const getAccessToken = async () => {
+  if (!client_id || !client_secret || !refresh_token) {
+    console.error('Missing Spotify Credentials in environment variables');
+    throw new Error('Spotify Credentials Missing');
+  }
+
   const response = await fetch(TOKEN_ENDPOINT, {
     method: 'POST',
     headers: {
@@ -19,38 +24,35 @@ const getAccessToken = async () => {
       grant_type: 'refresh_token',
       refresh_token: refresh_token || '',
     }),
-    next: {
-      revalidate: 3600,
-    },
   });
 
-  return response.json();
-};
-
-export const getNowPlaying = async () => {
-  const { access_token } = await getAccessToken();
-
-  return fetch(NOW_PLAYING_ENDPOINT, {
-    headers: {
-      Authorization: `Bearer ${access_token}`,
-    },
-    next: {
-      revalidate: 30,
-    },
-  });
+  const data = await response.json();
+  if (!response.ok) {
+    console.error('Spotify Token Error:', data);
+    throw new Error('Failed to fetch access token');
+  }
+  return data;
 };
 
 export async function GET() {
   try {
-    const response = await getNowPlaying();
+    const { access_token } = await getAccessToken();
+
+    const response = await fetch(NOW_PLAYING_ENDPOINT, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+      cache: 'no-store'
+    });
 
     if (response.status === 204 || response.status > 400) {
+      // Not playing or error
       return NextResponse.json({ isPlaying: false });
     }
 
     const song = await response.json();
 
-    if (song.item === null) {
+    if (!song || song.item === null) {
       return NextResponse.json({ isPlaying: false });
     }
 
@@ -69,8 +71,8 @@ export async function GET() {
       songUrl,
       title,
     });
-  } catch (error) {
-    console.error('Spotify API Error:', error);
-    return NextResponse.json({ isPlaying: false }, { status: 500 });
+  } catch (error: any) {
+    console.error('Spotify API Route Error:', error.message);
+    return NextResponse.json({ isPlaying: false, error: error.message }, { status: 500 });
   }
 }

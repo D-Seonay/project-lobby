@@ -75,6 +75,15 @@ export function CommandPalette() {
       icon: SunMoon,
       onSelect: toggleTheme,
     },
+    {
+      id: 'setup-spotify',
+      title: 'System: Setup Spotify',
+      icon: Command,
+      onSelect: () => {
+        window.location.href = '/setup/spotify';
+        setOpen(false);
+      },
+    },
   ];
 
   const filteredActions = actions.filter((a) =>
