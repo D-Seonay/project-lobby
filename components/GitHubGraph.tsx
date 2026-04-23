@@ -39,8 +39,8 @@ export function GitHubGraph() {
   const mouseY = useMotionValue(0);
 
   const springConfig = { damping: 20, stiffness: 150 };
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), springConfig);
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]), springConfig);
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [20, -20]), springConfig);
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-20, 20]), springConfig);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
@@ -112,7 +112,7 @@ export function GitHubGraph() {
         }
       }}
       className={cn(
-        "md:col-span-2 p-8 lg:p-12 bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-zinc-400 dark:bg-zinc-950/50 dark:border-white/5 dark:hover:border-white/20 transition-all duration-800 rounded-3xl flex flex-col justify-between min-h-[240px] group overflow-hidden relative",
+        "md:col-span-2 p-8 lg:p-12 bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-zinc-400 dark:bg-zinc-950/50 dark:border-white/5 dark:hover:border-white/20 transition-colors duration-500 rounded-3xl flex flex-col justify-between min-h-[240px] group overflow-hidden relative",
         "group-hover/grid:opacity-40 group-hover/grid:hover:opacity-100"
       )}
     >
@@ -125,7 +125,7 @@ export function GitHubGraph() {
 
       <div className="absolute inset-0 bg-gradient-to-br from-white/[0.01] dark:from-white/[0.01] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
       
-      <div className="relative z-10 flex justify-between items-start">
+      <div className="relative z-10 flex justify-between items-start" style={{ transform: 'translateZ(50px)' }}>
         <div className="text-[var(--meta)] group-hover:text-[var(--fg)] transition-colors duration-800">
           <Github className="w-5 h-5" />
         </div>
@@ -135,7 +135,7 @@ export function GitHubGraph() {
         </div>
       </div>
 
-      <div className="relative z-10 mt-8">
+      <div className="relative z-10 mt-8" style={{ transform: 'translateZ(50px)' }}>
         <div className="grid grid-flow-col grid-rows-7 gap-1.5 w-fit">
           {allDays.map((day, i) => (
             <motion.div

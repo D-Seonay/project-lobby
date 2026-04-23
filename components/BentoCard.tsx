@@ -26,8 +26,8 @@ export function BentoCard({ project }: { project: Project }) {
   const mouseY = useMotionValue(0);
 
   const springConfig = { damping: 20, stiffness: 150 };
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), springConfig);
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]), springConfig);
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [20, -20]), springConfig);
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-20, 20]), springConfig);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
@@ -100,7 +100,7 @@ export function BentoCard({ project }: { project: Project }) {
         transition={{ type: "spring", stiffness: 400, damping: 40, mass: 1 }}
         whileHover={{ y: -4 }}
         className={cn(
-          "relative group overflow-hidden flex flex-col justify-between cursor-pointer transition-all duration-800",
+          "relative group overflow-hidden flex flex-col justify-between cursor-pointer transition-colors duration-500",
           "bg-[var(--card-bg)] backdrop-blur-md border border-[var(--card-border)] hover:border-zinc-400 dark:hover:border-white/20 rounded-3xl",
           "group-hover/grid:opacity-40 group-hover/grid:hover:opacity-100",
           cardStyles[project.size]
@@ -120,7 +120,7 @@ export function BentoCard({ project }: { project: Project }) {
         <div className="relative z-10 flex justify-between items-start">
           <motion.div 
             layoutId={`icon-${project.id}`} 
-            style={{ transform: 'translateZ(20px)' }}
+            style={{ transform: 'translateZ(50px)' }}
             className="text-[var(--meta)] group-hover:text-[var(--fg)] transition-colors duration-800"
           >
             {Icon && <Icon className="w-5 h-5" />}
@@ -128,7 +128,7 @@ export function BentoCard({ project }: { project: Project }) {
           {project.isLive && <StatusBadge url={project.link} />}
         </div>
 
-        <div className="relative z-10 mt-12 space-y-4" style={{ transform: 'translateZ(30px)' }}>
+        <div className="relative z-10 mt-12 space-y-4" style={{ transform: 'translateZ(50px)' }}>
           <motion.h3 layoutId={`title-${project.id}`} className={cn(
             "font-black tracking-tighter text-[var(--fg)] uppercase italic leading-[0.8] group-hover:translate-x-1 transition-transform duration-700",
             titleStyles[project.size]
