@@ -141,13 +141,13 @@ export default function Home() {
             ) : (
               <>
                 <BentoCard project={projects[0]} />
-                <ControlCenterWidget size="small" />
+                <ControlCenterWidget size="wide" />
                 <BentoCard project={projects[1]} />
                 <BentoCard project={projects[2]} />
                 <BentoCard project={projects[3]} />
                 <BentoCard project={projects[4]} />
                 <BentoCard project={projects[5]} />
-                <GitHubGraph size="wide" />
+                <GitHubGraph size="big" />
                 <BentoCard project={projects[6]} />
               </>
             )}
