@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -12,16 +12,33 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  themeColor: "#09090b",
+};
+
 export const metadata: Metadata = {
+  metadataBase: new URL("https://lobby.seonay.com"),
   title: "Mathéo Delaunay | Creative Bento Lobby // Seonay Studio",
   description: "Expert Next.js developer and digital designer specializing in high-performance architectural frameworks and radical dark mode experiments.",
   keywords: ["Mathéo Delaunay", "Seonay Studio", "Next.js", "Webdesign", "Bento Grid", "Portfolio", "Freelance Nantes"],
   authors: [{ name: "Mathéo Delaunay" }],
+  icons: {
+    icon: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
   openGraph: {
     title: "Mathéo Delaunay | Creative Bento Lobby // Seonay Studio",
     description: "Expert Next.js developer and digital designer specializing in high-performance architectural frameworks and radical dark mode experiments.",
     url: "https://lobby.seonay.com",
     siteName: "Seonay Studio",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Mathéo Delaunay | Seonay Studio",
+      },
+    ],
     locale: "en_US",
     type: "website",
   },
@@ -30,6 +47,7 @@ export const metadata: Metadata = {
     title: "Mathéo Delaunay | Creative Bento Lobby // Seonay Studio",
     description: "Expert Next.js developer and digital designer specializing in high-performance architectural frameworks and radical dark mode experiments.",
     site: "@seonaystudio",
+    images: ["/og-image.png"],
   },
 };
 
