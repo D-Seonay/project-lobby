@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { BentoGrid } from '@/components/BentoGrid';
 import { BentoCard } from '@/components/BentoCard';
+import { SocialMediaWidget } from '@/components/SocialMediaWidget';
 import { ProjectSkeleton } from '@/components/ProjectSkeleton';
 import { SpotlightGrid } from '@/components/SpotlightGrid';
 import { GitHubGraph } from '@/components/GitHubGraph';
@@ -66,68 +67,8 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <CommandPalette />
-
-      {/* Floating Navigation */}
-      <nav className="fixed top-8 left-1/2 -translate-x-1/2 z-50 transition-all duration-800 ease-in-out">
-        <div className="bg-[var(--card-bg)] backdrop-blur-xl border border-[var(--card-border)] px-6 py-3 rounded-full flex items-center gap-8 shadow-2xl">
-          <div className="flex items-center gap-8">
-            <a href="#home" className="text-[10px] font-mono uppercase tracking-widest text-[var(--fg)] hover:opacity-60 transition-all duration-300">Index</a>
-            <a href="#work" className="text-[10px] font-mono uppercase tracking-widest text-[var(--meta)] hover:text-[var(--fg)] transition-all duration-300">Projects</a>
-            <a href="#contact" className="text-[10px] font-mono uppercase tracking-widest text-[var(--meta)] hover:text-[var(--fg)] transition-all duration-300">Contact</a>
-          </div>
-        </div>
-      </nav>
-
-      {/* Header Section */}
-      <section id="home" className="pt-32 sm:pt-48 pb-32 px-6 sm:px-12 lg:px-24 max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-12">
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            variants={containerVariants}
-            className="space-y-12"
-          >
-            <div className="flex flex-col gap-4">
-              <motion.div variants={itemVariants} className="font-mono text-[10px] uppercase tracking-[0.5em] text-[var(--meta)] dark:text-zinc-500 flex items-center gap-4">
-                <span className="w-1.5 h-1.5 bg-[var(--meta)] dark:bg-zinc-500 rounded-full animate-pulse" />
-                SYSTEM_READY // EXECUTION_GRANTED
-              </motion.div>
-              <div className="flex flex-col gap-1">
-                <motion.div variants={itemVariants} className="font-mono text-[10px] uppercase tracking-[0.5em] text-[var(--meta)] dark:text-zinc-500 opacity-60">
-                  System_Lobby // v2.0.6
-                </motion.div>
-                <motion.div variants={itemVariants} className="font-mono text-[10px] uppercase tracking-[0.5em] text-[var(--meta)] dark:text-zinc-500 opacity-40">
-                  System_Log // <span className="text-[var(--fg)] opacity-100">[K]</span> for Commands
-                </motion.div>
-              </div>
-            </div>
-            <motion.h1 variants={itemVariants} className="text-5xl sm:text-8xl lg:text-[11rem] font-black tracking-tighter uppercase italic leading-[0.7] text-[var(--fg)] dark:text-zinc-100">
-              Seonay<br />
-              <span className="text-[var(--accent)] outline-text opacity-40">Studio</span>
-            </motion.h1>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            variants={containerVariants}
-            className="max-w-xs space-y-8"
-          >
-            <motion.p variants={itemVariants} className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--meta)] dark:text-zinc-500 leading-loose italic">
-              // Radical dark mode experiments. High-performance digital architectural frameworks.
-            </motion.p>
-            <motion.div variants={itemVariants} className="flex gap-8 font-mono text-[9px] uppercase tracking-widest text-[var(--meta)] dark:text-zinc-500">
-              <span>Nantes / FR</span>
-              <span>127.0.0.1</span>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Bento Section */}
-      <section id="work" className="px-6 sm:px-12 lg:px-24">
+      <section id="work" className="px-6 sm:px-12 lg:px-24 py-32">
         <h2 className="sr-only">Selected Projects</h2>
         <SpotlightGrid>
           <BentoGrid>
@@ -141,15 +82,28 @@ export default function Home() {
                 <ProjectSkeleton size="wide" />
                 <ProjectSkeleton size="wide" />
                 <ProjectSkeleton size="wide" />
+                <ProjectSkeleton size="big" />
+                <ProjectSkeleton size="big" />
+                <ProjectSkeleton size="small" />
+                <ProjectSkeleton size="small" />
                 <ProjectSkeleton size="wide" />
+                <ProjectSkeleton size="wide" />
+                <ProjectSkeleton size="wide" />
+                <ProjectSkeleton size="wide" />
+                <ProjectSkeleton size="small" />
+                <ProjectSkeleton size="small" />
               </>
             ) : (
               <>
                 <BentoCard project={projects[0]} size="big" />
                 <ControlCenterWidget size="small" />
+                <SocialMediaWidget size="small" platform="github" />
                 <QuickAccessWidget />
+                <SocialMediaWidget size="small" platform="linkedin" />
+                <SocialMediaWidget size="wide" />
                 <BentoCard project={projects[1]} size="wide" />
                 <BentoCard project={projects[3]} size="wide" />
+                <SocialMediaWidget size="big" />
                 <BentoCard project={projects[4]} size="big" />
                 <BentoCard project={projects[2]} size="small" />
                 <BentoCard project={projects[5]} size="small" />
@@ -163,39 +117,6 @@ export default function Home() {
             )}
           </BentoGrid>
         </SpotlightGrid>
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="mt-32 sm:mt-[32rem] pb-32 px-6 sm:px-12 lg:px-24">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={containerVariants}
-            className="flex flex-col gap-24"
-          >
-            <motion.h2 variants={itemVariants} className="text-4xl sm:text-7xl lg:text-[10rem] font-black tracking-tighter uppercase italic leading-[0.8] text-[var(--fg)] dark:text-zinc-100">
-              PRÊT À<br />
-              <span className="text-black dark:text-transparent outline-text dark:outline-text opacity-40">DÉPLOYER ?</span>
-            </motion.h2>
-
-            <motion.div variants={itemVariants} className="flex flex-col md:flex-row items-start md:items-center justify-between gap-12">
-              <a
-                href="mailto:matheodelaunay04@gmail.com"
-                className="group relative px-12 py-6 bg-[var(--fg)] text-[var(--bg)] font-mono text-sm uppercase tracking-[0.2em] font-bold overflow-hidden transition-all hover:pr-16"
-              >
-                <span className="relative z-10">// Init_Communication</span>
-                <span className="absolute right-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all">→</span>
-              </a>
-
-              <div className="flex gap-12 font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--meta)]">
-                <a href="https://github.com/D-Seonay" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--fg)] transition-colors duration-300 underline decoration-[var(--card-border)] underline-offset-8">GitHub</a>
-                <a href="https://www.linkedin.com/in/matheo-delaunay/" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--fg)] transition-colors duration-300 underline decoration-[var(--card-border)] underline-offset-8">LinkedIn</a>
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
       </section>
 
       {/* Footer */}
