@@ -6,8 +6,29 @@ import { Project } from '@/types/project';
 export default function Home() {
   const projects = projectsData as Project[];
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Mathéo Delaunay",
+    "jobTitle": "Next.js Developer & Digital Designer",
+    "url": "https://lobby.seonay.com",
+    "sameAs": [
+      "https://github.com",
+      "https://linkedin.com"
+    ],
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Seonay Studio"
+    },
+    "description": "Expert Next.js developer and digital designer specializing in high-performance architectural frameworks and radical dark mode experiments."
+  };
+
   return (
     <main className="min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Floating Navigation Pill */}
       <nav className="fixed top-8 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-in-out">
         <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800/50 px-6 py-3 rounded-full flex items-center gap-8 shadow-2xl">
@@ -50,6 +71,7 @@ export default function Home() {
 
       {/* Bento Section */}
       <section id="work" className="px-8 md:px-24">
+        <h2 className="sr-only">Selected Projects</h2>
         <BentoGrid>
           {projects.map((project) => (
             <BentoCard key={project.id} project={project} />
