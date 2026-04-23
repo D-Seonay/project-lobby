@@ -60,8 +60,26 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-[#09090b] text-[#fafafa] selection:bg-white selection:text-black">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('theme');
+                  var supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+                  if (!theme && supportDarkMode) theme = 'dark';
+                  if (!theme) theme = 'light';
+                  document.documentElement.classList.add(theme);
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
+      <body className="min-h-full flex flex-col bg-[var(--bg)] text-[var(--fg)] selection:bg-[var(--fg)] selection:text-[var(--bg)] transition-colors duration-500">
         {/* Technical Blueprint Grid */}
         <div className="fixed inset-0 z-[-1] pointer-events-none">
           <svg className="h-full w-full opacity-[0.9]" xmlns="http://www.w3.org/2000/svg">
@@ -76,12 +94,12 @@ export default function RootLayout({
                 <path
                   d="M 60 0 L 0 0 0 60"
                   fill="none"
-                  stroke="white"
+                  stroke="currentColor"
                   strokeWidth="0.5"
-                  strokeOpacity="0.1"
+                  className="text-zinc-900/10 dark:text-white/10"
                 />
                 {/* Intersection Dots */}
-                <circle cx="0" cy="0" r="1" fill="white" fillOpacity="0.2" />
+                <circle cx="0" cy="0" r="1" fill="currentColor" className="text-zinc-900/20 dark:text-white/20" />
               </pattern>
 
               <radialGradient id="radialMask" cx="50%" cy="50%" r="60%">
@@ -106,7 +124,7 @@ export default function RootLayout({
 
         {/* Noise Texture Overlay */}
         <div
-          className="fixed inset-0 z-[9999] pointer-events-none opacity-[0.04] mix-blend-overlay"
+          className="fixed inset-0 z-[9999] pointer-events-none opacity-[0.04] mix-blend-overlay dark:opacity-[0.04]"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.80' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
           }}

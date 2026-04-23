@@ -23,13 +23,13 @@ export function StatusBadge({ url, text = "System_Online" }: { url?: string; tex
 
   if (status === 'loading') {
     return (
-      <div className="relative flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/50 border border-zinc-800/50 overflow-hidden min-w-[100px]">
+      <div className="relative flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/5 dark:bg-zinc-900/50 border border-zinc-900/10 dark:border-zinc-800/50 overflow-hidden min-w-[100px]">
         {/* Shimmer Effect */}
-        <div className="absolute inset-0 z-0 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent animate-shimmer" />
+        <div className="absolute inset-0 z-0 bg-gradient-to-r from-transparent via-zinc-900/[0.03] dark:via-white/[0.03] to-transparent animate-shimmer" />
         
         <div className="relative z-10 flex items-center gap-2 w-full">
-          <div className="w-1.5 h-1.5 bg-zinc-700 rounded-full animate-pulse" />
-          <span className="text-[9px] font-mono font-medium text-zinc-600 uppercase tracking-widest flex justify-between w-full">
+          <div className="w-1.5 h-1.5 bg-zinc-400 dark:bg-zinc-700 rounded-full animate-pulse" />
+          <span className="text-[9px] font-mono font-medium text-zinc-500 dark:text-zinc-600 uppercase tracking-widest flex justify-between w-full">
             Scanning_Status...
           </span>
         </div>

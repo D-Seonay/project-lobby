@@ -66,7 +66,7 @@ export function BentoCard({ project }: { project: Project }) {
   const spotlightBg = useMotionTemplate`
     radial-gradient(
       450px circle at ${relativeMouseX}px ${relativeMouseY}px,
-      rgba(255, 255, 255, 0.04),
+      var(--spotlight-color),
       transparent 80%
     )
   `;
@@ -111,7 +111,7 @@ export function BentoCard({ project }: { project: Project }) {
         whileHover={{ y: -4 }}
         className={cn(
           "relative group overflow-hidden flex flex-col justify-between cursor-pointer",
-          "bg-zinc-900/40 border border-zinc-800/50 hover:border-zinc-700 transition-colors duration-700 rounded-3xl",
+          "bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-zinc-400 dark:hover:border-zinc-700 transition-colors duration-700 rounded-3xl",
           cardStyles[project.size]
         )}
       >
@@ -133,7 +133,7 @@ export function BentoCard({ project }: { project: Project }) {
 
         <div className="relative z-10 mt-12 space-y-4">
           <motion.h3 layoutId={`title-${project.id}`} className={cn(
-            "font-black tracking-tighter text-zinc-100 uppercase italic leading-[0.8] group-hover:translate-x-1 transition-transform duration-700",
+            "font-black tracking-tighter text-zinc-900 dark:text-zinc-100 uppercase italic leading-[0.8] group-hover:translate-x-1 transition-transform duration-700",
             titleStyles[project.size]
           )}>
             {project.title}
@@ -167,23 +167,23 @@ export function BentoCard({ project }: { project: Project }) {
               <motion.div
                 layoutId={`card-${project.id}`}
                 transition={{ type: "spring", stiffness: 400, damping: 40, mass: 1 }}
-                className="bg-zinc-950 border border-zinc-800 w-full max-w-5xl h-full max-h-[800px] rounded-[40px] overflow-hidden pointer-events-auto flex flex-col md:flex-row shadow-2xl"
+                className="bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 w-full max-w-5xl h-full max-h-[800px] rounded-[40px] overflow-hidden pointer-events-auto flex flex-col md:flex-row shadow-2xl"
               >
                 <div className="flex-1 p-8 sm:p-12 lg:p-20 flex flex-col justify-between relative overflow-y-auto">
                   <motion.button 
                     layout
                     onClick={() => setIsOpen(false)}
-                    className="absolute top-8 right-8 p-3 rounded-full bg-white/5 border border-white/10 text-zinc-500 hover:text-white transition-all hover:rotate-90"
+                    className="absolute top-8 right-8 p-3 rounded-full bg-zinc-900/5 dark:bg-white/5 border border-zinc-900/10 dark:border-white/10 text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-all hover:rotate-90"
                   >
                     <Icons.X className="w-5 h-5" />
                   </motion.button>
 
                   <div>
-                    <motion.div layoutId={`icon-${project.id}`} className="text-white/20 mb-12">
+                    <motion.div layoutId={`icon-${project.id}`} className="text-zinc-900/20 dark:text-white/20 mb-12">
                       {Icon && <Icon className="w-12 h-12" />}
                     </motion.div>
                     
-                    <motion.h3 layoutId={`title-${project.id}`} className="text-4xl sm:text-7xl lg:text-8xl font-black tracking-tighter text-zinc-100 uppercase italic leading-[0.8] mb-8">
+                    <motion.h3 layoutId={`title-${project.id}`} className="text-4xl sm:text-7xl lg:text-8xl font-black tracking-tighter text-zinc-900 dark:text-zinc-100 uppercase italic leading-[0.8] mb-8">
                       {project.title}
                     </motion.h3>
 

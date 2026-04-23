@@ -7,6 +7,7 @@ import { ProjectSkeleton } from '@/components/ProjectSkeleton';
 import { SpotlightGrid } from '@/components/SpotlightGrid';
 import { GitHubGraph } from '@/components/GitHubGraph';
 import { CommandPalette } from '@/components/CommandPalette';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import projectsData from '@/content/projects.json';
 import { Project } from '@/types/project';
 import { useEffect, useState } from 'react';
@@ -65,10 +66,14 @@ export default function Home() {
       <CommandPalette />
       {/* Floating Navigation Pill */}
       <nav className="fixed top-8 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-in-out">
-        <div className="bg-zinc-900/50 backdrop-blur-xl border border-zinc-800/50 px-6 py-3 rounded-full flex items-center gap-8 shadow-2xl">
-          <a href="#home" className="text-[10px] font-mono uppercase tracking-widest text-white hover:text-white transition-colors">Index</a>
-          <a href="#work" className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 hover:text-white transition-colors">Projects</a>
-          <a href="#contact" className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 hover:text-white transition-colors">Contact</a>
+        <div className="bg-white/80 dark:bg-zinc-900/50 backdrop-blur-xl border border-zinc-200/50 dark:border-zinc-800/50 px-6 py-3 rounded-full flex items-center gap-8 shadow-2xl">
+          <div className="flex items-center gap-8">
+            <a href="#home" className="text-[10px] font-mono uppercase tracking-widest text-zinc-900 dark:text-white hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">Index</a>
+            <a href="#work" className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors">Projects</a>
+            <a href="#contact" className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors">Contact</a>
+          </div>
+          <div className="w-px h-4 bg-zinc-200 dark:bg-zinc-800/50" />
+          <ThemeToggle />
         </div>
       </nav>
 
@@ -91,7 +96,7 @@ export default function Home() {
                 System_Lobby // v2.0.6
               </motion.div>
             </div>
-            <motion.h1 variants={itemVariants} className="text-5xl sm:text-8xl lg:text-[11rem] font-black tracking-tighter uppercase italic leading-[0.7] text-zinc-100">
+            <motion.h1 variants={itemVariants} className="text-5xl sm:text-8xl lg:text-[11rem] font-black tracking-tighter uppercase italic leading-[0.7] text-zinc-900 dark:text-zinc-100">
               Seonay<br />
               <span className="text-zinc-900 outline-text">Studio</span>
             </motion.h1>
@@ -156,7 +161,7 @@ export default function Home() {
             variants={containerVariants}
             className="flex flex-col gap-24"
           >
-            <motion.h2 variants={itemVariants} className="text-4xl sm:text-7xl lg:text-[10rem] font-black tracking-tighter uppercase italic leading-[0.8] text-zinc-100">
+            <motion.h2 variants={itemVariants} className="text-4xl sm:text-7xl lg:text-[10rem] font-black tracking-tighter uppercase italic leading-[0.8] text-zinc-900 dark:text-zinc-100">
               PRÊT À<br />
               <span className="text-zinc-900 outline-text">DÉPLOYER ?</span>
             </motion.h2>
@@ -164,15 +169,15 @@ export default function Home() {
             <motion.div variants={itemVariants} className="flex flex-col md:flex-row items-start md:items-center justify-between gap-12">
               <a
                 href="mailto:matheodelaunay04@gmail.com"
-                className="group relative px-12 py-6 bg-zinc-100 text-zinc-900 font-mono text-sm uppercase tracking-[0.2em] font-bold overflow-hidden transition-all hover:pr-16 hover:bg-white"
+                className="group relative px-12 py-6 bg-zinc-900 text-zinc-100 dark:bg-zinc-100 dark:text-zinc-900 font-mono text-sm uppercase tracking-[0.2em] font-bold overflow-hidden transition-all hover:pr-16 hover:bg-zinc-800 dark:hover:bg-white"
               >
                 <span className="relative z-10">// Init_Communication</span>
                 <span className="absolute right-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all">→</span>
               </a>
 
               <div className="flex gap-12 font-mono text-[10px] uppercase tracking-[0.3em] text-zinc-500">
-                <a href="https://github.com/D-Seonay" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors underline decoration-zinc-800 underline-offset-8">GitHub</a>
-                <a href="https://www.linkedin.com/in/matheo-delaunay/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors underline decoration-zinc-800 underline-offset-8">LinkedIn</a>
+                <a href="https://github.com/D-Seonay" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-900 dark:hover:text-white transition-colors underline decoration-zinc-200 dark:decoration-zinc-800 underline-offset-8">GitHub</a>
+                <a href="https://www.linkedin.com/in/matheo-delaunay/" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-900 dark:hover:text-white transition-colors underline decoration-zinc-200 dark:decoration-zinc-800 underline-offset-8">LinkedIn</a>
               </div>
             </motion.div>
           </motion.div>
@@ -180,11 +185,11 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-6 sm:px-12 lg:px-24 border-t border-zinc-900/50">
+      <footer className="py-12 px-6 sm:px-12 lg:px-24 border-t border-zinc-200 dark:border-zinc-900/50">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-[9px] font-mono uppercase tracking-[0.3em] text-zinc-700">
           <div className="flex items-center gap-4">
-            <div className="font-black text-xl tracking-tighter italic uppercase text-zinc-100">
-              Seonay<span className="text-zinc-800">_</span>
+            <div className="font-black text-xl tracking-tighter italic uppercase text-zinc-900 dark:text-zinc-100">
+              Seonay<span className="text-zinc-300 dark:text-zinc-800">_</span>
             </div>
             <span>// Terminal_Out</span>
           </div>

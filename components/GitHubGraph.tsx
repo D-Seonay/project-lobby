@@ -131,7 +131,7 @@ export function GitHubGraph() {
         perspective: '1000px',
       }}
       className={cn(
-        "md:col-span-2 p-8 lg:p-12 bg-zinc-900/40 border border-zinc-800/50 rounded-3xl flex flex-col justify-between min-h-[240px] group overflow-hidden relative transition-all duration-700 ease-[var(--ease-out-expo)]",
+        "md:col-span-2 p-8 lg:p-12 bg-[var(--card-bg)] border border-[var(--card-border)] rounded-3xl flex flex-col justify-between min-h-[240px] group overflow-hidden relative transition-all duration-700 ease-[var(--ease-out-expo)]",
         "group-hover/grid:opacity-40 group-hover/grid:hover:opacity-100"
       )}
     >
@@ -152,7 +152,7 @@ export function GitHubGraph() {
         </div>
         <div className="flex flex-col items-end">
           <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Global_Commits</span>
-          <span className="text-xl font-black text-zinc-100 italic">{data.totalContributions}</span>
+          <span className="text-xl font-black text-zinc-900 dark:text-zinc-100 italic">{data.totalContributions}</span>
         </div>
       </div>
 
@@ -167,7 +167,7 @@ export function GitHubGraph() {
               transition={{ delay: i * 0.005, duration: 0.5 }}
               className={cn(
                 "w-2.5 h-2.5 rounded-[2px] transition-colors duration-500",
-                day.contributionCount === 0 ? "bg-zinc-800/50" : 
+                day.contributionCount === 0 ? "bg-zinc-300 dark:bg-zinc-800/50" : 
                 day.contributionCount < 3 ? "bg-emerald-900/40" :
                 day.contributionCount < 6 ? "bg-emerald-700/60" : "bg-emerald-500"
               )}
@@ -176,7 +176,7 @@ export function GitHubGraph() {
           ))}
         </div>
         <div className="mt-6">
-          <h3 className="text-2xl font-black tracking-tighter text-zinc-100 uppercase italic leading-none group-hover:translate-x-1 transition-transform duration-700">
+          <h3 className="text-2xl font-black tracking-tighter text-zinc-900 dark:text-zinc-100 uppercase italic leading-none group-hover:translate-x-1 transition-transform duration-700">
             Commit_History
           </h3>
           <p className="text-[10px] font-mono text-zinc-500 group-hover:text-zinc-400 transition-colors duration-700 uppercase tracking-[0.3em] mt-3">

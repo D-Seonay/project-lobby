@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #09090b;
-  --color-foreground: #fafafa;
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
   
   --radius-3xl: 1.5rem;
   
@@ -20,35 +20,46 @@
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+:root {
+  --bg: #f4f4f5;
+  --fg: #09090b;
+  --card-bg: rgba(255, 255, 255, 0.6);
+  --card-border: rgba(0, 0, 0, 0.05);
+  --spotlight-color: rgba(0, 0, 0, 0.03);
+}
+
+.dark {
+  --bg: #09090b;
+  --fg: #fafafa;
+  --card-bg: rgba(24, 24, 27, 0.4);
+  --card-border: rgba(255, 255, 255, 0.05);
+  --spotlight-color: rgba(255, 255, 255, 0.04);
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
   }
 
   *, ::after, ::before {
-    border-color: var(--color-zinc-800);
-  }
-
-  :root {
-    --background: #09090b;
-    --foreground: #fafafa;
+    border-color: var(--card-border);
   }
 
   body {
-    background-color: #09090b;
-    color: #fafafa;
-    @apply antialiased;
+    background-color: var(--bg);
+    color: var(--fg);
+    @apply antialiased transition-colors duration-500;
   }
 
   ::selection {
-    background-color: white;
-    color: black;
+    background-color: var(--fg);
+    color: var(--bg);
   }
 }
 
 @layer utilities {
   .outline-text {
-    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+    -webkit-text-stroke: 1px var(--card-border);
     color: transparent;
   }
 
