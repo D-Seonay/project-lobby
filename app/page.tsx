@@ -97,10 +97,7 @@ export default function Home() {
               <>
                 <BentoCard project={projects[0]} size="xl" />
                 <ControlCenterWidget size="small" />
-                <SocialMediaWidget size="small" platform="github" />
                 <QuickAccessWidget />
-                <SocialMediaWidget size="small" platform="linkedin" />
-                <SocialMediaWidget size="wide" />
                 <BentoCard project={projects[1]} size="wide" />
                 <BentoCard project={projects[3]} size="wide" />
                 <SocialMediaWidget size="big" />
@@ -110,8 +107,6 @@ export default function Home() {
                 <BentoCard project={projects[6]} size="wide" />
                 <GitHubGraph size="wide" />
                 <MoonPhaseWidget size="wide" />
-                <TechRadarWidget size="wide" />
-                <WallOfLoveWidget size="small" />
                 <BuildStatsWidget size="small" />
               </>
             )}
