@@ -156,8 +156,8 @@ export default function Home() {
                 <BentoCard project={projects[6]} size="wide" />
                 <GitHubGraph size="wide" />
                 <MoonPhaseWidget size="wide" />
-                <TechRadarWidget size="big" />
-                <WallOfLoveWidget size="big" />
+                <TechRadarWidget size="wide" />
+                <WallOfLoveWidget size="small" />
                 <BuildStatsWidget size="small" />
               </>
             )}

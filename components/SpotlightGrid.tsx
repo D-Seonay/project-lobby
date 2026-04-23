@@ -40,7 +40,7 @@ export function SpotlightGrid({ children, className }: { children: React.ReactNo
       <div 
         ref={gridRef}
         onMouseMove={handleMouseMove}
-        className={cn("relative group/grid", className)}
+        className={cn("relative group", className)}
       >
         {children}
       </div>
@@ -56,7 +56,7 @@ export function SpotlightOverlay() {
 
   return (
     <motion.div
-      className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 transition duration-500 group-hover/grid:opacity-100 z-10"
+      className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 transition duration-500 group-hover:opacity-100 z-10"
       style={{
         background: useMotionTemplate`
           radial-gradient(

@@ -19,7 +19,7 @@ export function BentoGrid({ children }: { children: React.ReactNode }) {
           }
         }
       }}
-      className="grid grid-cols-2 md:grid-cols-4 auto-rows-[160px] md:auto-rows-[180px] gap-4 sm:gap-6 max-w-7xl mx-auto group/grid"
+      className="grid grid-cols-2 md:grid-cols-4 auto-rows-[160px] md:auto-rows-[180px] gap-4 sm:gap-6 max-w-7xl mx-auto"
     >
       {children}
     </motion.div>

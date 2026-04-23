@@ -102,13 +102,12 @@ export function BentoCard({ project, size }: { project: Project, size?: 'small' 
       className={cn(
         "relative group overflow-hidden flex flex-col justify-between cursor-pointer transition-colors duration-500",
         "bg-[var(--card-bg)] backdrop-blur-md border border-[var(--card-border)] hover:border-zinc-400 dark:bg-zinc-950/50 dark:border-white/5 dark:hover:border-white/20 rounded-3xl",
-        "group-hover/grid:opacity-40 group-hover/grid:hover:opacity-100",
         cardStyles[currentSize]
       )}
     >
       {spotlight && (
         <motion.div
-          className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 group-hover/grid:opacity-100 transition duration-500"
+          className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition duration-500"
           style={{ background: spotlightBg }}
         />
       )}
