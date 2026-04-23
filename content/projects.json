@@ -1,58 +1,73 @@
 [
   {
+    "id": "seonay-portfolio",
+    "title": "Seonay Studio",
+    "description": "Mon univers créatif. Portfolio premium conçu avec Next.js, Framer Motion et une esthétique radicale.",
+    "link": "https://seonay.com",
+    "size": "big",
+    "tags": ["Next.js", "Framer Motion", "Design"],
+    "icon": "Layout",
+    "isLive": true
+  },
+  {
     "id": "green-event",
     "title": "The Green Event",
-    "description": "Une expérience numérique haute performance pour un festival de musique éco-responsable. Animations Framer Motion et Next.js SSR/ISR.",
+    "description": "Expérience numérique haute performance pour un festival de musique éco-responsable.",
     "link": "https://seonay.com/fr",
-    "size": "big",
+    "size": "wide",
     "tags": ["Next.js", "Framer Motion", "Eco-design"],
     "icon": "Leaf",
     "isLive": true
   },
   {
     "id": "github-readme-gen",
-    "title": "Ultimate GitHub Profile",
-    "description": "Générateur de README GitHub avec drag & drop, auto-remplissage et intégrations avancées (Spotify, WakaTime).",
+    "title": "Ultimate GitHub README",
+    "description": "Générateur de profil GitHub haute performance avec automatisation intelligente.",
     "link": "https://seonay.com/fr",
     "size": "wide",
     "tags": ["React", "API", "Drag & Drop"],
-    "icon": "Github"
+    "icon": "Github",
+    "isLive": true
   },
   {
     "id": "devdash",
-    "title": "DevDash // Tactical Command",
-    "description": "Tableau de bord centralisé offrant une vue unifiée de l'écosystème de développement GitHub et GitLab.",
+    "title": "DevDash Tactical",
+    "description": "Tableau de bord centralisé pour écosystèmes GitHub et GitLab.",
     "link": "https://seonay.com/fr",
-    "size": "wide",
-    "tags": ["Dashboard", "GitHub API", "GitLab"],
-    "icon": "Terminal"
+    "size": "small",
+    "tags": ["Dashboard", "API"],
+    "icon": "Terminal",
+    "isLive": true
   },
   {
     "id": "stat-stats",
     "title": "STAT-STATS API",
-    "description": "API serverless haute performance générant des cartes de statistiques GitHub dynamiques en SVG.",
+    "description": "API serverless pour cartes de statistiques GitHub dynamiques.",
     "link": "https://seonay.com/fr",
     "size": "small",
     "tags": ["Serverless", "SVG"],
-    "icon": "Code2"
+    "icon": "Code2",
+    "isLive": true
   },
   {
     "id": "smart-budget",
     "title": "My Smart Budget",
-    "description": "App de gestion de finances (règle 50/30/20), analyses financières et suivi d'objectifs.",
+    "description": "App de gestion de finances personnelles et suivi d'objectifs.",
     "link": "https://seonay.com/fr",
     "size": "wide",
-    "tags": ["Finance", "React", "Charts"],
-    "icon": "Wallet"
+    "tags": ["Finance", "React"],
+    "icon": "Wallet",
+    "isLive": true
   },
   {
     "id": "auth-template",
     "title": "My Auth Template",
-    "description": "Template d'authentification sécurisé avec JWT, rôles et gestion de session.",
+    "description": "Template d'authentification sécurisé avec JWT et rôles.",
     "link": "https://seonay.com/fr",
     "size": "small",
     "tags": ["Security", "JWT"],
-    "icon": "Lock"
+    "icon": "Lock",
+    "isLive": true
   },
   {
     "id": "edt-univ",
@@ -61,15 +76,7 @@
     "link": "https://seonay.com/fr",
     "size": "small",
     "tags": ["Real-time", "UI"],
-    "icon": "Calendar"
-  },
-  {
-    "id": "mindful-metrics",
-    "title": "Mindful Metrics",
-    "description": "Visualisation de métriques personnelles avec tableaux de bord personnalisés.",
-    "link": "https://seonay.com/fr",
-    "size": "small",
-    "tags": ["Data", "Dashboard"],
-    "icon": "Activity"
+    "icon": "Calendar",
+    "isLive": true
   }
 ]
