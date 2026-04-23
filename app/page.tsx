@@ -17,10 +17,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Artificial delay for UX
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+    const timer = setTimeout(() => setLoading(false), 1000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -40,39 +37,19 @@ export default function Home() {
     show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as any } }
   };
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Mathéo Delaunay",
-    "jobTitle": "Next.js Developer & Digital Designer",
-    "url": "https://lobby.seonay.com",
-    "sameAs": [
-      "https://github.com/D-Seonay",
-      "https://www.linkedin.com/in/matheo-delaunay/"
-    ],
-    "worksFor": {
-      "@type": "Organization",
-      "name": "Seonay Studio"
-    },
-    "description": "Expert Next.js developer and digital designer specializing in high-performance architectural frameworks and radical dark mode experiments."
-  };
-
   return (
     <main className="min-h-screen">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
       <CommandPalette />
-      {/* Floating Navigation Pill */}
+      
+      {/* Floating Navigation */}
       <nav className="fixed top-8 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-in-out">
-        <div className="bg-white/80 dark:bg-zinc-900/50 backdrop-blur-xl border border-zinc-200/50 dark:border-zinc-800/50 px-6 py-3 rounded-full flex items-center gap-8 shadow-2xl">
+        <div className="bg-[var(--card-bg)] backdrop-blur-xl border border-[var(--card-border)] px-6 py-3 rounded-full flex items-center gap-8 shadow-2xl">
           <div className="flex items-center gap-8">
-            <a href="#home" className="text-[10px] font-mono uppercase tracking-widest text-zinc-900 dark:text-white hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors">Index</a>
-            <a href="#work" className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors">Projects</a>
-            <a href="#contact" className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors">Contact</a>
+            <a href="#home" className="text-[10px] font-mono uppercase tracking-widest text-[var(--fg)] hover:opacity-60 transition-all">Index</a>
+            <a href="#work" className="text-[10px] font-mono uppercase tracking-widest text-[var(--meta)] hover:text-[var(--fg)] transition-all">Projects</a>
+            <a href="#contact" className="text-[10px] font-mono uppercase tracking-widest text-[var(--meta)] hover:text-[var(--fg)] transition-all">Contact</a>
           </div>
-          <div className="w-px h-4 bg-zinc-200 dark:bg-zinc-800/50" />
+          <div className="w-px h-4 bg-[var(--card-border)]" />
           <ThemeToggle />
         </div>
       </nav>
@@ -88,17 +65,17 @@ export default function Home() {
             className="space-y-12"
           >
             <div className="flex flex-col gap-4">
-              <motion.div variants={itemVariants} className="font-mono text-[10px] uppercase tracking-[0.5em] text-zinc-600 flex items-center gap-4">
-                <span className="w-1.5 h-1.5 bg-zinc-700 rounded-full animate-pulse" />
+              <motion.div variants={itemVariants} className="font-mono text-[10px] uppercase tracking-[0.5em] text-[var(--meta)] flex items-center gap-4">
+                <span className="w-1.5 h-1.5 bg-[var(--meta)] rounded-full animate-pulse" />
                 SYSTEM_READY // EXECUTION_GRANTED
               </motion.div>
-              <motion.div variants={itemVariants} className="font-mono text-[10px] uppercase tracking-[0.5em] text-zinc-700">
+              <motion.div variants={itemVariants} className="font-mono text-[10px] uppercase tracking-[0.5em] text-[var(--meta)] opacity-60">
                 System_Lobby // v2.0.6
               </motion.div>
             </div>
-            <motion.h1 variants={itemVariants} className="text-5xl sm:text-8xl lg:text-[11rem] font-black tracking-tighter uppercase italic leading-[0.7] text-zinc-900 dark:text-zinc-100">
+            <motion.h1 variants={itemVariants} className="text-5xl sm:text-8xl lg:text-[11rem] font-black tracking-tighter uppercase italic leading-[0.7] text-[var(--fg)]">
               Seonay<br />
-              <span className="text-zinc-900 outline-text">Studio</span>
+              <span className="text-[var(--accent)] outline-text opacity-40">Studio</span>
             </motion.h1>
           </motion.div>
 
@@ -109,10 +86,10 @@ export default function Home() {
             variants={containerVariants}
             className="max-w-xs space-y-8"
           >
-            <motion.p variants={itemVariants} className="font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500 leading-loose italic">
+            <motion.p variants={itemVariants} className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--meta)] leading-loose italic">
               // Radical dark mode experiments. High-performance digital architectural frameworks.
             </motion.p>
-            <motion.div variants={itemVariants} className="flex gap-8 font-mono text-[9px] uppercase tracking-widest text-zinc-700">
+            <motion.div variants={itemVariants} className="flex gap-8 font-mono text-[9px] uppercase tracking-widest text-[var(--meta)]">
               <span>Nantes / FR</span>
               <span>127.0.0.1</span>
             </motion.div>
@@ -130,12 +107,11 @@ export default function Home() {
                 {projects.map((p) => (
                   <ProjectSkeleton key={p.id} size={p.size} />
                 ))}
-                {/* Skeleton for GitHubGraph */}
-                <div className="md:col-span-2 p-8 lg:p-12 bg-zinc-900/40 border border-zinc-800/50 rounded-3xl animate-pulse flex flex-col justify-between min-h-[240px]">
-                  <div className="w-8 h-8 bg-zinc-800 rounded-lg" />
+                <div className="md:col-span-2 p-8 lg:p-12 bg-[var(--card-bg)] border border-[var(--card-border)] rounded-3xl animate-pulse flex flex-col justify-between min-h-[240px]">
+                  <div className="w-8 h-8 bg-[var(--accent)] rounded-lg opacity-20" />
                   <div className="space-y-4">
-                    <div className="h-8 w-48 bg-zinc-800 rounded" />
-                    <div className="h-20 w-full bg-zinc-800/50 rounded" />
+                    <div className="h-8 w-48 bg-[var(--accent)] rounded opacity-20" />
+                    <div className="h-20 w-full bg-[var(--accent)] rounded opacity-10" />
                   </div>
                 </div>
               </>
@@ -161,23 +137,23 @@ export default function Home() {
             variants={containerVariants}
             className="flex flex-col gap-24"
           >
-            <motion.h2 variants={itemVariants} className="text-4xl sm:text-7xl lg:text-[10rem] font-black tracking-tighter uppercase italic leading-[0.8] text-zinc-900 dark:text-zinc-100">
+            <motion.h2 variants={itemVariants} className="text-4xl sm:text-7xl lg:text-[10rem] font-black tracking-tighter uppercase italic leading-[0.8] text-[var(--fg)]">
               PRÊT À<br />
-              <span className="text-zinc-900 outline-text">DÉPLOYER ?</span>
+              <span className="text-[var(--accent)] outline-text opacity-40">DÉPLOYER ?</span>
             </motion.h2>
 
             <motion.div variants={itemVariants} className="flex flex-col md:flex-row items-start md:items-center justify-between gap-12">
               <a
                 href="mailto:matheodelaunay04@gmail.com"
-                className="group relative px-12 py-6 bg-zinc-900 text-zinc-100 dark:bg-zinc-100 dark:text-zinc-900 font-mono text-sm uppercase tracking-[0.2em] font-bold overflow-hidden transition-all hover:pr-16 hover:bg-zinc-800 dark:hover:bg-white"
+                className="group relative px-12 py-6 bg-[var(--fg)] text-[var(--bg)] font-mono text-sm uppercase tracking-[0.2em] font-bold overflow-hidden transition-all hover:pr-16"
               >
                 <span className="relative z-10">// Init_Communication</span>
                 <span className="absolute right-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all">→</span>
               </a>
 
-              <div className="flex gap-12 font-mono text-[10px] uppercase tracking-[0.3em] text-zinc-500">
-                <a href="https://github.com/D-Seonay" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-900 dark:hover:text-white transition-colors underline decoration-zinc-200 dark:decoration-zinc-800 underline-offset-8">GitHub</a>
-                <a href="https://www.linkedin.com/in/matheo-delaunay/" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-900 dark:hover:text-white transition-colors underline decoration-zinc-200 dark:decoration-zinc-800 underline-offset-8">LinkedIn</a>
+              <div className="flex gap-12 font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--meta)]">
+                <a href="https://github.com/D-Seonay" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--fg)] transition-colors underline decoration-[var(--card-border)] underline-offset-8">GitHub</a>
+                <a href="https://www.linkedin.com/in/matheo-delaunay/" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--fg)] transition-colors underline decoration-[var(--card-border)] underline-offset-8">LinkedIn</a>
               </div>
             </motion.div>
           </motion.div>
@@ -185,11 +161,11 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-6 sm:px-12 lg:px-24 border-t border-zinc-200 dark:border-zinc-900/50">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-[9px] font-mono uppercase tracking-[0.3em] text-zinc-700">
+      <footer className="py-12 px-6 sm:px-12 lg:px-24 border-t border-[var(--card-border)]">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-[9px] font-mono uppercase tracking-[0.3em] text-[var(--meta)]">
           <div className="flex items-center gap-4">
-            <div className="font-black text-xl tracking-tighter italic uppercase text-zinc-900 dark:text-zinc-100">
-              Seonay<span className="text-zinc-300 dark:text-zinc-800">_</span>
+            <div className="font-black text-xl tracking-tighter italic uppercase text-[var(--fg)]">
+              Seonay<span className="text-[var(--meta)] opacity-40">_</span>
             </div>
             <span>// Terminal_Out</span>
           </div>

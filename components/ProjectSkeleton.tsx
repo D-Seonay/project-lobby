@@ -7,7 +7,11 @@ function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function ProjectSkeleton({ size = 'small' }: { size?: 'small' | 'wide' | 'big' }) {
+interface ProjectSkeletonProps {
+  size: 'small' | 'wide' | 'big';
+}
+
+export function ProjectSkeleton({ size }: ProjectSkeletonProps) {
   const cardStyles = {
     small: 'lg:col-span-1 lg:row-span-1 p-6 sm:p-8 lg:p-12',
     wide: 'sm:col-span-2 lg:col-span-2 lg:row-span-1 p-6 sm:p-8 lg:p-12',
@@ -15,37 +19,35 @@ export function ProjectSkeleton({ size = 'small' }: { size?: 'small' | 'wide' | 
   };
 
   return (
-    <div className={cn(
-      "relative overflow-hidden flex flex-col justify-between rounded-3xl bg-zinc-900/40 border border-zinc-800/50",
-      cardStyles[size as keyof typeof cardStyles]
-    )}>
+    <div
+      className={cn(
+        "relative group overflow-hidden flex flex-col justify-between",
+        "bg-[var(--card-bg)] border border-[var(--card-border)] rounded-3xl min-h-[200px]",
+        cardStyles[size]
+      )}
+    >
       {/* Shimmer Effect */}
-      <div className="absolute inset-0 -translate-x-full animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-r from-transparent via-[var(--fg)] opacity-[0.03] to-transparent animate-shimmer" />
 
-      {/* Icon Placeholder */}
       <div className="relative z-10 flex justify-between items-start">
-        <div className="w-5 h-5 bg-zinc-800 rounded-md" />
+        <div className="w-10 h-10 bg-[var(--accent)] rounded-xl opacity-20" />
+        <div className="w-20 h-6 bg-[var(--accent)] rounded-full opacity-10" />
       </div>
 
-      {/* Content Placeholders */}
       <div className="relative z-10 mt-12 space-y-4">
-        {/* Title */}
         <div className={cn(
-          "bg-zinc-800 rounded-lg",
-          size === 'big' ? "h-12 w-3/4" : "h-8 w-2/3"
+          "bg-[var(--accent)] rounded-lg opacity-20",
+          size === 'big' ? 'h-12 w-3/4' : 'h-8 w-1/2'
         )} />
         
-        {/* Tags */}
         <div className="flex gap-2">
-          <div className="w-12 h-4 bg-zinc-800/50 rounded-full" />
-          <div className="w-16 h-4 bg-zinc-800/50 rounded-full" />
-          <div className="w-10 h-4 bg-zinc-800/50 rounded-full" />
+          <div className="h-4 w-12 bg-[var(--accent)] rounded-full opacity-10" />
+          <div className="h-4 w-16 bg-[var(--accent)] rounded-full opacity-10" />
         </div>
 
-        {/* Description */}
         <div className="space-y-2">
-          <div className="w-full h-3 bg-zinc-800/30 rounded" />
-          <div className="w-4/5 h-3 bg-zinc-800/30 rounded" />
+          <div className="h-3 w-full bg-[var(--accent)] rounded opacity-10" />
+          <div className="h-3 w-5/6 bg-[var(--accent)] rounded opacity-10" />
         </div>
       </div>
     </div>

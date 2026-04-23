@@ -94,12 +94,11 @@ export default function RootLayout({
                 <path
                   d="M 60 0 L 0 0 0 60"
                   fill="none"
-                  stroke="currentColor"
+                  stroke="var(--grid-line)"
                   strokeWidth="0.5"
-                  className="text-zinc-900/10 dark:text-white/10"
                 />
                 {/* Intersection Dots */}
-                <circle cx="0" cy="0" r="1" fill="currentColor" className="text-zinc-900/20 dark:text-white/20" />
+                <circle cx="0" cy="0" r="1" fill="var(--grid-dot)" />
               </pattern>
 
               <radialGradient id="radialMask" cx="50%" cy="50%" r="60%">

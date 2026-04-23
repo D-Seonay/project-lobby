@@ -23,17 +23,31 @@
 :root {
   --bg: #f4f4f5;
   --fg: #09090b;
-  --card-bg: rgba(255, 255, 255, 0.6);
-  --card-border: rgba(0, 0, 0, 0.05);
-  --spotlight-color: rgba(0, 0, 0, 0.03);
+  --accent: #18181b;
+  --meta: #71717a;
+  
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --card-border: rgba(0, 0, 0, 0.08);
+  --card-hover-border: rgba(0, 0, 0, 0.2);
+  
+  --spotlight-color: rgba(0, 0, 0, 0.04);
+  --grid-line: rgba(0, 0, 0, 0.05);
+  --grid-dot: rgba(0, 0, 0, 0.1);
 }
 
 .dark {
   --bg: #09090b;
   --fg: #fafafa;
+  --accent: #27272a;
+  --meta: #52525b;
+  
   --card-bg: rgba(24, 24, 27, 0.4);
   --card-border: rgba(255, 255, 255, 0.05);
+  --card-hover-border: rgba(255, 255, 255, 0.15);
+  
   --spotlight-color: rgba(255, 255, 255, 0.04);
+  --grid-line: rgba(255, 255, 255, 0.05);
+  --grid-dot: rgba(255, 255, 255, 0.1);
 }
 
 @layer base {
@@ -64,6 +78,10 @@
   }
 
   .stealth-glow {
-    box-shadow: 0 0 40px rgba(0, 0, 0, 1);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dark .stealth-glow {
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
   }
 }
