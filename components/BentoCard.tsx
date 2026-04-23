@@ -154,7 +154,7 @@ export function BentoCard({ project, size }: { project: Project, size?: 'small' 
                 e.stopPropagation();
                 setIsPeeking(true);
               }}
-              className="opacity-0 group-hover:opacity-100 p-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 transition-all duration-300 backdrop-blur-md"
+              className="opacity-0 group-hover:opacity-100 p-3 sm:p-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 transition-all duration-300 backdrop-blur-md"
               title="Live Peek"
             >
               <Monitor className="w-3.5 h-3.5 text-[var(--meta)] hover:text-[var(--fg)]" />
@@ -197,7 +197,7 @@ export function BentoCard({ project, size }: { project: Project, size?: 'small' 
 
       <AnimatePresence>
         {isPeeking && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10 pointer-events-none">
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-0 sm:p-4 md:p-10 pointer-events-none">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -208,7 +208,7 @@ export function BentoCard({ project, size }: { project: Project, size?: 'small' 
 
             <motion.div
               layoutId={`card-${project.id}`}
-              className="relative w-full max-w-6xl aspect-video bg-[#050507] rounded-3xl border border-white/10 overflow-hidden shadow-2xl pointer-events-auto"
+              className="relative w-full max-w-6xl aspect-video bg-[#050507] rounded-none sm:rounded-[40px] border border-white/10 overflow-hidden shadow-2xl pointer-events-auto h-full sm:h-auto sm:max-h-[90vh]"
             >
               <div className="absolute top-0 left-0 right-0 z-50 p-6 flex justify-between items-center bg-gradient-to-b from-black/90 to-transparent">
                 <div className="flex items-center gap-4">
@@ -226,7 +226,7 @@ export function BentoCard({ project, size }: { project: Project, size?: 'small' 
 
                 <button
                   onClick={() => setIsPeeking(false)}
-                  className="p-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-colors group/close"
+                  className="p-4 sm:p-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-colors group/close z-[60]"
                 >
                   <X className="w-5 h-5 text-white/50 group-hover:text-white transition-colors" />
                 </button>
