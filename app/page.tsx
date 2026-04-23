@@ -8,6 +8,7 @@ import { SpotlightGrid } from '@/components/SpotlightGrid';
 import { GitHubGraph } from '@/components/GitHubGraph';
 import { CommandPalette } from '@/components/CommandPalette';
 import { ControlCenterWidget } from '@/components/ControlCenterWidget';
+import { MoonPhaseWidget } from '@/components/MoonPhaseWidget';
 import { WallOfLoveWidget } from '@/components/WallOfLoveWidget';
 import projectsData from '@/content/projects.json';
 import { Project } from '@/types/project';
@@ -150,7 +151,8 @@ export default function Home() {
                 <BentoCard project={projects[5]} size="small" />
                 <BentoCard project={projects[6]} size="small" />
                 <GitHubGraph size="wide" />
-                <WallOfLoveWidget size="wide" />
+                <MoonPhaseWidget size="small" />
+                <WallOfLoveWidget size="small" />
               </>
             )}
           </BentoGrid>
