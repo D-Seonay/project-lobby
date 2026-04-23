@@ -10,9 +10,27 @@ export function ThemeToggle() {
 
   useEffect(() => {
     setMounted(true);
-    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
-    const isDark = document.documentElement.classList.contains('dark');
-    setTheme(savedTheme || (isDark ? 'dark' : 'light'));
+    const updateTheme = () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      setTheme(isDark ? 'dark' : 'light');
+    };
+
+    updateTheme();
+
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          updateTheme();
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   const toggleTheme = () => {

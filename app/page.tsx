@@ -69,9 +69,14 @@ export default function Home() {
                 <span className="w-1.5 h-1.5 bg-[var(--meta)] dark:bg-zinc-500 rounded-full animate-pulse" />
                 SYSTEM_READY // EXECUTION_GRANTED
               </motion.div>
-              <motion.div variants={itemVariants} className="font-mono text-[10px] uppercase tracking-[0.5em] text-[var(--meta)] dark:text-zinc-500 opacity-60">
-                System_Lobby // v2.0.6
-              </motion.div>
+              <div className="flex flex-col gap-1">
+                <motion.div variants={itemVariants} className="font-mono text-[10px] uppercase tracking-[0.5em] text-[var(--meta)] dark:text-zinc-500 opacity-60">
+                  System_Lobby // v2.0.6
+                </motion.div>
+                <motion.div variants={itemVariants} className="font-mono text-[10px] uppercase tracking-[0.5em] text-[var(--meta)] dark:text-zinc-500 opacity-40">
+                  System_Log // <span className="text-[var(--fg)] opacity-100">[K]</span> for Commands
+                </motion.div>
+              </div>
             </div>
             <motion.h1 variants={itemVariants} className="text-5xl sm:text-8xl lg:text-[11rem] font-black tracking-tighter uppercase italic leading-[0.7] text-[var(--fg)] dark:text-zinc-100">
               Seonay<br />
