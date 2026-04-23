@@ -65,7 +65,7 @@ export function BentoCard({ project, size }: { project: Project, size?: 'small' 
     small: 'col-span-1 row-span-1 p-6',
     wide: 'col-span-2 row-span-1 p-8',
     big: 'col-span-2 row-span-2 p-10',
-    xl: 'col-span-4 row-span-2 p-10',
+    xl: 'col-span-2 lg:col-span-4 row-span-2 p-10',
   };
 
   const titleStyles = {
