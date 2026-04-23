@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react';
 import { motion, useMotionTemplate, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import * as Icons from 'lucide-react';
+import * as BrandLogos from './BrandLogos';
 import { useSpotlight } from './SpotlightGrid';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -28,13 +29,13 @@ export function SocialMediaWidget({ size = 'small', platform = 'github' }: Socia
 
   // Explicit mapping with safety
   const iconMap: Record<string, any> = {
-    github: (Icons as any).Github || (Icons as any).GithubIcon,
-    linkedin: (Icons as any).Linkedin || (Icons as any).LinkedinIcon,
-    twitter: (Icons as any).Twitter || (Icons as any).X || (Icons as any).TwitterIcon,
+    github: BrandLogos.GitHubLogo,
+    linkedin: BrandLogos.LinkedInLogo,
+    twitter: BrandLogos.TwitterXLogo,
     mail: (Icons as any).Mail || (Icons as any).MailIcon,
-    discord: (Icons as any).MessageSquare,
-    figma: (Icons as any).Figma || (Icons as any).FigmaIcon,
-    instagram: (Icons as any).Instagram || (Icons as any).InstagramIcon
+    discord: BrandLogos.DiscordLogo,
+    figma: BrandLogos.FigmaLogo,
+    instagram: BrandLogos.InstagramLogo
   };
 
   // Dynamic icon access
