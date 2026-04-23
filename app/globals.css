@@ -11,6 +11,12 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
+  @keyframes shimmer {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(100%); }
+  }
+  --animate-shimmer: shimmer 2s infinite linear;
+  
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
