@@ -14,6 +14,7 @@ import { WallOfLoveWidget } from '@/components/WallOfLoveWidget';
 import { QuickAccessWidget } from '@/components/QuickAccessWidget';
 import { TechRadarWidget } from '@/components/TechRadarWidget';
 import { BuildStatsWidget } from '@/components/BuildStatsWidget';
+import { SpotifyWidget } from '@/components/SpotifyWidget';
 import projectsData from '@/content/projects.json';
 import { Project } from '@/types/project';
 import { useEffect, useState } from 'react';
@@ -79,6 +80,7 @@ export default function Home() {
                 <QuickAccessWidget />
                 <BentoCard project={projects[1]} size="wide" />
                 <BentoCard project={projects[3]} size="wide" />
+                <SpotifyWidget size="wide" />
                 <SocialMediaWidget size="big" />
                 <BentoCard project={projects[4]} size="big" />
                 <BentoCard project={projects[2]} size="small" />
