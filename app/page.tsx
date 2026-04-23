@@ -74,7 +74,7 @@ export default function Home() {
           <BentoGrid>
             {loading ? (
               <>
-                <ProjectSkeleton size="big" />
+                <ProjectSkeleton size="xl" />
                 <ProjectSkeleton size="small" />
                 <ProjectSkeleton size="small" />
                 <ProjectSkeleton size="small" />
@@ -95,7 +95,7 @@ export default function Home() {
               </>
             ) : (
               <>
-                <BentoCard project={projects[0]} size="big" />
+                <BentoCard project={projects[0]} size="xl" />
                 <ControlCenterWidget size="small" />
                 <SocialMediaWidget size="small" platform="github" />
                 <QuickAccessWidget />

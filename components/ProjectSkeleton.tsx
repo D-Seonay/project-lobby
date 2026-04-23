@@ -8,7 +8,7 @@ function cn(...inputs: ClassValue[]) {
 }
 
 interface ProjectSkeletonProps {
-  size: 'small' | 'wide' | 'big';
+  size: 'small' | 'wide' | 'big' | 'xl';
 }
 
 export function ProjectSkeleton({ size }: ProjectSkeletonProps) {
@@ -16,6 +16,7 @@ export function ProjectSkeleton({ size }: ProjectSkeletonProps) {
     small: 'col-span-1 row-span-1 p-6',
     wide: 'col-span-2 row-span-1 p-6',
     big: 'col-span-2 row-span-2 p-8',
+    xl: 'col-span-4 row-span-2 p-10',
   };
 
   return (
@@ -37,9 +38,10 @@ export function ProjectSkeleton({ size }: ProjectSkeletonProps) {
       <div className="relative z-10 mt-12 space-y-4">
         <div className={cn(
           "bg-[var(--accent)] rounded-lg opacity-20",
-          size === 'big' ? 'h-12 w-3/4' : 'h-8 w-1/2'
+          size === 'big' ? 'h-12 w-3/4' : 'h-8 w-1/2',
+          size === 'xl' ? 'h-12 w-3/4' : 'h-8 w-1/2'
         )} />
-        
+
         <div className="flex gap-2">
           <div className="h-4 w-12 bg-[var(--accent)] rounded-full opacity-10" />
           <div className="h-4 w-16 bg-[var(--accent)] rounded-full opacity-10" />
