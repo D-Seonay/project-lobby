@@ -1,11 +1,13 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useMotionTemplate } from 'framer-motion';
 import { Project } from '@/types/project';
 import { StatusBadge } from './StatusBadge';
 import * as Icons from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { useSpotlight } from './SpotlightGrid';
+import { useEffect, useState } from 'react';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -13,6 +15,8 @@ function cn(...inputs: ClassValue[]) {
 
 export function BentoCard({ project }: { project: Project }) {
   const Icon = project.icon ? (Icons as any)[project.icon] : null;
+  const spotlight = useSpotlight();
+  const [elementOffset, setElementOffset] = useState({ x: 0, y: 0 });
 
   const cardStyles = {
     small: 'lg:col-span-1 lg:row-span-1 p-6 sm:p-8 lg:p-12',
@@ -26,11 +30,36 @@ export function BentoCard({ project }: { project: Project }) {
     big: 'text-3xl sm:text-5xl',
   };
 
+  // Track relative mouse position for the internal spotlight
+  const relativeMouseX = spotlight ? motion.useTransform(spotlight.mouseX, (val) => val - elementOffset.x) : null;
+  const relativeMouseY = spotlight ? motion.useTransform(spotlight.mouseY, (val) => val - elementOffset.y) : null;
+
+  const spotlightBg = useMotionTemplate`
+    radial-gradient(
+      450px circle at ${relativeMouseX}px ${relativeMouseY}px,
+      rgba(255, 255, 255, 0.04),
+      transparent 80%
+    )
+  `;
+
   return (
     <motion.a
       href={project.link}
       target="_blank"
       rel="noopener noreferrer"
+      onViewportEnter={(entry) => {
+        if (entry?.target) {
+          const rect = entry.target.getBoundingClientRect();
+          // We need to account for the grid parent offset
+          if (spotlight?.gridRef.current) {
+            const gridRect = spotlight.gridRef.current.getBoundingClientRect();
+            setElementOffset({
+              x: rect.left - gridRect.left,
+              y: rect.top - gridRect.top
+            });
+          }
+        }
+      }}
       variants={{
         hidden: { opacity: 0, y: 30, scale: 0.94 },
         show: { opacity: 1, y: 0, scale: 1 }
@@ -48,7 +77,16 @@ export function BentoCard({ project }: { project: Project }) {
         cardStyles[project.size]
       )}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-[var(--ease-out-expo)]" />
+      {/* Global Spotlight Effect */}
+      {spotlight && (
+        <motion.div
+          className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 group-hover/grid:opacity-100 transition duration-500"
+          style={{ background: spotlightBg }}
+        />
+      )}
+
+      {/* Local Hover Gradient (complementary) */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.01] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-[var(--ease-out-expo)]" />
       
       <div className="relative z-10 flex justify-between items-start">
         <div className="text-zinc-600 group-hover:text-zinc-200 transition-colors duration-700 ease-[var(--ease-out-expo)]">

@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { BentoGrid } from '@/components/BentoGrid';
 import { BentoCard } from '@/components/BentoCard';
+import { SpotlightGrid } from '@/components/SpotlightGrid';
 import projectsData from '@/content/projects.json';
 import { Project } from '@/types/project';
 
@@ -101,15 +102,17 @@ export default function Home() {
       {/* Bento Section */}
       <section id="work" className="px-6 sm:px-12 lg:px-24">
         <h2 className="sr-only">Selected Projects</h2>
-        <BentoGrid>
-          {projects.map((project) => (
-            <BentoCard key={project.id} project={project} />
-          ))}
-        </BentoGrid>
+        <SpotlightGrid>
+          <BentoGrid>
+            {projects.map((project) => (
+              <BentoCard key={project.id} project={project} />
+            ))}
+          </BentoGrid>
+        </SpotlightGrid>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="mt-[32rem] pb-32 px-6 sm:px-12 lg:px-24">
+      <section id="contact" className="mt-32 sm:mt-[32rem] pb-32 px-6 sm:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col gap-24">
             <h2 className="text-4xl sm:text-7xl lg:text-[10rem] font-black tracking-tighter uppercase italic leading-[0.8] text-zinc-100">
