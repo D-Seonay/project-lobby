@@ -49,7 +49,7 @@ export default function Home() {
       </section>
 
       {/* Bento Section */}
-      <section className="pb-64 px-8 md:px-24">
+      <section className="px-8 md:px-24">
         <BentoGrid>
           {projects.map((project) => (
             <BentoCard key={project.id} project={project} />
@@ -57,15 +57,43 @@ export default function Home() {
         </BentoGrid>
       </section>
 
+      {/* Contact Section */}
+      <section className="mt-[64rem] pb-32 px-8 md:px-24">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col gap-24">
+            <h2 className="text-7xl md:text-[10rem] font-black tracking-tighter uppercase italic leading-[0.8] text-zinc-100">
+              PRÊT À<br />
+              <span className="text-zinc-900 outline-text">DÉPLOYER ?</span>
+            </h2>
+            
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-12">
+              <a 
+                href="mailto:contact@seonay.studio" 
+                className="group relative px-12 py-6 bg-zinc-100 text-zinc-900 font-mono text-sm uppercase tracking-[0.2em] font-bold overflow-hidden transition-all hover:pr-16 hover:bg-white"
+              >
+                <span className="relative z-10">// Init_Communication</span>
+                <span className="absolute right-6 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all">→</span>
+              </a>
+
+              <div className="flex gap-12 font-mono text-[10px] uppercase tracking-[0.3em] text-zinc-500">
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors underline decoration-zinc-800 underline-offset-8">GitHub</a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors underline decoration-zinc-800 underline-offset-8">LinkedIn</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="py-24 px-8 md:px-24 border-t border-zinc-900">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12 text-zinc-600">
-          <div className="font-black text-2xl tracking-tighter italic uppercase">
-            Seonay<span className="text-zinc-800">_</span>
+      <footer className="py-12 px-8 md:px-24 border-t border-zinc-900/50">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-[9px] font-mono uppercase tracking-[0.3em] text-zinc-700">
+          <div className="flex items-center gap-4">
+            <div className="font-black text-xl tracking-tighter italic uppercase text-zinc-100">
+              Seonay<span className="text-zinc-800">_</span>
+            </div>
+            <span>// Terminal_Out</span>
           </div>
-          <div className="font-mono text-[10px] uppercase tracking-[0.4em]">
-            © 2026 Absolute Dark Design // All Rights Reserved
-          </div>
+          <div>© 2026 Absolute Dark Design // All Rights Reserved</div>
         </div>
       </footer>
     </main>
