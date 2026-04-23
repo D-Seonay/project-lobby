@@ -64,7 +64,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-[#09090b] text-[#fafafa] selection:bg-white selection:text-black">
         {/* Technical Blueprint Grid */}
         <div className="fixed inset-0 z-[-1] pointer-events-none">
-          <svg className="h-full w-full opacity-[0.2]" xmlns="http://www.w3.org/2000/svg">
+          <svg className="h-full w-full opacity-[0.9]" xmlns="http://www.w3.org/2000/svg">
             <defs>
               {/* Primary Grid Pattern */}
               <pattern
@@ -83,17 +83,17 @@ export default function RootLayout({
                 {/* Intersection Dots */}
                 <circle cx="0" cy="0" r="1" fill="white" fillOpacity="0.2" />
               </pattern>
-              
+
               <radialGradient id="radialMask" cx="50%" cy="50%" r="60%">
                 <stop offset="0%" stopColor="white" stopOpacity="1" />
                 <stop offset="100%" stopColor="white" stopOpacity="0" />
               </radialGradient>
-              
+
               <mask id="gridMask">
                 <rect width="100%" height="100%" fill="url(#radialMask)" />
               </mask>
             </defs>
-            
+
             {/* The Grid Rect */}
             <rect
               width="100%"
@@ -105,10 +105,10 @@ export default function RootLayout({
         </div>
 
         {/* Noise Texture Overlay */}
-        <div 
+        <div
           className="fixed inset-0 z-[9999] pointer-events-none opacity-[0.04] mix-blend-overlay"
-          style={{ 
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.80' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` 
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.80' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
           }}
         />
 
