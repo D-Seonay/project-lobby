@@ -21,7 +21,7 @@ interface SocialMediaWidgetProps {
 
 export function SocialMediaWidget({ size = 'small', platform = 'github' }: SocialMediaWidgetProps) {
   const spotlight = useSpotlight();
-  const cardRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<any>(null);
   const fallbackMouse = useMotionValue(0);
   const [elementOffset, setElementOffset] = useState({ x: 0, y: 0 });
   const socials = socialsData as any;
