@@ -26,14 +26,15 @@ export function SocialMediaWidget({ size = 'small', platform = 'github' }: Socia
   const [elementOffset, setElementOffset] = useState({ x: 0, y: 0 });
   const socials = socialsData as any;
 
+  // Explicit mapping with safety
   const iconMap: Record<string, any> = {
-    github: Icons.Github,
-    linkedin: Icons.Linkedin,
-    twitter: (Icons as any).Twitter || (Icons as any).X,
-    mail: Icons.Mail,
-    discord: (Icons as any).MessageSquare, // Fallback if Discord is missing
-    figma: Icons.Figma,
-    instagram: Icons.Instagram
+    github: (Icons as any).Github || (Icons as any).GithubIcon,
+    linkedin: (Icons as any).Linkedin || (Icons as any).LinkedinIcon,
+    twitter: (Icons as any).Twitter || (Icons as any).X || (Icons as any).TwitterIcon,
+    mail: (Icons as any).Mail || (Icons as any).MailIcon,
+    discord: (Icons as any).MessageSquare,
+    figma: (Icons as any).Figma || (Icons as any).FigmaIcon,
+    instagram: (Icons as any).Instagram || (Icons as any).InstagramIcon
   };
 
   // Dynamic icon access
@@ -122,7 +123,7 @@ export function SocialMediaWidget({ size = 'small', platform = 'github' }: Socia
         style={{ rotateX, rotateY, transformStyle: 'preserve-3d', perspective: '1000px' }}
         className={cn(
           "relative group overflow-hidden flex flex-col transition-all duration-800",
-          "bg-[var(--card-bg)] backdrop-blur-md border border-[var(--card-border)] rounded-3xl",
+          "bg-[var(--card-bg)] backdrop-blur-md border border-[var(--card-border)] hover:border-zinc-400 dark:bg-zinc-950/50 dark:border-white/5 dark:hover:border-white/20 rounded-3xl",
           cardStyles.wide
         )}
       >
@@ -180,12 +181,11 @@ export function SocialMediaWidget({ size = 'small', platform = 'github' }: Socia
       </div>
 
       <div className="relative z-10 grid grid-cols-2 gap-4 w-full" style={{ transform: 'translateZ(40px)' }}>
-        {platformKeys.map((p) => {
+        {platformKeys.slice(0, 4).map((p) => {
           const data = socials[p];
           const Icon = getIcon(p, data.name, data.icon);
           return (
             <a 
-
               key={p} 
               href={data.url}
               target="_blank"
