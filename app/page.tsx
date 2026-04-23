@@ -42,12 +42,12 @@ export default function Home() {
       <CommandPalette />
 
       {/* Floating Navigation */}
-      <nav className="fixed top-8 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-in-out">
+      <nav className="fixed top-8 left-1/2 -translate-x-1/2 z-50 transition-all duration-800 ease-in-out">
         <div className="bg-[var(--card-bg)] backdrop-blur-xl border border-[var(--card-border)] px-6 py-3 rounded-full flex items-center gap-8 shadow-2xl">
           <div className="flex items-center gap-8">
-            <a href="#home" className="text-[10px] font-mono uppercase tracking-widest text-[var(--fg)] hover:opacity-60 transition-all">Index</a>
-            <a href="#work" className="text-[10px] font-mono uppercase tracking-widest text-[var(--meta)] hover:text-[var(--fg)] transition-all">Projects</a>
-            <a href="#contact" className="text-[10px] font-mono uppercase tracking-widest text-[var(--meta)] hover:text-[var(--fg)] transition-all">Contact</a>
+            <a href="#home" className="text-[10px] font-mono uppercase tracking-widest text-[var(--fg)] hover:opacity-60 transition-all duration-300">Index</a>
+            <a href="#work" className="text-[10px] font-mono uppercase tracking-widest text-[var(--meta)] hover:text-[var(--fg)] transition-all duration-300">Projects</a>
+            <a href="#contact" className="text-[10px] font-mono uppercase tracking-widest text-[var(--meta)] hover:text-[var(--fg)] transition-all duration-300">Contact</a>
           </div>
           <div className="w-px h-4 bg-[var(--card-border)]" />
           <ThemeToggle />
@@ -139,7 +139,7 @@ export default function Home() {
           >
             <motion.h2 variants={itemVariants} className="text-4xl sm:text-7xl lg:text-[10rem] font-black tracking-tighter uppercase italic leading-[0.8] text-[var(--fg)]">
               PRÊT À<br />
-              <span className="text-[var(--fg)] outline-text opacity-40">DÉPLOYER ?</span>
+              <span className="text-black outline-text opacity-40">DÉPLOYER ?</span>
             </motion.h2>
 
             <motion.div variants={itemVariants} className="flex flex-col md:flex-row items-start md:items-center justify-between gap-12">
@@ -152,8 +152,8 @@ export default function Home() {
               </a>
 
               <div className="flex gap-12 font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--meta)]">
-                <a href="https://github.com/D-Seonay" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--fg)] transition-colors underline decoration-[var(--card-border)] underline-offset-8">GitHub</a>
-                <a href="https://www.linkedin.com/in/matheo-delaunay/" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--fg)] transition-colors underline decoration-[var(--card-border)] underline-offset-8">LinkedIn</a>
+                <a href="https://github.com/D-Seonay" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--fg)] transition-colors duration-300 underline decoration-[var(--card-border)] underline-offset-8">GitHub</a>
+                <a href="https://www.linkedin.com/in/matheo-delaunay/" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--fg)] transition-colors duration-300 underline decoration-[var(--card-border)] underline-offset-8">LinkedIn</a>
               </div>
             </motion.div>
           </motion.div>

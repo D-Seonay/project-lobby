@@ -74,7 +74,7 @@ export function CommandPalette() {
                 <div className="px-3 py-2 text-[10px] uppercase tracking-widest text-[var(--meta)] font-bold">Actions</div>
                 <button
                   onClick={copyEmail}
-                  className="w-full flex items-center gap-3 px-3 py-3 hover:bg-[var(--accent)] rounded-xl transition-colors text-[var(--meta)] hover:text-[var(--fg)] group text-left"
+                  className="w-full flex items-center gap-3 px-3 py-3 hover:bg-[var(--accent)] rounded-xl transition-colors duration-300 text-[var(--meta)] hover:text-[var(--fg)] group text-left"
                 >
                   <Mail className="w-4 h-4" />
                   <span className="flex-1 text-sm font-mono uppercase tracking-wider">Copy Email</span>
@@ -87,7 +87,7 @@ export function CommandPalette() {
                     key={project.id}
                     href={project.link}
                     target="_blank"
-                    className="w-full flex items-center gap-3 px-3 py-3 hover:bg-[var(--accent)] rounded-xl transition-colors text-[var(--meta)] hover:text-[var(--fg)] group text-left"
+                    className="w-full flex items-center gap-3 px-3 py-3 hover:bg-[var(--accent)] rounded-xl transition-colors duration-300 text-[var(--meta)] hover:text-[var(--fg)] group text-left"
                   >
                     <Terminal className="w-4 h-4" />
                     <span className="flex-1 text-sm font-mono uppercase tracking-wider">{project.title}</span>

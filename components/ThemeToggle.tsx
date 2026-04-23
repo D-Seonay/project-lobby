@@ -30,7 +30,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="relative p-2 rounded-full hover:bg-[var(--accent)] transition-colors group"
+      className="relative p-2 rounded-full hover:bg-[var(--accent)] transition-colors duration-300 group"
       aria-label="Toggle Theme"
     >
       <motion.div

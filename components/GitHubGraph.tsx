@@ -111,7 +111,7 @@ export function GitHubGraph() {
           }
         }
       }}
-      className="md:col-span-2 p-8 lg:p-12 bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-zinc-400 dark:hover:border-zinc-700 transition-colors duration-700 rounded-3xl flex flex-col justify-between min-h-[240px] group overflow-hidden relative group-hover/grid:opacity-100 group-hover/grid:opacity-40"
+      className="md:col-span-2 p-8 lg:p-12 bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-zinc-400 dark:hover:border-zinc-700 transition-colors duration-800 rounded-3xl flex flex-col justify-between min-h-[240px] group overflow-hidden relative group-hover/grid:opacity-100 group-hover/grid:opacity-40"
     >
       {spotlight && (
         <motion.div
@@ -120,10 +120,10 @@ export function GitHubGraph() {
         />
       )}
 
-      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.01] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+      <div className="absolute inset-0 bg-gradient-to-br from-white/[0.01] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       
       <div className="relative z-10 flex justify-between items-start">
-        <div className="text-[var(--meta)] group-hover:text-[var(--fg)] transition-colors duration-700">
+        <div className="text-[var(--meta)] group-hover:text-[var(--fg)] transition-colors duration-800">
           <Github className="w-5 h-5" />
         </div>
         <div className="flex flex-col items-end">
@@ -142,7 +142,7 @@ export function GitHubGraph() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.005, duration: 0.5 }}
               className={cn(
-                "w-2.5 h-2.5 rounded-[2px] transition-colors duration-500",
+                "w-2.5 h-2.5 rounded-[2px] transition-colors duration-800",
                 day.contributionCount === 0 ? "bg-[var(--accent)] opacity-20" : 
                 day.contributionCount < 3 ? "bg-emerald-900/40" :
                 day.contributionCount < 6 ? "bg-emerald-700/60" : "bg-emerald-500"
@@ -152,10 +152,10 @@ export function GitHubGraph() {
           ))}
         </div>
         <div className="mt-6">
-          <h3 className="text-2xl font-black tracking-tighter text-[var(--fg)] uppercase italic leading-none group-hover:translate-x-1 transition-transform duration-700">
+          <h3 className="text-2xl font-black tracking-tighter text-[var(--fg)] uppercase italic leading-none group-hover:translate-x-1 transition-transform duration-500">
             Commit_History
           </h3>
-          <p className="text-[10px] font-mono text-[var(--meta)] group-hover:text-[var(--fg)] transition-all duration-700 uppercase tracking-[0.3em] mt-3">
+          <p className="text-[10px] font-mono text-[var(--meta)] group-hover:text-[var(--fg)] transition-all duration-800 uppercase tracking-[0.3em] mt-3">
             Real-time contribution engine // system_sync active
           </p>
         </div>

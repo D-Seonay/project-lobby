@@ -101,7 +101,7 @@ export function BentoCard({ project }: { project: Project }) {
         whileHover={{ y: -4 }}
         className={cn(
           "relative group overflow-hidden flex flex-col justify-between cursor-pointer",
-          "bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-zinc-400 dark:hover:border-zinc-700 transition-colors duration-700 rounded-3xl",
+          "bg-[var(--card-bg)] border border-[var(--card-border)] hover:border-zinc-400 dark:hover:border-zinc-700 transition-colors duration-800 rounded-3xl",
           cardStyles[project.size],
           "group-hover/grid:opacity-40 group-hover/grid:hover:opacity-100"
         )}
@@ -113,10 +113,10 @@ export function BentoCard({ project }: { project: Project }) {
           />
         )}
 
-        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.01] dark:from-white/[0.01] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.01] dark:from-white/[0.01] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         
         <div className="relative z-10 flex justify-between items-start">
-          <motion.div layoutId={`icon-${project.id}`} className="text-[var(--meta)] group-hover:text-[var(--fg)] transition-colors duration-700">
+          <motion.div layoutId={`icon-${project.id}`} className="text-[var(--meta)] group-hover:text-[var(--fg)] transition-colors duration-800">
             {Icon && <Icon className="w-5 h-5" />}
           </motion.div>
           {project.isLive && <StatusBadge url={project.link} />}
@@ -124,7 +124,7 @@ export function BentoCard({ project }: { project: Project }) {
 
         <div className="relative z-10 mt-12 space-y-4">
           <motion.h3 layoutId={`title-${project.id}`} className={cn(
-            "font-black tracking-tighter text-[var(--fg)] uppercase italic leading-[0.8] group-hover:translate-x-1 transition-transform duration-700",
+            "font-black tracking-tighter text-[var(--fg)] uppercase italic leading-[0.8] group-hover:translate-x-1 transition-transform duration-500",
             titleStyles[project.size]
           )}>
             {project.title}
@@ -132,13 +132,13 @@ export function BentoCard({ project }: { project: Project }) {
           
           <div className="flex flex-wrap gap-2">
             {project.tags?.map((tag) => (
-              <span key={tag} className="text-[8px] font-mono px-2 py-0.5 rounded-full bg-[var(--accent)] border border-[var(--card-border)] text-[var(--meta)] uppercase tracking-widest group-hover:text-[var(--fg)] transition-all opacity-40 group-hover:opacity-100">
+              <span key={tag} className="text-[8px] font-mono px-2 py-0.5 rounded-full bg-[var(--accent)] border border-[var(--card-border)] text-[var(--meta)] uppercase tracking-widest group-hover:text-[var(--fg)] transition-all duration-800 opacity-40 group-hover:opacity-100">
                 {tag}
               </span>
             ))}
           </div>
 
-          <motion.p layoutId={`desc-${project.id}`} className="text-[10px] font-mono text-[var(--meta)] group-hover:text-[var(--fg)] opacity-60 group-hover:opacity-100 transition-all duration-700 uppercase tracking-[0.3em] leading-relaxed max-w-[90%] line-clamp-2">
+          <motion.p layoutId={`desc-${project.id}`} className="text-[10px] font-mono text-[var(--meta)] group-hover:text-[var(--fg)] opacity-60 group-hover:opacity-100 transition-all duration-800 uppercase tracking-[0.3em] leading-relaxed max-w-[90%] line-clamp-2">
             {project.description}
           </motion.p>
         </div>
@@ -164,7 +164,7 @@ export function BentoCard({ project }: { project: Project }) {
                   <motion.button 
                     layout
                     onClick={() => setIsOpen(false)}
-                    className="absolute top-8 right-8 p-3 rounded-full bg-[var(--accent)] border border-[var(--card-border)] text-[var(--meta)] hover:text-[var(--fg)] transition-all hover:rotate-90"
+                    className="absolute top-8 right-8 p-3 rounded-full bg-[var(--accent)] border border-[var(--card-border)] text-[var(--meta)] hover:text-[var(--fg)] transition-all duration-300 hover:rotate-90"
                   >
                     <Icons.X className="w-5 h-5" />
                   </motion.button>
@@ -195,7 +195,7 @@ export function BentoCard({ project }: { project: Project }) {
                     <a 
                       href={project.link} 
                       target="_blank" 
-                      className="px-8 py-4 bg-[var(--fg)] text-[var(--bg)] font-black uppercase italic tracking-tighter hover:opacity-90 transition-all rounded-sm flex items-center gap-4"
+                      className="px-8 py-4 bg-[var(--fg)] text-[var(--bg)] font-black uppercase italic tracking-tighter hover:opacity-90 transition-all duration-300 rounded-sm flex items-center gap-4"
                     >
                       Access_Project <Icons.ArrowRight className="w-4 h-4" />
                     </a>

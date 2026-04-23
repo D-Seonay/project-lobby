@@ -79,7 +79,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col bg-[var(--bg)] text-[var(--fg)] selection:bg-[var(--fg)] selection:text-[var(--bg)] transition-colors duration-500">
+      <body className="min-h-full flex flex-col bg-[var(--bg)] text-[var(--fg)] selection:bg-[var(--fg)] selection:text-[var(--bg)]">
         {/* Technical Blueprint Grid */}
         <div className="fixed inset-0 z-[-1] pointer-events-none">
           <svg className="h-full w-full opacity-[0.9]" xmlns="http://www.w3.org/2000/svg">

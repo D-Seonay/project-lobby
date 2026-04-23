@@ -57,17 +57,20 @@
 
   *, ::after, ::before {
     border-color: var(--card-border);
+    transition: background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1), color 0.8s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   body {
     background-color: var(--bg);
     color: var(--fg);
-    @apply antialiased transition-colors duration-500;
+    @apply antialiased;
+    transition: background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1), color 0.8s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   ::selection {
     background-color: var(--fg);
     color: var(--bg);
+    transition: background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1), color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   }
 }
 
