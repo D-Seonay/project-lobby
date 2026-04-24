@@ -22,6 +22,18 @@ export function BentoCard({ project, size }: { project: Project, size?: 'small' 
   const [elementOffset, setElementOffset] = useState({ x: 0, y: 0 });
   const [isPeeking, setIsPeeking] = useState(false);
 
+  // Scroll Lock
+  useEffect(() => {
+    if (isPeeking) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isPeeking]);
+
   const currentSize = size || project.size;
   const isHolographic = currentSize === 'big' || project.holographic;
 
