@@ -12,10 +12,11 @@ function cn(...inputs: ClassValue[]) {
 }
 
 // Replace with your actual Discord ID
-const DISCORD_ID = '303494793527263232'; 
+const DISCORD_ID = '592987413891252229';
 
 export function DiscordStatusWidget({ size = 'small' }: { size?: 'small' | 'wide' }) {
   const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
   const spotlight = useSpotlight();
   const cardRef = useRef<HTMLDivElement>(null);
   const fallbackMouse = useMotionValue(0);
@@ -39,6 +40,8 @@ export function DiscordStatusWidget({ size = 'small' }: { size?: 'small' | 'wide
         }
       } catch (err) {
         console.error('Lanyard fetch failed:', err);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -72,7 +75,30 @@ export function DiscordStatusWidget({ size = 'small' }: { size?: 'small' | 'wide
     )
   `;
 
-  if (!data) return null;
+  if (loading) {
+    return (
+      <div className={cn(
+        "bg-[var(--card-bg)] border border-[var(--card-border)] rounded-3xl p-5 animate-pulse min-h-[200px]",
+        size === 'small' ? "col-span-1 row-span-1" : "col-span-2 row-span-1"
+      )} />
+    );
+  }
+
+  // If ID is not on Lanyard server yet
+  if (!data) {
+    return (
+      <div className={cn(
+        "bg-[var(--card-bg)] border border-[var(--card-border)] rounded-3xl p-5 flex flex-col justify-center items-center text-center gap-2",
+        size === 'small' ? "col-span-1 row-span-1" : "col-span-2 row-span-1"
+      )}>
+        <Wifi className="w-5 h-5 text-red-500/50" />
+        <span className="text-[10px] font-mono text-[var(--meta)] uppercase tracking-widest leading-tight">
+          Signal_Lost<br/>
+          <span className="opacity-40">Join discord.gg/lanyard</span>
+        </span>
+      </div>
+    );
+  }
 
   const statusColor = {
     online: 'bg-emerald-500',
@@ -131,8 +157,8 @@ export function DiscordStatusWidget({ size = 'small' }: { size?: 'small' | 'wide
           </div>
         </div>
         <div className="flex items-center gap-2 px-2 py-1 bg-white/5 border border-white/10 rounded-full">
-           <div className={cn("w-1.5 h-1.5 rounded-full animate-pulse", statusColor)} />
-           <span className="text-[7px] font-mono text-[var(--meta)] uppercase tracking-widest">{data.discord_status}</span>
+          <div className={cn("w-1.5 h-1.5 rounded-full animate-pulse", statusColor)} />
+          <span className="text-[7px] font-mono text-[var(--meta)] uppercase tracking-widest">{data.discord_status}</span>
         </div>
       </div>
 
@@ -141,12 +167,12 @@ export function DiscordStatusWidget({ size = 'small' }: { size?: 'small' | 'wide
         "relative z-10 flex gap-4 mt-4",
         size === 'small' ? "flex-col items-center text-center" : "items-center"
       )} style={{ transform: 'translateZ(50px)' }}>
-        
+
         {/* Avatar with Scanner Border */}
         <div className="relative p-1">
           <div className="absolute inset-0 border border-emerald-500/20 rounded-full animate-[spin_10s_linear_infinite]" />
           <div className="absolute inset-[-4px] border border-dashed border-emerald-500/10 rounded-full animate-[spin_20s_linear_infinite_reverse]" />
-          <img 
+          <img
             src={`https://cdn.discordapp.com/avatars/${DISCORD_ID}/${data.discord_user.avatar}.png`}
             alt={data.discord_user.username}
             className="w-12 h-12 rounded-full border-2 border-white/10 grayscale group-hover:grayscale-0 transition-all duration-700"
