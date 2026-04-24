@@ -104,6 +104,7 @@ export function DayNightCycleWidget() {
       }}
       transition={{ type: "spring", stiffness: 400, damping: 40, mass: 1 }}
       whileHover={{ y: -4 }}
+      aria-label="Day/Night Astro Cycle"
       className={cn(
         "relative group overflow-hidden flex flex-col justify-between cursor-pointer transition-colors duration-500",
         "bg-[var(--card-bg)] backdrop-blur-md border border-[var(--card-border)] hover:border-zinc-400 dark:bg-zinc-950/50 dark:border-white/5 dark:hover:border-white/20 rounded-3xl",

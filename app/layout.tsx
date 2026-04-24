@@ -22,9 +22,17 @@ export const metadata: Metadata = {
   description: "Expert Next.js developer and digital designer specializing in high-performance architectural frameworks and radical dark mode experiments.",
   keywords: ["Mathéo Delaunay", "Seonay Studio", "Next.js", "Webdesign", "Bento Grid", "Portfolio", "Freelance Nantes"],
   authors: [{ name: "Mathéo Delaunay" }],
+  alternates: {
+    canonical: "https://lobby.seonay.com",
+  },
   icons: {
-    icon: "/favicon.svg",
-    apple: "/favicon.svg",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    apple: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
   },
   openGraph: {
     title: "Mathéo Delaunay | Creative Bento Lobby // Seonay Studio",
@@ -58,7 +66,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="fr"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >

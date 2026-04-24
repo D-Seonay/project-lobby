@@ -82,6 +82,7 @@ export function QuickAccessWidget() {
       }}
       transition={{ type: "spring", stiffness: 400, damping: 40, mass: 1 }}
       whileHover={{ y: -4 }}
+      aria-label="Quick Access Module"
       className={cn(
         "relative group overflow-hidden flex flex-col justify-between cursor-pointer transition-colors duration-500",
         "bg-zinc-100/80 backdrop-blur-md border border-zinc-200 hover:border-zinc-400 dark:bg-zinc-900/50 dark:border-white/5 dark:hover:border-white/20 rounded-3xl p-5",
@@ -110,6 +111,8 @@ export function QuickAccessWidget() {
       <div className="relative z-10 flex flex-col gap-2 mt-4" style={{ transform: 'translateZ(40px)' }}>
         <button
           onClick={() => handleCopy('matheodelaunay04@gmail.com', 'email')}
+          aria-label="Copy email address"
+          title="Copy email address"
           className="group/btn relative flex items-center justify-between p-2.5 bg-zinc-200/50 dark:bg-zinc-800/50 border border-zinc-300/50 dark:border-zinc-700/50 rounded-xl hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50 transition-all duration-300 outline-none focus:ring-1 focus:ring-zinc-400 dark:focus:ring-white/20"
         >
           <div className="flex items-center gap-2">
@@ -138,6 +141,8 @@ export function QuickAccessWidget() {
 
         <button
           onClick={() => handleCopy('d_seonay', 'discord')}
+          aria-label="Copy Discord handle"
+          title="Copy Discord handle"
           className="group/btn relative flex items-center justify-between p-2.5 bg-zinc-200/50 dark:bg-zinc-800/50 border border-zinc-300/50 dark:border-zinc-700/50 rounded-xl hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50 transition-all duration-300 outline-none focus:ring-1 focus:ring-zinc-400 dark:focus:ring-white/20"
         >
           <div className="flex items-center gap-2">

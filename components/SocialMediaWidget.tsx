@@ -98,6 +98,8 @@ export function SocialMediaWidget({ size = 'small', platform = 'github' }: Socia
         ref={cardRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
+        aria-label={`Follow on ${data.name}`}
+        title={`Follow on ${data.name}`}
         style={{ rotateX, rotateY, transformStyle: 'preserve-3d', perspective: '1000px' }}
         className={cn(
           "relative group overflow-hidden flex flex-col cursor-pointer transition-all duration-800",
@@ -145,6 +147,8 @@ export function SocialMediaWidget({ size = 'small', platform = 'github' }: Socia
                 href={data.url}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`Follow on ${data.name}`}
+                title={`Follow on ${data.name}`}
                 className="flex flex-col items-center gap-3 group/item"
               >
                 <div className="p-3 bg-[var(--accent)]/30 border border-[var(--card-border)] rounded-xl group-hover/item:text-[var(--fg)] group-hover/item:border-zinc-400 transition-all">
@@ -191,6 +195,8 @@ export function SocialMediaWidget({ size = 'small', platform = 'github' }: Socia
               href={data.url}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`Follow on ${data.label} (${data.handle})`}
+              title={`Follow on ${data.label} (${data.handle})`}
               className="p-4 bg-[var(--accent)]/20 border border-[var(--card-border)] rounded-2xl flex flex-col gap-4 hover:border-zinc-500 transition-colors group/sub"
             >
               <div className="flex justify-between items-center">

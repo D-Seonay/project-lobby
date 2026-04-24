@@ -107,6 +107,8 @@ export function BentoCard({ project, size }: { project: Project, size?: 'small' 
         layoutId={`card-${project.id}`}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
+        aria-label={`View project: ${project.title}`}
+        title={`View project: ${project.title}`}
         style={{
           rotateX,
           rotateY,
@@ -167,7 +169,8 @@ export function BentoCard({ project, size }: { project: Project, size?: 'small' 
                 setIsPeeking(true);
               }}
               className="opacity-0 group-hover:opacity-100 p-3 sm:p-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 transition-all duration-300 backdrop-blur-md"
-              title="Live Peek"
+              title={`Live Peek: ${project.title}`}
+              aria-label={`Live Peek: ${project.title}`}
             >
               <Monitor className="w-3.5 h-3.5 text-[var(--meta)] hover:text-[var(--fg)]" />
             </button>

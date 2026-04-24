@@ -30,7 +30,7 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
-  const jsonLd = {
+  const personJsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Mathéo Delaunay",
@@ -41,23 +41,56 @@ export default function Home() {
       "https://www.linkedin.com/in/matheo-delaunay/"
     ],
     "worksFor": {
-      "@type": "Organization",
-      "name": "Seonay Studio"
+      "@id": "https://lobby.seonay.com/#organization"
     },
     "description": "Expert Next.js developer and digital designer specializing in high-performance architectural frameworks and radical dark mode experiments."
+  };
+
+  const studioJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "@id": "https://lobby.seonay.com/#organization",
+    "name": "Seonay Studio",
+    "url": "https://lobby.seonay.com",
+    "logo": "https://lobby.seonay.com/favicon.svg",
+    "image": "https://lobby.seonay.com/api/og",
+    "description": "Studio de création digitale spécialisé dans le développement Next.js et le design d'interfaces haute performance.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Nantes",
+      "addressCountry": "FR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 47.2184,
+      "longitude": -1.5536
+    },
+    "priceRange": "$$$"
   };
 
   return (
     <main className="min-h-screen pt-12 pb-32">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(studioJsonLd) }}
       />
       <CommandPalette />
 
+      <section id="hero" className="sr-only">
+        <h1>Mathéo Delaunay — Seonay Studio</h1>
+        <p>Développeur Next.js & Designer Digital à Nantes. Création d'écosystèmes numériques radicaux et performants.</p>
+      </section>
+
       {/* Bento Grid Only */}
       <section id="work" className="px-4 sm:px-12 lg:px-24">
-        <h2 className="sr-only">Selected Projects</h2>
+        <div className="mb-8 sr-only">
+          <h2>Portfolio & Projets</h2>
+          <p>Exploration de mes derniers travaux en développement web et design architectural.</p>
+        </div>
         <SpotlightGrid>
           <BentoGrid>
             {loading ? (
