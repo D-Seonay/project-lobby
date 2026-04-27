@@ -1,9 +1,15 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import * as Icons from 'lucide-react';
 import { useEffect } from 'react';
 import { Achievement } from './AchievementProvider';
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 interface AchievementToastProps {
   achievement: Achievement;
@@ -11,7 +17,7 @@ interface AchievementToastProps {
 }
 
 export function AchievementToast({ achievement, onClose }: AchievementToastProps) {
-  const Icon = (Icons as any)[achievement.icon];
+  const Icon = (Icons as any)[achievement.icon] as React.ElementType;
 
   useEffect(() => {
     const timer = setTimeout(onClose, 5000);
@@ -19,17 +25,24 @@ export function AchievementToast({ achievement, onClose }: AchievementToastProps
   }, [onClose]);
 
   return (
-    <div className="fixed top-8 left-0 right-0 z-[10000] flex justify-center pointer-events-none">
-      <motion.div
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        exit={{ y: -100, opacity: 0 }}
-        className="pointer-events-auto flex items-center gap-4 px-6 py-4 bg-zinc-950/80 backdrop-blur-xl border rounded-2xl shadow-2xl"
+    <motion.div 
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ y: -100, opacity: 0 }}
+      className="fixed top-8 left-0 right-0 z-[10000] flex justify-center pointer-events-none"
+      role="alert"
+      aria-live="polite"
+    >
+      <div
+        className={cn(
+          "pointer-events-auto flex items-center gap-4 px-6 py-4 bg-zinc-950/80 backdrop-blur-xl border rounded-2xl shadow-2xl"
+        )}
         style={{ borderColor: `${achievement.color}33` }}
       >
         <div 
           className="p-2 rounded-lg"
           style={{ backgroundColor: `${achievement.color}22`, color: achievement.color }}
+          aria-hidden="true"
         >
           {Icon && <Icon className="w-5 h-5" />}
         </div>
@@ -41,7 +54,7 @@ export function AchievementToast({ achievement, onClose }: AchievementToastProps
             {achievement.title}
           </h4>
         </div>
-      </motion.div>
-    </div>
+      </div>
+    </motion.div>
   );
 }

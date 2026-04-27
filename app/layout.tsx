@@ -60,6 +60,7 @@ export const metadata: Metadata = {
 };
 
 import { AchievementProvider } from "@/components/AchievementProvider";
+import { ConsoleDetector } from "@/components/ConsoleDetector";
 
 export default function RootLayout({
   children,
@@ -140,6 +141,7 @@ export default function RootLayout({
         />
 
         <AchievementProvider>
+          <ConsoleDetector />
           {children}
         </AchievementProvider>
       </body>
