@@ -1,3 +1,23 @@
+# Liquid Glassmorphism Shaders Implementation Plan
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** Implement a high-performance vanilla WebGL liquid shader background for Bento cards.
+
+**Architecture:** A standalone `LiquidShader` component that manages a WebGL context, compiles GLSL noise-based shaders, and reacts to mouse position and time.
+
+**Tech Stack:** React, WebGL (Vanilla), GLSL, Framer Motion (for mouse tracking integration).
+
+---
+
+### Task 1: LiquidShader Component (Core)
+
+**Files:**
+- Create: `components/LiquidShader.tsx`
+
+- [ ] **Step 1: Implement the WebGL shader component**
+
+```tsx
 'use client';
 
 import React, { useEffect, useRef, useMemo } from 'react';
@@ -73,7 +93,6 @@ interface LiquidShaderProps {
 
 export function LiquidShader({ color = '#60a5fa', mouseX, mouseY }: LiquidShaderProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const mouseRef = useRef({ x: mouseX, y: mouseY });
   
   // Convert hex to RGB normalized (0-1)
   const rgbColor = useMemo(() => {
@@ -84,17 +103,6 @@ export function LiquidShader({ color = '#60a5fa', mouseX, mouseY }: LiquidShader
     return [r, g, b];
   }, [color]);
 
-  const colorRef = useRef(rgbColor);
-
-  // Update refs when props change to avoid re-running the setup useEffect
-  useEffect(() => {
-    mouseRef.current = { x: mouseX, y: mouseY };
-  }, [mouseX, mouseY]);
-
-  useEffect(() => {
-    colorRef.current = rgbColor;
-  }, [rgbColor]);
-
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -102,50 +110,18 @@ export function LiquidShader({ color = '#60a5fa', mouseX, mouseY }: LiquidShader
     const gl = canvas.getContext('webgl');
     if (!gl) return;
 
-    // Shader compilation helpers with error handling
+    // Shader compilation helpers
     const createShader = (gl: WebGLRenderingContext, type: number, source: string) => {
-      const shader = gl.createShader(type);
-      if (!shader) return null;
-      
+      const shader = gl.createShader(type)!;
       gl.shaderSource(shader, source);
       gl.compileShader(shader);
-      
-      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-        console.error('Shader compile error:', gl.getShaderInfoLog(shader));
-        gl.deleteShader(shader);
-        return null;
-      }
       return shader;
     };
 
-    const vs = createShader(gl, gl.VERTEX_SHADER, VERTEX_SHADER);
-    if (!vs) return;
-
-    const fs = createShader(gl, gl.FRAGMENT_SHADER, FRAGMENT_SHADER);
-    if (!fs) {
-      gl.deleteShader(vs);
-      return;
-    }
-
-    const program = gl.createProgram();
-    if (!program) {
-      gl.deleteShader(vs);
-      gl.deleteShader(fs);
-      return;
-    }
-    
-    gl.attachShader(program, vs);
-    gl.attachShader(program, fs);
+    const program = gl.createProgram()!;
+    gl.attachShader(program, createShader(gl, gl.VERTEX_SHADER, VERTEX_SHADER));
+    gl.attachShader(program, createShader(gl, gl.FRAGMENT_SHADER, FRAGMENT_SHADER));
     gl.linkProgram(program);
-    
-    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-      console.error('Program link error:', gl.getProgramInfoLog(program));
-      gl.deleteProgram(program);
-      gl.deleteShader(vs);
-      gl.deleteShader(fs);
-      return;
-    }
-    
     gl.useProgram(program);
 
     // Buffer setup
@@ -157,7 +133,6 @@ export function LiquidShader({ color = '#60a5fa', mouseX, mouseY }: LiquidShader
     gl.enableVertexAttribArray(positionLocation);
     gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
 
-    // Retrieve and cache uniform locations once
     const timeLoc = gl.getUniformLocation(program, 'u_time');
     const mouseLoc = gl.getUniformLocation(program, 'u_mouse');
     const resLoc = gl.getUniformLocation(program, 'u_resolution');
@@ -165,23 +140,8 @@ export function LiquidShader({ color = '#60a5fa', mouseX, mouseY }: LiquidShader
 
     let animationFrameId: number;
     const startTime = Date.now();
-    let isVisible = true;
-
-    // Visibility observer to save performance
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        isVisible = entry.isIntersecting;
-      },
-      { threshold: 0.1 }
-    );
-    observer.observe(canvas);
 
     const render = () => {
-      if (!isVisible) {
-        animationFrameId = requestAnimationFrame(render);
-        return;
-      }
-
       const width = canvas.clientWidth;
       const height = canvas.clientHeight;
       if (canvas.width !== width || canvas.height !== height) {
@@ -191,9 +151,9 @@ export function LiquidShader({ color = '#60a5fa', mouseX, mouseY }: LiquidShader
       }
 
       gl.uniform1f(timeLoc, (Date.now() - startTime) / 1000);
-      gl.uniform2f(mouseLoc, mouseRef.current.x, 1 - mouseRef.current.y); // Invert Y for GLSL
+      gl.uniform2f(mouseLoc, mouseX, 1 - mouseY); // Invert Y for GLSL
       gl.uniform2f(resLoc, canvas.width, canvas.height);
-      gl.uniform3f(colorLoc, colorRef.current[0], colorRef.current[1], colorRef.current[2]);
+      gl.uniform3f(colorLoc, rgbColor[0], rgbColor[1], rgbColor[2]);
 
       gl.drawArrays(gl.TRIANGLES, 0, 6);
       animationFrameId = requestAnimationFrame(render);
@@ -201,17 +161,8 @@ export function LiquidShader({ color = '#60a5fa', mouseX, mouseY }: LiquidShader
 
     render();
 
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      observer.disconnect();
-      
-      // Memory cleanup
-      gl.deleteBuffer(buffer);
-      gl.deleteProgram(program);
-      gl.deleteShader(vs);
-      gl.deleteShader(fs);
-    };
-  }, []); // Run only once on mount
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [rgbColor, mouseX, mouseY]);
 
   return (
     <canvas 
@@ -221,3 +172,61 @@ export function LiquidShader({ color = '#60a5fa', mouseX, mouseY }: LiquidShader
     />
   );
 }
+```
+
+- [ ] **Step 2: Commit**
+
+```bash
+git add components/LiquidShader.tsx
+git commit -m "feat: add optimized vanilla WebGL LiquidShader component"
+```
+
+---
+
+### Task 2: Integration in BentoCard
+
+**Files:**
+- Modify: `components/BentoCard.tsx`
+
+- [ ] **Step 1: Update BentoCard to include the shader background**
+
+```tsx
+// Around line 13
+import { LiquidShader } from './LiquidShader';
+
+// In BentoCard, pass normalized mouse position to the shader
+// Use the project's accent color (can be derived from tags or added to project type)
+const accentColor = project.holographic ? '#a78bfa' : '#60a5fa';
+
+// Inside the return, as the first child of the motion.a
+<LiquidShader 
+  color={accentColor} 
+  mouseX={mouseX.get() + 0.5} 
+  mouseY={mouseY.get() + 0.5} 
+/>
+```
+
+- [ ] **Step 2: Commit**
+
+```bash
+git add components/BentoCard.tsx
+git commit -m "feat: integrate LiquidShader into BentoCard"
+```
+
+---
+
+### Task 3: Integration in Other Widgets
+
+**Files:**
+- Modify: `components/ControlCenterWidget.tsx`
+- Modify: `components/SpotifyWidget.tsx`
+- Modify: `components/PresenceWidget.tsx`
+
+- [x] **Step 1: Add LiquidShader to all interactive widgets**
+
+- [x] **Step 2: Commit**
+
+```bash
+git add components/ControlCenterWidget.tsx components/SpotifyWidget.tsx components/PresenceWidget.tsx
+git commit -m "feat: add liquid shaders to all major bento widgets"
+```
