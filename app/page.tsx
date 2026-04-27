@@ -116,6 +116,7 @@ export default function Home() {
                 <ControlCenterWidget size="small" />
                 <QuickAccessWidget />
                 <PresenceWidget />
+                <BuildStatsWidget size="small" />
                 <BentoCard project={projects[1]} size="wide" />
                 <BentoCard project={projects[3]} size="wide" />
                 <SpotifyWidget size="wide" />
@@ -128,7 +129,6 @@ export default function Home() {
                 <DiscordStatusWidget size="wide" />
                 <MoonPhaseWidget size="wide" />
                 <DayNightCycleWidget />
-                <BuildStatsWidget size="small" />
               </>
             )}
           </BentoGrid>

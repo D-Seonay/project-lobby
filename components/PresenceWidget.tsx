@@ -59,8 +59,13 @@ export function PresenceWidget({ size = 'small' }: { size?: 'small' | 'wide' | '
   `;
 
   useEffect(() => {
-    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
-      cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
+    if (!process.env.NEXT_PUBLIC_PUSHER_KEY || !process.env.NEXT_PUBLIC_PUSHER_CLUSTER) {
+      console.warn('PresenceWidget: Pusher environment variables are missing. Real-time presence is disabled.');
+      return;
+    }
+
+    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY, {
+      cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER,
       authEndpoint: '/api/presence/auth',
     });
 
