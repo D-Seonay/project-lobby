@@ -5,13 +5,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 import * as Icons from 'lucide-react';
 import projectsData from '@/content/projects.json';
 import { Project } from '@/types/project';
+import { useSettings } from './SettingsProvider';
 
-const { Search, Command, Mail, Globe, Terminal, ArrowRight, X } = Icons;
+const { Search, Command, Mail, Globe, Terminal, ArrowRight, X, Zap } = Icons;
 const Github = (Icons as any).Github || (Icons as any).GithubIcon || (Icons as any).Code;
 const Linkedin = (Icons as any).Linkedin || (Icons as any).LinkedinIcon || (Icons as any).Share2;
 const SunMoon = (Icons as any).SunMoon || (Icons as any).Sun || (Icons as any).Moon;
 
 export function CommandPalette() {
+  const { shadersEnabled, toggleShaders } = useSettings();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [activeIndex, setActiveIndex] = useState(0);
@@ -74,6 +76,15 @@ export function CommandPalette() {
       title: 'Toggle Theme',
       icon: SunMoon,
       onSelect: toggleTheme,
+    },
+    {
+      id: 'toggle-shaders',
+      title: shadersEnabled ? 'DISABLE_FX_ENGINE' : 'ENABLE_FX_ENGINE',
+      icon: Zap,
+      onSelect: () => {
+        toggleShaders();
+        setOpen(false);
+      },
     },
     {
       id: 'setup-spotify',
