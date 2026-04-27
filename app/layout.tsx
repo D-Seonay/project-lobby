@@ -59,6 +59,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { AchievementProvider } from "@/components/AchievementProvider";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -137,7 +139,9 @@ export default function RootLayout({
           }}
         />
 
-        {children}
+        <AchievementProvider>
+          {children}
+        </AchievementProvider>
       </body>
     </html>
   );
