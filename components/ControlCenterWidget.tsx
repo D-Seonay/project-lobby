@@ -1,11 +1,12 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { motion, useMotionTemplate, useTransform, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useMotionTemplate, useTransform, useMotionValue, useSpring, useMotionValueEvent } from 'framer-motion';
 import { Clock, Cloud, Sun, CloudRain, Wind, Thermometer } from 'lucide-react';
 import { useSpotlight } from './SpotlightGrid';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { LiquidShader } from './LiquidShader';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -22,6 +23,13 @@ export function ControlCenterWidget({ size = 'small' }: { size?: 'small' | 'wide
   // Local mouse position for 3D tilt
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+
+  // Liquid Shader normalized mouse position (0 to 1)
+  const [mX, setMX] = useState(0.5);
+  const [mY, setMY] = useState(0.5);
+
+  useMotionValueEvent(mouseX, "change", (latest) => setMX(latest + 0.5));
+  useMotionValueEvent(mouseY, "change", (latest) => setMY(latest + 0.5));
 
   const springConfig = { damping: 20, stiffness: 150 };
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [20, -20]), springConfig);
@@ -138,10 +146,11 @@ export function ControlCenterWidget({ size = 'small' }: { size?: 'small' | 'wide
       aria-label="Control Center Module"
       className={cn(
         "relative group overflow-hidden flex flex-col justify-between cursor-pointer transition-colors duration-500",
-        "bg-[var(--card-bg)] backdrop-blur-md border border-[var(--card-border)] hover:border-zinc-400 dark:bg-zinc-950/50 dark:border-white/5 dark:hover:border-white/20 rounded-3xl",
+        "bg-[var(--card-bg)] backdrop-blur-md border border-[var(--card-border)] hover:border-zinc-400 dark:bg-[#050507] dark:border-white/5 dark:hover:border-white/20 rounded-3xl",
         cardStyles[size]
       )}
     >
+      <LiquidShader color="#60a5fa" mouseX={mX} mouseY={mY} />
       {spotlight && (
         <motion.div
           className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition duration-500"

@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useMotionTemplate, useTransform, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
+import { motion, useMotionTemplate, useTransform, useMotionValue, useSpring, AnimatePresence, useMotionValueEvent } from 'framer-motion';
 import { Project } from '@/types/project';
 import { StatusBadge } from './StatusBadge';
 import * as Icons from 'lucide-react';
@@ -10,6 +10,7 @@ import { twMerge } from 'tailwind-merge';
 import { useSpotlight } from './SpotlightGrid';
 import { useEffect, useState, useRef } from 'react';
 import { useAchievements } from './AchievementProvider';
+import { LiquidShader } from './LiquidShader';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -38,10 +39,18 @@ export function BentoCard({ project, size }: { project: Project, size?: 'small' 
 
   const currentSize = size || project.size;
   const isHolographic = currentSize === 'big' || project.holographic;
+  const accentColor = isHolographic ? '#a78bfa' : '#60a5fa';
 
   // Local mouse position for 3D tilt
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+
+  // Liquid Shader normalized mouse position (0 to 1)
+  const [mX, setMX] = useState(0.5);
+  const [mY, setMY] = useState(0.5);
+
+  useMotionValueEvent(mouseX, "change", (latest) => setMX(latest + 0.5));
+  useMotionValueEvent(mouseY, "change", (latest) => setMY(latest + 0.5));
 
   const springConfig = { damping: 20, stiffness: 150 };
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [20, -20]), springConfig);
@@ -142,6 +151,7 @@ export function BentoCard({ project, size }: { project: Project, size?: 'small' 
           cardStyles[currentSize]
         )}
       >
+        <LiquidShader color={accentColor} mouseX={mX} mouseY={mY} />
         {spotlight && (
           <motion.div
             className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition duration-500"

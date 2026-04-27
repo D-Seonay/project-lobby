@@ -3,10 +3,11 @@
 import { useEffect, useState, useRef } from 'react';
 import Pusher from 'pusher-js';
 import { Users } from 'lucide-react';
-import { motion, AnimatePresence, useMotionTemplate, useTransform, useMotionValue, useSpring } from 'framer-motion';
+import { motion, AnimatePresence, useMotionTemplate, useTransform, useMotionValue, useSpring, useMotionValueEvent } from 'framer-motion';
 import { useSpotlight } from './SpotlightGrid';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { LiquidShader } from './LiquidShader';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -22,6 +23,13 @@ export function PresenceWidget({ size = 'small' }: { size?: 'small' | 'wide' | '
   // Local mouse position for 3D tilt
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+
+  // Liquid Shader normalized mouse position (0 to 1)
+  const [mX, setMX] = useState(0.5);
+  const [mY, setMY] = useState(0.5);
+
+  useMotionValueEvent(mouseX, "change", (latest) => setMX(latest + 0.5));
+  useMotionValueEvent(mouseY, "change", (latest) => setMY(latest + 0.5));
 
   const springConfig = { damping: 20, stiffness: 150 };
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [20, -20]), springConfig);
@@ -120,6 +128,7 @@ export function PresenceWidget({ size = 'small' }: { size?: 'small' | 'wide' | '
         cardStyles[size]
       )}
     >
+      <LiquidShader color="#10b981" mouseX={mX} mouseY={mY} />
       {spotlight && (
         <motion.div
           className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition duration-500"
