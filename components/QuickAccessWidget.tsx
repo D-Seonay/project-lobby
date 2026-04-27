@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, useMotionTemplate, useTransform, useMotionValue, useSpring, AnimatePresence, useMotionValueEvent } from 'framer-motion';
-import { Mail, MessageSquare, QrCode, Copy, Check } from 'lucide-react';
+import { Mail, MessageSquare, QrCode, Copy, Check, X, Smartphone } from 'lucide-react';
 import { useSpotlight } from './SpotlightGrid';
 import { LiquidShader } from './LiquidShader';
 import { ContactQRCode } from './ContactQRCode';
@@ -15,10 +15,23 @@ function cn(...inputs: ClassValue[]) {
 
 export function QuickAccessWidget() {
   const [copiedType, setCopiedType] = useState<'email' | 'discord' | null>(null);
+  const [isQRModalOpen, setIsQRModalOpen] = useState(false);
   const spotlight = useSpotlight();
   const cardRef = useRef<HTMLDivElement>(null);
   const fallbackMouse = useMotionValue(0);
   const [elementOffset, setElementOffset] = useState({ x: 0, y: 0 });
+
+  // Scroll Lock
+  useEffect(() => {
+    if (isQRModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isQRModalOpen]);
 
   // Local mouse position for 3D tilt
   const mouseX = useMotionValue(0);
@@ -191,16 +204,45 @@ export function QuickAccessWidget() {
             rotateZ: [0, 5, -5, 0],
             transition: { duration: 0.4, ease: "easeOut" }
           }}
-          className="relative rounded-lg shadow-xl border border-zinc-200 dark:border-white/10 overflow-hidden"
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsQRModalOpen(true);
+          }}
+          className="relative rounded-lg shadow-xl border border-zinc-200 dark:border-white/10 overflow-hidden cursor-pointer"
         >
-          <div className="relative w-14 h-14 flex items-center justify-center">
-            <ContactQRCode size={56} />
+          <div className="relative w-20 h-20 flex items-center justify-center">
+            <ContactQRCode size={80} />
           </div>
           <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 px-1.5 py-0.5 bg-zinc-900 text-white text-[6px] font-mono rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
             SCAN_VCARD
           </div>
         </motion.div>
       </div>
+
+      {/* QR Modal */}
+      <AnimatePresence>
+        {isQRModalOpen && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-10 pointer-events-none">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsQRModalOpen(false)}
+              className="absolute inset-0 bg-black/80 backdrop-blur-xl pointer-events-auto"
+            />
+
+            <motion.div
+              layoutId="qr-modal"
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              className="relative w-full max-w-sm bg-white dark:bg-zinc-900 rounded-[32px] border border-zinc-200 dark:border-white/10 overflow-hidden shadow-2xl pointer-events-auto"
+            >
+              <ContactQRCode size={240} />
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
       {/* Background Decor */}
       <div className="absolute -bottom-2 -right-2 opacity-5 group-hover:opacity-10 transition-opacity blur-[2px] pointer-events-none">

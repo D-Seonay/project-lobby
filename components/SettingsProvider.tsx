@@ -10,7 +10,7 @@ type SettingsContextType = {
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);
 
 export function SettingsProvider({ children }: { children: React.ReactNode }) {
-  const [shadersEnabled, setShadersEnabled] = useState(true);
+  const [shadersEnabled, setShadersEnabled] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem('seonay_settings');
