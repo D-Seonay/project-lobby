@@ -30,6 +30,7 @@ export function AchievementProvider({ children }: { children: React.ReactNode })
   const [activeToast, setActiveToast] = useState<Achievement | null>(null);
   const [clickCount, setClickCount] = useState(0);
 
+  // Load achievements on mount
   useEffect(() => {
     const saved = localStorage.getItem('seonay_achievements');
     if (saved) {
@@ -42,30 +43,43 @@ export function AchievementProvider({ children }: { children: React.ReactNode })
   }, []);
 
   const unlock = useCallback((id: string) => {
-    const achievement = ACHIEVEMENTS[id];
-    if (!achievement) return;
-
-    setUnlockedIds(prev => {
-      if (prev.includes(id)) return prev;
-      
-      const newUnlocked = [...prev, id];
-      localStorage.setItem('seonay_achievements', JSON.stringify(newUnlocked));
-      
-      // Trigger notification
-      console.log(`🏆 Achievement Unlocked: ${achievement.title}`);
-      setActiveToast(achievement);
-      
-      return newUnlocked;
-    });
+    if (!ACHIEVEMENTS[id]) return;
+    setUnlockedIds(prev => prev.includes(id) ? prev : [...prev, id]);
   }, []);
 
+  // Persist achievements and trigger notifications
+  useEffect(() => {
+    if (unlockedIds.length === 0) return;
+    
+    const saved = localStorage.getItem('seonay_achievements');
+    const parsedSaved: string[] = saved ? JSON.parse(saved) : [];
+    
+    // Find new achievements not yet in localStorage
+    const newlyUnlocked = unlockedIds.filter(id => !parsedSaved.includes(id));
+    
+    if (newlyUnlocked.length > 0) {
+      localStorage.setItem('seonay_achievements', JSON.stringify(unlockedIds));
+      
+      // Trigger toast for the most recent one
+      const latestId = newlyUnlocked[newlyUnlocked.length - 1];
+      const achievement = ACHIEVEMENTS[latestId];
+      if (achievement) {
+        setActiveToast(achievement);
+        console.log(`🏆 Achievement Unlocked: ${achievement.title}`);
+      }
+    }
+  }, [unlockedIds]);
+
   const incrementProjectClicks = useCallback(() => {
-    setClickCount(prev => {
-      const next = prev + 1;
-      if (next >= 5) unlock('explorer');
-      return next;
-    });
-  }, [unlock]);
+    setClickCount(prev => prev + 1);
+  }, []);
+
+  // Explorer achievement logic
+  useEffect(() => {
+    if (clickCount >= 5) {
+      unlock('explorer');
+    }
+  }, [clickCount, unlock]);
 
   const contextValue = useMemo(() => ({
     unlockedIds,

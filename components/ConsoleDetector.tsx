@@ -4,9 +4,12 @@ import { useEffect } from 'react';
 import { useAchievements } from './AchievementProvider';
 
 export function ConsoleDetector() {
-  const { unlock } = useAchievements();
+  const { unlock, unlockedIds } = useAchievements();
+  const isUnlocked = unlockedIds.includes('developer');
 
   useEffect(() => {
+    if (isUnlocked) return;
+
     // Clever trick to detect DevTools: using a getter on a console.log object
     let devtoolsOpen = false;
     const element = new Image();
@@ -39,7 +42,7 @@ export function ConsoleDetector() {
       clearInterval(interval);
       window.removeEventListener('resize', checkDimensions);
     };
-  }, [unlock]);
+  }, [unlock, isUnlocked]);
 
   return null;
 }
