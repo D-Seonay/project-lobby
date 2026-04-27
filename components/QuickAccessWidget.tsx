@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { motion, useMotionTemplate, useTransform, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
+import { motion, useMotionTemplate, useTransform, useMotionValue, useSpring, AnimatePresence, useMotionValueEvent } from 'framer-motion';
 import { Mail, MessageSquare, QrCode, Copy, Check } from 'lucide-react';
 import { useSpotlight } from './SpotlightGrid';
+import { LiquidShader } from './LiquidShader';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -21,6 +22,13 @@ export function QuickAccessWidget() {
   // Local mouse position for 3D tilt
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+
+  // Liquid Shader normalized mouse position (0 to 1)
+  const [mX, setMX] = useState(0.5);
+  const [mY, setMY] = useState(0.5);
+
+  useMotionValueEvent(mouseX, "change", (latest) => setMX(latest + 0.5));
+  useMotionValueEvent(mouseY, "change", (latest) => setMY(latest + 0.5));
 
   const springConfig = { damping: 20, stiffness: 150 };
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [15, -15]), springConfig);
@@ -89,6 +97,9 @@ export function QuickAccessWidget() {
         "col-span-1 row-span-1"
       )}
     >
+      <div className="absolute inset-0 z-0">
+        <LiquidShader color="#60a5fa" mouseX={mX} mouseY={mY} />
+      </div>
       {spotlight && (
         <motion.div
           className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition duration-500"

@@ -128,7 +128,9 @@ export function SpotifyWidget({ size = 'wide' }: { size?: 'small' | 'wide' | 'bi
         cardStyles[size as keyof typeof cardStyles]
       )}
     >
-      <LiquidShader color="#1db954" mouseX={mX} mouseY={mY} />
+      <div className="absolute inset-0 z-0">
+        <LiquidShader color="#1db954" mouseX={mX} mouseY={mY} />
+      </div>
       {spotlight && (
         <motion.div
           className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition duration-500"
