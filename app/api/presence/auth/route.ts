@@ -1,26 +1,34 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Pusher from 'pusher';
 
-const PUSHER_APP_ID = process.env.PUSHER_APP_ID;
-const PUSHER_KEY = process.env.NEXT_PUBLIC_PUSHER_KEY;
-const PUSHER_SECRET = process.env.PUSHER_SECRET;
-const PUSHER_CLUSTER = process.env.NEXT_PUBLIC_PUSHER_CLUSTER;
+let pusher: Pusher | null = null;
 
-if (!PUSHER_APP_ID || !PUSHER_KEY || !PUSHER_SECRET || !PUSHER_CLUSTER) {
-  console.error('Missing Pusher environment variables');
-  throw new Error('Internal Server Configuration Error');
-}
+const getPusher = () => {
+  if (pusher) return pusher;
 
-const pusher = new Pusher({
-  appId: PUSHER_APP_ID,
-  key: PUSHER_KEY,
-  secret: PUSHER_SECRET,
-  cluster: PUSHER_CLUSTER,
-  useTLS: true,
-});
+  const PUSHER_APP_ID = process.env.PUSHER_APP_ID;
+  const PUSHER_KEY = process.env.NEXT_PUBLIC_PUSHER_KEY;
+  const PUSHER_SECRET = process.env.PUSHER_SECRET;
+  const PUSHER_CLUSTER = process.env.NEXT_PUBLIC_PUSHER_CLUSTER;
+
+  if (!PUSHER_APP_ID || !PUSHER_KEY || !PUSHER_SECRET || !PUSHER_CLUSTER) {
+    throw new Error('Missing Pusher environment variables');
+  }
+
+  pusher = new Pusher({
+    appId: PUSHER_APP_ID,
+    key: PUSHER_KEY,
+    secret: PUSHER_SECRET,
+    cluster: PUSHER_CLUSTER,
+    useTLS: true,
+  });
+
+  return pusher;
+};
 
 export async function POST(req: NextRequest) {
   try {
+    const currentPusher = getPusher();
     const body = await req.formData();
     const socketId = body.get('socket_id');
     const channelName = body.get('channel_name');
@@ -35,7 +43,7 @@ export async function POST(req: NextRequest) {
       user_info: { name: 'Anonymous Explorer' },
     };
 
-    const authResponse = pusher.authenticate(socketId, channelName, presenceData);
+    const authResponse = currentPusher.authenticate(socketId, channelName, presenceData);
     return NextResponse.json(authResponse);
   } catch (error) {
     console.error('Pusher auth error:', error);
