@@ -61,6 +61,7 @@ export const metadata: Metadata = {
 
 import { AchievementProvider } from "@/components/AchievementProvider";
 import { ConsoleDetector } from "@/components/ConsoleDetector";
+import { SettingsProvider } from "@/components/SettingsProvider";
 
 export default function RootLayout({
   children,
@@ -140,10 +141,12 @@ export default function RootLayout({
           }}
         />
 
-        <AchievementProvider>
-          <ConsoleDetector />
-          {children}
-        </AchievementProvider>
+        <SettingsProvider>
+          <AchievementProvider>
+            <ConsoleDetector />
+            {children}
+          </AchievementProvider>
+        </SettingsProvider>
       </body>
     </html>
   );
