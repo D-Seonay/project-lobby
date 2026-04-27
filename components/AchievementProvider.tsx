@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
 
 export type Achievement = {
   id: string;
@@ -39,7 +39,7 @@ export function AchievementProvider({ children }: { children: React.ReactNode })
     }
   }, []);
 
-  const unlock = (id: string) => {
+  const unlock = useCallback((id: string) => {
     if (unlockedIds.includes(id)) return;
     
     const achievement = ACHIEVEMENTS[id];
@@ -52,24 +52,36 @@ export function AchievementProvider({ children }: { children: React.ReactNode })
     // Trigger notification
     console.log(`🏆 Achievement Unlocked: ${achievement.title}`);
     setActiveToast(achievement);
-  };
+  }, [unlockedIds]);
 
-  const incrementProjectClicks = () => {
+  const incrementProjectClicks = useCallback(() => {
     setClickCount(prev => {
       const next = prev + 1;
       if (next >= 5) unlock('explorer');
       return next;
     });
-  };
+  }, [unlock]);
+
+  useEffect(() => {
+    if (activeToast) {
+      const timer = setTimeout(() => setActiveToast(null), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [activeToast]);
+
+  const contextValue = useMemo(() => ({
+    unlockedIds,
+    unlock,
+    incrementProjectClicks
+  }), [unlockedIds, unlock, incrementProjectClicks]);
 
   return (
-    <AchievementContext.Provider value={{ unlockedIds, unlock, incrementProjectClicks }}>
+    <AchievementContext.Provider value={contextValue}>
       {children}
       {/* AchievementToast will be integrated here in Task 2 */}
       {activeToast && (
         <div className="hidden">
           {/* Temporary placeholder to acknowledge activeToast exists in state */}
-          {setTimeout(() => setActiveToast(null), 5000) && null}
         </div>
       )}
     </AchievementContext.Provider>
