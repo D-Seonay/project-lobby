@@ -1,9 +1,11 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { motion, useMotionTemplate, useTransform, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
+import { motion, useMotionTemplate, useTransform, useMotionValue, useSpring, AnimatePresence, useMotionValueEvent } from 'framer-motion';
 import { Mail, MessageSquare, QrCode, Copy, Check } from 'lucide-react';
 import { useSpotlight } from './SpotlightGrid';
+import { LiquidShader } from './LiquidShader';
+import { ContactQRCode } from './ContactQRCode';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -21,6 +23,13 @@ export function QuickAccessWidget() {
   // Local mouse position for 3D tilt
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+
+  // Liquid Shader normalized mouse position (0 to 1)
+  const [mX, setMX] = useState(0.5);
+  const [mY, setMY] = useState(0.5);
+
+  useMotionValueEvent(mouseX, "change", (latest) => setMX(latest + 0.5));
+  useMotionValueEvent(mouseY, "change", (latest) => setMY(latest + 0.5));
 
   const springConfig = { damping: 20, stiffness: 150 };
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [15, -15]), springConfig);
@@ -89,6 +98,9 @@ export function QuickAccessWidget() {
         "col-span-1 row-span-1"
       )}
     >
+      <div className="absolute inset-0 z-0">
+        <LiquidShader color="#60a5fa" mouseX={mX} mouseY={mY} />
+      </div>
       {spotlight && (
         <motion.div
           className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition duration-500"
@@ -179,25 +191,20 @@ export function QuickAccessWidget() {
             rotateZ: [0, 5, -5, 0],
             transition: { duration: 0.4, ease: "easeOut" }
           }}
-          className="relative p-2 bg-white dark:bg-zinc-100 rounded-lg shadow-xl border border-zinc-200 dark:border-white/10"
+          className="relative rounded-lg shadow-xl border border-zinc-200 dark:border-white/10 overflow-hidden"
         >
-          <div className="relative w-12 h-12 flex items-center justify-center">
-            <QrCode className="w-10 h-10 text-zinc-900" />
-            {/* Stylized QR bits */}
-            <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-zinc-900" />
-            <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-zinc-900" />
-            <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-zinc-900" />
-            <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-zinc-900" />
+          <div className="relative w-14 h-14 flex items-center justify-center">
+            <ContactQRCode size={56} />
           </div>
-          <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 px-1.5 py-0.5 bg-zinc-900 text-white text-[6px] font-mono rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+          <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 px-1.5 py-0.5 bg-zinc-900 text-white text-[6px] font-mono rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
             SCAN_VCARD
           </div>
         </motion.div>
       </div>
 
       {/* Background Decor */}
-      <div className="absolute -bottom-2 -right-2 opacity-10 group-hover:opacity-20 transition-opacity">
-        <QrCode className="w-24 h-24 text-zinc-900 dark:text-white" />
+      <div className="absolute -bottom-2 -right-2 opacity-5 group-hover:opacity-10 transition-opacity blur-[2px] pointer-events-none">
+        <ContactQRCode size={96} />
       </div>
     </motion.div>
   );

@@ -1,10 +1,11 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { motion, useMotionTemplate, useTransform, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useMotionTemplate, useTransform, useMotionValue, useSpring, useMotionValueEvent } from 'framer-motion';
 import * as Icons from 'lucide-react';
 import * as BrandLogos from './BrandLogos';
 import { useSpotlight } from './SpotlightGrid';
+import { LiquidShader } from './LiquidShader';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import socialsData from '@/content/socials.json';
@@ -51,6 +52,13 @@ export function SocialMediaWidget({ size = 'small', platform = 'github' }: Socia
   // Local mouse position for 3D tilt
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
+
+  // Liquid Shader normalized mouse position (0 to 1)
+  const [mX, setMX] = useState(0.5);
+  const [mY, setMY] = useState(0.5);
+
+  useMotionValueEvent(mouseX, "change", (latest) => setMX(latest + 0.5));
+  useMotionValueEvent(mouseY, "change", (latest) => setMY(latest + 0.5));
 
   const springConfig = { damping: 20, stiffness: 150 };
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [20, -20]), springConfig);
@@ -107,6 +115,9 @@ export function SocialMediaWidget({ size = 'small', platform = 'github' }: Socia
           cardStyles.small
         )}
       >
+        <div className="absolute inset-0 z-0">
+          <LiquidShader color="#f472b6" mouseX={mX} mouseY={mY} />
+        </div>
         {spotlight && <motion.div className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition duration-500" style={{ background: spotlightBg }} />}
         <motion.div style={{ transform: 'translateZ(60px)' }} className="text-[var(--meta)] group-hover:text-[var(--fg)] transition-colors duration-500">
           <Icon size={64} strokeWidth={1} />
@@ -130,6 +141,9 @@ export function SocialMediaWidget({ size = 'small', platform = 'github' }: Socia
           cardStyles.wide
         )}
       >
+        <div className="absolute inset-0 z-0">
+          <LiquidShader color="#f472b6" mouseX={mX} mouseY={mY} />
+        </div>
         {spotlight && <motion.div className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition duration-500" style={{ background: spotlightBg }} />}
         
         <div className="relative z-10 flex justify-between items-start w-full">
@@ -178,6 +192,9 @@ export function SocialMediaWidget({ size = 'small', platform = 'github' }: Socia
         cardStyles.big
       )}
     >
+      <div className="absolute inset-0 z-0">
+        <LiquidShader color="#f472b6" mouseX={mX} mouseY={mY} />
+      </div>
       {spotlight && <motion.div className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition duration-500" style={{ background: spotlightBg }} />}
       
       <div className="relative z-10 flex justify-between items-start w-full">

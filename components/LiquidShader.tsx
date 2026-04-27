@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useMemo } from 'react';
+import { useSettings } from './SettingsProvider';
 
 const VERTEX_SHADER = `
   attribute vec2 position;
@@ -55,11 +56,11 @@ const FRAGMENT_SHADER = `
     float mouseInfluence = smoothstep(0.4, 0.0, dist);
     noise += mouseInfluence * 0.5;
 
-    vec3 baseColor = vec3(0.02, 0.02, 0.027); // Deep zinc
+    vec3 baseColor = vec3(0.01, 0.01, 0.015); // Slightly darker base
     vec3 accentColor = u_color;
     
-    float intensity = smoothstep(-0.5, 1.5, noise);
-    vec3 finalColor = mix(baseColor, accentColor, intensity * 0.15);
+    float intensity = smoothstep(-0.2, 1.2, noise);
+    vec3 finalColor = mix(baseColor, accentColor, intensity * 0.4); // More intense color
     
     gl_FragColor = vec4(finalColor, 1.0);
   }
@@ -72,6 +73,7 @@ interface LiquidShaderProps {
 }
 
 export function LiquidShader({ color = '#60a5fa', mouseX, mouseY }: LiquidShaderProps) {
+  const { shadersEnabled } = useSettings();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: mouseX, y: mouseY });
   
@@ -96,6 +98,8 @@ export function LiquidShader({ color = '#60a5fa', mouseX, mouseY }: LiquidShader
   }, [rgbColor]);
 
   useEffect(() => {
+    if (!shadersEnabled) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -211,13 +215,15 @@ export function LiquidShader({ color = '#60a5fa', mouseX, mouseY }: LiquidShader
       gl.deleteShader(vs);
       gl.deleteShader(fs);
     };
-  }, []); // Run only once on mount
+  }, [shadersEnabled]); // Re-run when shaders are enabled/disabled
+
+  if (!shadersEnabled) return null;
 
   return (
     <canvas 
       ref={canvasRef} 
-      className="absolute inset-0 w-full h-full pointer-events-none opacity-50 mix-blend-screen"
-      style={{ filter: 'blur(40px)' }}
+      className="absolute inset-0 w-full h-full pointer-events-none opacity-80 mix-blend-screen z-0"
+      style={{ filter: 'blur(20px)' }}
     />
   );
 }
