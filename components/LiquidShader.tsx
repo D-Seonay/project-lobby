@@ -73,6 +73,7 @@ interface LiquidShaderProps {
 
 export function LiquidShader({ color = '#60a5fa', mouseX, mouseY }: LiquidShaderProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const mouseRef = useRef({ x: mouseX, y: mouseY });
   
   // Convert hex to RGB normalized (0-1)
   const rgbColor = useMemo(() => {
@@ -83,6 +84,17 @@ export function LiquidShader({ color = '#60a5fa', mouseX, mouseY }: LiquidShader
     return [r, g, b];
   }, [color]);
 
+  const colorRef = useRef(rgbColor);
+
+  // Update refs when props change to avoid re-running the setup useEffect
+  useEffect(() => {
+    mouseRef.current = { x: mouseX, y: mouseY };
+  }, [mouseX, mouseY]);
+
+  useEffect(() => {
+    colorRef.current = rgbColor;
+  }, [rgbColor]);
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -90,18 +102,50 @@ export function LiquidShader({ color = '#60a5fa', mouseX, mouseY }: LiquidShader
     const gl = canvas.getContext('webgl');
     if (!gl) return;
 
-    // Shader compilation helpers
+    // Shader compilation helpers with error handling
     const createShader = (gl: WebGLRenderingContext, type: number, source: string) => {
-      const shader = gl.createShader(type)!;
+      const shader = gl.createShader(type);
+      if (!shader) return null;
+      
       gl.shaderSource(shader, source);
       gl.compileShader(shader);
+      
+      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        console.error('Shader compile error:', gl.getShaderInfoLog(shader));
+        gl.deleteShader(shader);
+        return null;
+      }
       return shader;
     };
 
-    const program = gl.createProgram()!;
-    gl.attachShader(program, createShader(gl, gl.VERTEX_SHADER, VERTEX_SHADER));
-    gl.attachShader(program, createShader(gl, gl.FRAGMENT_SHADER, FRAGMENT_SHADER));
+    const vs = createShader(gl, gl.VERTEX_SHADER, VERTEX_SHADER);
+    if (!vs) return;
+
+    const fs = createShader(gl, gl.FRAGMENT_SHADER, FRAGMENT_SHADER);
+    if (!fs) {
+      gl.deleteShader(vs);
+      return;
+    }
+
+    const program = gl.createProgram();
+    if (!program) {
+      gl.deleteShader(vs);
+      gl.deleteShader(fs);
+      return;
+    }
+    
+    gl.attachShader(program, vs);
+    gl.attachShader(program, fs);
     gl.linkProgram(program);
+    
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      console.error('Program link error:', gl.getProgramInfoLog(program));
+      gl.deleteProgram(program);
+      gl.deleteShader(vs);
+      gl.deleteShader(fs);
+      return;
+    }
+    
     gl.useProgram(program);
 
     // Buffer setup
@@ -113,6 +157,7 @@ export function LiquidShader({ color = '#60a5fa', mouseX, mouseY }: LiquidShader
     gl.enableVertexAttribArray(positionLocation);
     gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
 
+    // Retrieve and cache uniform locations once
     const timeLoc = gl.getUniformLocation(program, 'u_time');
     const mouseLoc = gl.getUniformLocation(program, 'u_mouse');
     const resLoc = gl.getUniformLocation(program, 'u_resolution');
@@ -131,9 +176,9 @@ export function LiquidShader({ color = '#60a5fa', mouseX, mouseY }: LiquidShader
       }
 
       gl.uniform1f(timeLoc, (Date.now() - startTime) / 1000);
-      gl.uniform2f(mouseLoc, mouseX, 1 - mouseY); // Invert Y for GLSL
+      gl.uniform2f(mouseLoc, mouseRef.current.x, 1 - mouseRef.current.y); // Invert Y for GLSL
       gl.uniform2f(resLoc, canvas.width, canvas.height);
-      gl.uniform3f(colorLoc, rgbColor[0], rgbColor[1], rgbColor[2]);
+      gl.uniform3f(colorLoc, colorRef.current[0], colorRef.current[1], colorRef.current[2]);
 
       gl.drawArrays(gl.TRIANGLES, 0, 6);
       animationFrameId = requestAnimationFrame(render);
@@ -141,8 +186,16 @@ export function LiquidShader({ color = '#60a5fa', mouseX, mouseY }: LiquidShader
 
     render();
 
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [rgbColor, mouseX, mouseY]);
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      
+      // Memory cleanup
+      gl.deleteBuffer(buffer);
+      gl.deleteProgram(program);
+      gl.deleteShader(vs);
+      gl.deleteShader(fs);
+    };
+  }, []); // Run only once on mount
 
   return (
     <canvas 
