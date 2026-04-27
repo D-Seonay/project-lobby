@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useMemo } from 'react';
+import { useSettings } from './SettingsProvider';
 
 const VERTEX_SHADER = `
   attribute vec2 position;
@@ -72,6 +73,7 @@ interface LiquidShaderProps {
 }
 
 export function LiquidShader({ color = '#60a5fa', mouseX, mouseY }: LiquidShaderProps) {
+  const { shadersEnabled } = useSettings();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: mouseX, y: mouseY });
   
@@ -96,6 +98,8 @@ export function LiquidShader({ color = '#60a5fa', mouseX, mouseY }: LiquidShader
   }, [rgbColor]);
 
   useEffect(() => {
+    if (!shadersEnabled) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -211,7 +215,9 @@ export function LiquidShader({ color = '#60a5fa', mouseX, mouseY }: LiquidShader
       gl.deleteShader(vs);
       gl.deleteShader(fs);
     };
-  }, []); // Run only once on mount
+  }, [shadersEnabled]); // Re-run when shaders are enabled/disabled
+
+  if (!shadersEnabled) return null;
 
   return (
     <canvas 
