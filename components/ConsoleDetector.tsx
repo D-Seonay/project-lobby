@@ -19,7 +19,6 @@ export function ConsoleDetector() {
 
     const interval = setInterval(() => {
       console.log(element);
-      console.clear(); // Keep the console clean
     }, 1000);
 
     // Another trick: check window dimensions

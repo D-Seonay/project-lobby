@@ -42,19 +42,22 @@ export function AchievementProvider({ children }: { children: React.ReactNode })
   }, []);
 
   const unlock = useCallback((id: string) => {
-    if (unlockedIds.includes(id)) return;
-    
     const achievement = ACHIEVEMENTS[id];
     if (!achievement) return;
 
-    const newUnlocked = [...unlockedIds, id];
-    setUnlockedIds(newUnlocked);
-    localStorage.setItem('seonay_achievements', JSON.stringify(newUnlocked));
-    
-    // Trigger notification
-    console.log(`🏆 Achievement Unlocked: ${achievement.title}`);
-    setActiveToast(achievement);
-  }, [unlockedIds]);
+    setUnlockedIds(prev => {
+      if (prev.includes(id)) return prev;
+      
+      const newUnlocked = [...prev, id];
+      localStorage.setItem('seonay_achievements', JSON.stringify(newUnlocked));
+      
+      // Trigger notification
+      console.log(`🏆 Achievement Unlocked: ${achievement.title}`);
+      setActiveToast(achievement);
+      
+      return newUnlocked;
+    });
+  }, []);
 
   const incrementProjectClicks = useCallback(() => {
     setClickCount(prev => {
