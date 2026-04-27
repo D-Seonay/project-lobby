@@ -9,6 +9,7 @@ import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { useSpotlight } from './SpotlightGrid';
 import { useEffect, useState, useRef } from 'react';
+import { useAchievements } from './AchievementProvider';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -21,6 +22,7 @@ export function BentoCard({ project, size }: { project: Project, size?: 'small' 
   const fallbackMouse = useMotionValue(0);
   const [elementOffset, setElementOffset] = useState({ x: 0, y: 0 });
   const [isPeeking, setIsPeeking] = useState(false);
+  const { incrementProjectClicks } = useAchievements();
 
   // Scroll Lock
   useEffect(() => {
@@ -107,6 +109,7 @@ export function BentoCard({ project, size }: { project: Project, size?: 'small' 
         layoutId={`card-${project.id}`}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
+        onClick={() => incrementProjectClicks()}
         aria-label={`View project: ${project.title}`}
         title={`View project: ${project.title}`}
         style={{

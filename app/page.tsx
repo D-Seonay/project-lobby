@@ -21,15 +21,24 @@ import { PresenceWidget } from '@/components/PresenceWidget';
 import projectsData from '@/content/projects.json';
 import { Project } from '@/types/project';
 import { useEffect, useState } from 'react';
+import { useAchievements } from '@/components/AchievementProvider';
 
 export default function Home() {
   const projects = projectsData as Project[];
   const [loading, setLoading] = useState(true);
+  const { unlock } = useAchievements();
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 1000);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    const hour = new Date().getHours();
+    if (hour >= 0 && hour < 5) {
+      unlock('night-owl');
+    }
+  }, [unlock]);
 
   const personJsonLd = {
     "@context": "https://schema.org",
