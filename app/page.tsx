@@ -17,6 +17,7 @@ import { TechRadarWidget } from '@/components/TechRadarWidget';
 import { BuildStatsWidget } from '@/components/BuildStatsWidget';
 import { SpotifyWidget } from '@/components/SpotifyWidget';
 import { DiscordStatusWidget } from '@/components/DiscordStatusWidget';
+import { PresenceWidget } from '@/components/PresenceWidget';
 import projectsData from '@/content/projects.json';
 import { Project } from '@/types/project';
 import { useEffect, useState } from 'react';
@@ -98,6 +99,7 @@ export default function Home() {
                 <ProjectSkeleton size="xl" />
                 <ProjectSkeleton size="small" />
                 <ProjectSkeleton size="small" />
+                <ProjectSkeleton size="small" />
                 <ProjectSkeleton size="wide" />
                 <ProjectSkeleton size="wide" />
                 <ProjectSkeleton size="big" />
@@ -113,6 +115,8 @@ export default function Home() {
                 <BentoCard project={projects[0]} size="xl" />
                 <ControlCenterWidget size="small" />
                 <QuickAccessWidget />
+                <PresenceWidget />
+                <BuildStatsWidget size="small" />
                 <BentoCard project={projects[1]} size="wide" />
                 <BentoCard project={projects[3]} size="wide" />
                 <SpotifyWidget size="wide" />
@@ -125,7 +129,6 @@ export default function Home() {
                 <DiscordStatusWidget size="wide" />
                 <MoonPhaseWidget size="wide" />
                 <DayNightCycleWidget />
-                <BuildStatsWidget size="small" />
               </>
             )}
           </BentoGrid>
