@@ -1,6 +1,8 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
+import { AnimatePresence } from 'framer-motion';
+import { AchievementToast } from './AchievementToast';
 
 export type Achievement = {
   id: string;
@@ -62,13 +64,6 @@ export function AchievementProvider({ children }: { children: React.ReactNode })
     });
   }, [unlock]);
 
-  useEffect(() => {
-    if (activeToast) {
-      const timer = setTimeout(() => setActiveToast(null), 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [activeToast]);
-
   const contextValue = useMemo(() => ({
     unlockedIds,
     unlock,
@@ -78,12 +73,14 @@ export function AchievementProvider({ children }: { children: React.ReactNode })
   return (
     <AchievementContext.Provider value={contextValue}>
       {children}
-      {/* AchievementToast will be integrated here in Task 2 */}
-      {activeToast && (
-        <div className="hidden">
-          {/* Temporary placeholder to acknowledge activeToast exists in state */}
-        </div>
-      )}
+      <AnimatePresence>
+        {activeToast && (
+          <AchievementToast 
+            achievement={activeToast} 
+            onClose={() => setActiveToast(null)} 
+          />
+        )}
+      </AnimatePresence>
     </AchievementContext.Provider>
   );
 }
